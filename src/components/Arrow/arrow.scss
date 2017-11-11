@@ -1,0 +1,22 @@
+@import "./../../base_styles/settings";
+
+.md-arrow--black-body{
+  background: lighten($main-color, 5%);
+}
+
+.md-arrow{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  width: 50px;
+  margin-top: 2vh;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.md-arrow__arrow{
+  font-size: $icons-font-big;
+  color: $grey-color;
+}

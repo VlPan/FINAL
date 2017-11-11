@@ -1,0 +1,60 @@
+@import "./../../base_styles/settings";
+
+.md-sidebar{
+  width: 20px;
+  display: flex;
+}
+
+.blue-color{
+  color: deepskyblue;
+}
+
+.md-sidebar__line{
+  display: flex;
+  align-content: center;
+}
+
+.md-sidebar__column{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.md-sidebar__icon{
+  margin-right: 20px;
+  margin-bottom: 27px;
+  cursor: pointer;
+  font-size: $icons-font;
+}
+
+
+
+.md-sidebar__label{
+  cursor: pointer;
+  font-weight: 700;
+  font-size: $middle-font;
+}
+
+.md-sidebar__label--hide{
+  display: none;
+}
+
+.md-logo--hide{
+  border: 1px solid red;
+  display: none;
+}
+
+.md-logo{
+  display: flex;
+}
+
+.md-logo__logo-title{
+  color: grey;
+  font-size: $big-font;
+  margin-left: 10px;
+}
+
+.md-logo__logo-img{
+  background: url('./../../assets/img/logo.jpg') no-repeat center/cover;
+  height: 30px;
+  width: 30px;
+}

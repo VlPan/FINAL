@@ -1,0 +1,39 @@
+@import "./../../base_styles/settings";
+
+.md-navbar{
+  display: flex;
+}
+
+.md-navbar--left-margin{
+  margin-left: auto;
+}
+
+.md-navbar__container{
+  display: flex;
+}
+
+.md-navbar__nav-item{
+  position: relative;
+  margin: 25px;
+  color: $black-blue;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.md-navbar__nav-item::after{
+  content: '|';
+  position: absolute;
+  margin-left: 25px;
+  color: $grey-color;
+  font-weight: bold;
+}
+
+.md-navbar__nav-item:last-of-type:after{
+  content: '';
+}
+
+.md-navbar__nav-item--red-text{
+  color: red;
+}
+

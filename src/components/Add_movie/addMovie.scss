@@ -1,0 +1,62 @@
+@import "./../../base_styles/settings";
+
+.md-add-movie{
+  transition: height .2s linear;
+  height: 300px;
+}
+
+.md-add-movie--hide{
+  height: 0;
+}
+
+.md-add-movie__form{
+  display: flex;
+  flex-wrap: wrap;
+  //justify-content: space-around;
+}
+
+.md-add-movie__title{
+  color: grey;
+  margin-bottom: 30px;
+}
+
+.md-add-movie__title:after{
+  content: '';
+  display: block;
+  width: 300px;
+  height: 2px;
+  background-color: grey;
+}
+
+
+.md-add-movie__main-params{
+  display: flex;
+  flex-direction: column;
+  color: $grey-color;
+  margin-right: 40px;
+}
+
+.md-add-movie__box{
+  border: 2px solid grey;
+  border-radius: 15px;
+  display: flex;
+}
+
+.md-add-movie__column{
+  color: $grey-color;
+  display: flex;
+  flex-direction: column;
+}
+
+.md__add-movie{
+  margin-left: 100px;
+}
+
+.md-add-movie__error{
+  color: red;
+  font-weight: 700;
+}
+
+.md-add-movie__img-upload{
+  margin-left: 100px;
+}

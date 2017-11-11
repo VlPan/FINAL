@@ -1,0 +1,41 @@
+@import "./../../base_styles/settings";
+
+.md-film{
+  height: 350px;
+  width: 220px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  border: 2px dashed mediumvioletred;
+}
+
+.md-film__image{
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.md-film:hover > .md-film__desc{
+  opacity: 1;
+}
+
+.md-film__desc{
+  position: absolute;
+  opacity: 0;
+  transition: opacity .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  color: white;
+  background-color: fade_out($black-blue, .25);
+  padding: 5px 0;
+  font-size: $title-font;
+  text-align: center;
+  font-family: sans-serif;
+}
+

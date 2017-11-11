@@ -1,0 +1,76 @@
+@import "./../../base_styles/settings";
+@import './../../base_styles/base';
+@import './../../base_styles/reset.css';
+@import './../../base_styles/queries';
+@import './../../assets/font-awesome-4.7.0/css/font-awesome.min.css';
+
+
+.md__main-container{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.md__content{
+  width: 100%;
+  border: 2px solid blue;
+}
+
+.md__films-container--white-text{
+  color: white;
+}
+
+.md__films-container{
+  display: flex;
+  height: 85vh;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.md__navbar{
+  border: 2px solid pink;
+  width: 100%;
+  min-height: 10vh;
+  overflow: hidden;
+  background: $main-color;
+}
+
+.md__navbar--white-text{
+  color: white;
+}
+
+.md__container{
+  border: 2px solid greenyellow;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 80px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30px;
+}
+
+.md-sidebar--black-body{
+  background: $side-bar-color;
+  color: white;
+}
+
+.md__sidebar {
+  z-index: 5;
+  flex: 1 0 65px;
+  height: 97vh;
+  transition: flex-basis .15s linear;
+  width: 65px;
+  top: 0;
+  background: lighten($main-color, 20%);
+}
+
+.md__sidebar--big-width{
+  flex-basis: 200px;
+}
+
+.md__sidebar--white-text{
+  color: white;
+}
+
