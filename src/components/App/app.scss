@@ -1,8 +1,5 @@
 @import "./../../base_styles/settings";
-@import './../../base_styles/base';
-@import './../../base_styles/reset.css';
-@import './../../base_styles/queries';
-@import './../../assets/font-awesome-4.7.0/css/font-awesome.min.css';
+
 
 
 .md__main-container{
@@ -51,26 +48,6 @@
   margin-left: 30px;
 }
 
-.md-sidebar--black-body{
-  background: $side-bar-color;
-  color: white;
+.md__flex-box{
+  display: flex;
 }
-
-.md__sidebar {
-  z-index: 5;
-  flex: 1 0 65px;
-  height: 97vh;
-  transition: flex-basis .15s linear;
-  width: 65px;
-  top: 0;
-  background: lighten($main-color, 20%);
-}
-
-.md__sidebar--big-width{
-  flex-basis: 200px;
-}
-
-.md__sidebar--white-text{
-  color: white;
-}
-

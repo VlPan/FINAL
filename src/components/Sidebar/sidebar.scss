@@ -5,13 +5,17 @@
   display: flex;
 }
 
-.blue-color{
-  color: deepskyblue;
-}
 
 .md-sidebar__line{
   display: flex;
   align-content: center;
+  color: white;
+  text-decoration: none;
+}
+
+
+.md-sidebar__line--active{
+  color: deepskyblue;
 }
 
 .md-sidebar__column{
@@ -58,3 +62,5 @@
   height: 30px;
   width: 30px;
 }
+
+

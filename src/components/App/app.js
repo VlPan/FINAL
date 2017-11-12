@@ -3,18 +3,10 @@ import './app.scss';
 import Arrow from './../Arrow/arrow';
 import Film from './../Film/film';
 import Navbar from './../Navbar/navbar';
-import Sidebar from './../Sidebar/sidebar';
 import Search from './../Search/serach';
 import AddMovie from '../Add_movie/addMovie';
 import filmsArr from './../../../data.json';
 import FilmService from './../../../film-SERVICE';
-import MainPage from './../MainPage';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom';
-
 
 class App extends React.Component {
 
@@ -30,9 +22,7 @@ class App extends React.Component {
         this.state = {
             arrow: 'down',
             filmsArr: [],
-            openAddMovieForm: false,
-            openSidebar: false
-
+            openAddMovieForm: false
         };
     }
 
@@ -53,22 +43,50 @@ class App extends React.Component {
     }
 
     render() {
+
         return (
-            <Router>
-            <div className="md__main-container">
+            <div className="md__flex-box">
+                {
+                    this.props.isOpenSidebar &&
+                    <Arrow arrowState={this.state.arrow} handleArrowMove={this.handleArrowMove}/>
+                }
 
-                    <div className={['md__sidebar',
-                        'md__sidebar--black-body',
-                        'md__sidebar--white-text',
-                        this.state.openSidebar && 'md__sidebar--big-width']
-                        .join(' ')}>
-                        <Sidebar toggleSidebar={this.handleToggleSidebar} openSidebar={this.state.openSidebar}/>
-
+            <div className="md__content">
+                <div className={['md__navbar',
+                    'md__navbar--white-text'
+                ].join(' ')}>
+                    <div className="md__container">
+                        <Search filterFilmsByTitle={this.filterFilmsByTitle}/>
+                        <Navbar
+                            openAddMovieForm={this.state.openAddMovieForm}
+                            filterFilmsByTitle={this.filterFilmsByTitle}
+                            handleOpenAddMovieForm={this.handleOpenAddMovieForm}/>
                     </div>
-            <Route exact path="/" component={MainPage} />
-        </div >
-            </Router>
-    );
+                    <div className="md__add-movie">
+                        <AddMovie handleOpenAddMovieForm={this.handleOpenAddMovieForm}
+                                  handleCloseAddMovieForm={this.handleCloseAddMovieForm}
+                                  isOpen={this.state.openAddMovieForm}
+                                  addNewFilm={this.addNewFilm}
+                        />
+                    </div>
+                </div>
+
+                <div
+                    className={['md__films-container',
+                        'md__films-container--white-text'].join(' ')}
+                    ref={(filmsContainer) => {
+                        this.filmsContainer = filmsContainer;
+                    }}
+                >
+                    {this.state.filmsArr.map((film, index) => {
+                        return (
+                            <Film key={index} title={film.title} imagePath={film.poster_path}/>
+                        );
+                    })}
+                </div>
+            </div>
+            </div>
+        );
     }
 
     handleToggleSidebar() {

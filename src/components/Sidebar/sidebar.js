@@ -23,52 +23,42 @@ const Sidebar = (props) => {
                     }
                 </div>
 
-                <div className="md-sidebar__line">
+
+                    < NavLink exact to="/" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
                     <i className="fa fa-film md-sidebar__icon" aria-hidden="true"></i>
                     {props.openSidebar &&
                     <div className="md-sidebar__label">
                         Home
-                        {/*< NavLink to="/navbar" activeClassName="blue-color">Home</ NavLink>*/}
                     </div>
                     }
-                </div>
+                    </ NavLink>
 
-                <div className="md-sidebar__line">
+                < NavLink exact to="/TvShows" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
                     <i className="fa fa-file-video-o md-sidebar__icon" aria-hidden="true"></i>
                     {props.openSidebar &&
                     <div className={['md-sidebar__label', !props.openSidebar && 'md-sidebar__label--hide'].join(' ')}>
                         Tv-Shows
                     </div>
                     }
-                </div>
+                </NavLink>
 
-                <div className="md-sidebar__line">
+                < NavLink exact to="/MyLibrary" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
                     <i className="fa fa-history      md-sidebar__icon" aria-hidden="true"></i>
                     {props.openSidebar &&
                     <div className={['md-sidebar__label', !props.openSidebar && 'md-sidebar__label--hide'].join(' ')}>
                         MyLibrary
                     </div>
                     }
-                </div>
+                </NavLink>
 
-                <div className="md-sidebar__line">
+                < NavLink exact to="/About" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
                     <i className="fa fa-question     md-sidebar__icon" aria-hidden="true"></i>
                     {props.openSidebar &&
                     <div className={['md-sidebar__label', !props.openSidebar && 'md-sidebar__label--hide'].join(' ')}>
                         About
                     </div>
                     }
-                </div>
-            </div>
-
-            <div className="md-sidebar__column">
-                <div className="md-sidebar__labels">
-
-
-
-
-
-                </div>
+                </NavLink>
             </div>
         </div>
 

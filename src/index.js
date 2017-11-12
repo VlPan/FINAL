@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App/app';
+import Root from './components/Root/root';
 
-ReactDOM.render(<App />, document.querySelector('.md'));
+ReactDOM.render(<Root />, document.querySelector('.md'));
 
 
 
