@@ -1,12 +1,14 @@
 @import "./../../base_styles/settings";
 
 .md-add-movie{
-  transition: height .2s linear;
-  height: 300px;
+  transition: max-height 1s ease-in;
+  max-height: 1500px;
+  overflow: hidden;
 }
 
 .md-add-movie--hide{
-  height: 0;
+  max-height: 0;
+  transition: max-height .5s ease-out;
 }
 
 .md-add-movie__form{
@@ -40,11 +42,13 @@
   border: 2px solid grey;
   border-radius: 15px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .md-add-movie__column{
   color: $grey-color;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
 }
 

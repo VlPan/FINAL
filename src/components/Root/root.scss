@@ -8,17 +8,27 @@
   z-index: 5;
   flex: 1 0 65px;
   height: 97vh;
-  transition: flex-basis .15s linear;
-  width: 65px;
+  transition: all .15s linear;
   top: 0;
   background: lighten($main-color, 20%);
+  max-width: 65px;
+}
+
+.md__main-container{
+  width: 100%;
 }
 
 .md__sidebar--big-width{
-  flex-basis: 200px;
+  flex: 1 0 200px;
+  max-width: 200px;
 }
 
 .md__sidebar--white-text{
   color: white;
 }
 
+.md-loading-title{
+  color: white;
+  margin: 100px auto;
+  font-size: 100px;
+}

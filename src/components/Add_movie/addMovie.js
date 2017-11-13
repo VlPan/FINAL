@@ -1,6 +1,7 @@
 import React from 'react';
 import './addMovie.scss';
 import FilmService from './../../../film-SERVICE';
+import uuidv4 from 'uuid/v4';
 
 
 class AddMovie extends React.Component {
@@ -90,7 +91,9 @@ class AddMovie extends React.Component {
                 title: this.state.title,
                 overview: this.state.overview,
                 genre_ids: genre_ids,
-                adult: this.state.isAdult
+                adult: this.state.isAdult,
+                id: uuidv4(),
+                custom: true
             };
             addedFilms.push(newMovie);
             localStorage.setItem('addedFilms', JSON.stringify(addedFilms));

@@ -20,6 +20,7 @@
 .md__films-container{
   display: flex;
   height: 85vh;
+  width: 100%;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -50,4 +51,7 @@
 
 .md__flex-box{
   display: flex;
+  width: 100%;
 }
+
+
