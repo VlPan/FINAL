@@ -1,5 +1,5 @@
 import React from 'react';
-import './app.scss';
+import '../shared-style/app.scss';
 import {Link} from 'react-router-dom';
 import LS from '../../services/LS';
 

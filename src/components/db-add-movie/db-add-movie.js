@@ -15,8 +15,8 @@ export class AddMovie extends React.Component {
         this.saveMovie = this.saveMovie.bind(this);
 
         this.state = {
-            title: '',
-            overview: '',
+            name: '',
+            desc: '',
             genre: [],
             isAdult: false,
             posters: 0,
@@ -34,14 +34,14 @@ export class AddMovie extends React.Component {
 
 
     checkValidation(){
-        if(this.state.title && this.state.overview && this.state.posters !== 0 ){
+        if(this.state.name && this.state.desc && this.state.posters !== 0 ){
             return false;
         }
         return true;
     }
 
     handleCloseAddMovieForm(e) {
-        e.preventDefault();
+        e && e.preventDefault();
         this.props.handleCloseAddMovieForm();
     }
 
@@ -88,8 +88,8 @@ export class AddMovie extends React.Component {
                 return this.state.genre.includes(genre.name);
             });
             const newMovie = {
-                title: this.state.title,
-                overview: this.state.overview,
+                name: this.state.name,
+                desc: this.state.desc,
                 genre_ids: genre_ids,
                 adult: this.state.isAdult,
                 id: uuidv4(),
@@ -98,6 +98,7 @@ export class AddMovie extends React.Component {
             addedFilms.push(newMovie);
             localStorage.setItem('addedFilms', JSON.stringify(addedFilms));
             this.props.addNewFilm(newMovie);
+            this.handleCloseAddMovieForm();
     }
 
 
@@ -109,14 +110,14 @@ export class AddMovie extends React.Component {
                 <form className="md-add-movie__form">
                     <div className="md-add-movie__main-params">
                         <label htmlFor="">title</label>
-                        <input type="text" name="title" value={this.state.value} onChange={this.change}/>
-                        {!this.state.title &&
+                        <input type="text" name="name" value={this.state.value} onChange={this.change}/>
+                        {!this.state.name &&
                         <div className="md-add-movie__error">Title is required</div>
                         }
-                        <label>Overview</label>
-                        <textarea name="overview" cols="30" rows="10" onChange={this.change}></textarea>
-                        {!this.state.overview &&
-                        <div className="md-add-movie__error">Overview is required</div>
+                        <label>Description</label>
+                        <textarea name="desc" cols="30" rows="10" onChange={this.change}></textarea>
+                        {!this.state.desc &&
+                        <div className="md-add-movie__error">description is required</div>
                         }
                     </div>
                     <div className="md-add-movie__genre">

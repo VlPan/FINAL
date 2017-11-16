@@ -23,9 +23,9 @@ export class TvShowDescription extends React.Component {
     render() {
         return (
             <div>
-                {this.props.match.params.id}
-                <img src={this.state.tvShow.poster_path} alt="Not found"/>
+                <img src={this.state.tvShow.poster} alt="Not found"/>
                 <h1>{this.state.tvShow.overview}</h1>
+                <h1>{this.state.tvShow.desc}</h1>
             </div>
         );
     }

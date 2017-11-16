@@ -2,7 +2,7 @@ export class RequestServise {
   getRequest(url) {
     return new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", url, true);
+      xhr.open('GET', url, true);
       xhr.onload = function() {
         if (this.status === 200) {
           resolve(xhr.responseText);
@@ -13,7 +13,7 @@ export class RequestServise {
         }
       };
       xhr.onerror = function() {
-        reject(new Error("Network Error"));
+        reject(new Error('Network Error'));
       };
       xhr.send();
     });

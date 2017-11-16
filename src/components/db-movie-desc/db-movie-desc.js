@@ -14,26 +14,25 @@ export class MovieDescription extends React.Component {
     }
 
     componentWillMount(){
-        if(this.props.match.params.mod !== 'custom'){
-            const film = LS.get('films').filter((item)=>{
+            let film = LS.get('films').filter((item) => {
                 return item.id === parseInt(this.props.match.params.id);
             });
-            this.setState(()=>({film: film[0]}));
-        }else{
-            let customFilm = LS.get('addedFilms').filter((item)=>{
-                        return item.id === this.props.match.params.id;
-                    });
-            this.setState(()=>({film:customFilm[0]}));
-        }
+            if (film.length === 0) {
+                film = LS.get('addedFilms').filter((item) => {
+                    return item.id === this.props.match.params.id;
+                });
+            }
+            this.setState(() => ({film: film[0]}));
     }
 
     render() {
         return (
             <div>
-                TITLE: <h1>{this.state.film.title}</h1>
-                OVERVIEW: <h1>{this.state.film.overview}</h1>
-                {this.props.match.params.mod}
-                <img src={this.state.film.poster_path} alt="Not Found"/>
+                TITLE: <h1>{this.state.film.name}</h1>
+                OVERVIEW: <h1>{this.state.film.desc}</h1>
+                {this.state.film.custom ? 'This is CUSTOM IMAGE' :
+                    <img src={this.state.film.poster} alt="Not Found"/>
+                }
             </div>
         );
     }
