@@ -1,0 +1,1 @@
+export {TvShowDescription} from './db-tv-show-desc';

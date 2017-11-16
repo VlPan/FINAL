@@ -1,7 +1,7 @@
 import React from 'react';
-import './arrow.scss';
+import './db-arrow.scss';
 
-const Arrow = (props) => {
+export const Arrow = (props) => {
         return (
             <div className="md-arrow
              md-arrow--black-body
@@ -15,4 +15,3 @@ const Arrow = (props) => {
         );
 };
 
-export default Arrow;

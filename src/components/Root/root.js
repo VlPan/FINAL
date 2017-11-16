@@ -1,11 +1,14 @@
 import React from 'react';
 import './root.scss';
-import Sidebar from './../Sidebar/sidebar';
-import MovieDescription from './../MovieDescription/movieDescription';
-import TvShowDescription from '../TvShowDescription/tvShowDescription';
-import App from './../App/app';
+import {
+    MovieDescription,
+    TvShowDescription,
+    Sidebar
+} from './../../components';
+
+import { App } from '../../view/db-app/db-app';
 import FilmService from './../../../film-SERVICE';
-import LS from './../../../LS';
+import LS from './../../services/LS';
 
 import {
     BrowserRouter as Router,
@@ -15,10 +18,14 @@ import {
 } from 'react-router-dom';
 
 
-class Root extends React.Component {
+export class Root extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log('SIDEBAR', Sidebar);
+        console.log('MOVIE DESC', MovieDescription);
+        console.log('TV SOW DESC', TvShowDescription);
+        console.log('APP', App);
         this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
         this.state = {
             isOpenSidebar: false,
@@ -69,15 +76,15 @@ class Root extends React.Component {
                                 }/>
 
                                 <Route exact path="/movies"
-                                       render={() =>
-                                           <App isOpenSidebar={this.state.isOpenSidebar} data={'films'} />
+                                       render={(props) =>
+                                           <App isOpenSidebar={this.state.isOpenSidebar} data={'films'}{...props} />
                                           }
                                 />
-                            <Route exact path="/tvshows"
-                                   render={() =>
-                                       <App isOpenSidebar={this.state.isOpenSidebar} data={'tvShows'}/>
-                                   }
-                            />
+                                <Route exact path="/tvshows"
+                                       render={() =>
+                                           <App isOpenSidebar={this.state.isOpenSidebar} data={'tvShows'}/>
+                                       }
+                                />
                             <Route path="/about" component={Sidebar}/>
                             <Route path="/movies/:id/:mod?" component={MovieDescription}/>
                             <Route path="/tvshows/:id" component={TvShowDescription}/>
@@ -94,5 +101,3 @@ class Root extends React.Component {
         }));
     }
 }
-
-export default Root;

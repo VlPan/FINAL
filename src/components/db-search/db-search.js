@@ -1,8 +1,8 @@
 import React from 'react';
-import './search.scss';
+import './db-search.scss';
 
 
-const SearchInput = (props) => {
+export const SearchInput = (props) => {
 
     const filterItemsByTitle = (e) => {
         const title = e.target.value;
@@ -20,10 +20,3 @@ const SearchInput = (props) => {
             </div>
         );
 };
-
-
-
-
-
-
-export default SearchInput;

@@ -1,16 +1,17 @@
 import React from 'react';
 import './app.scss';
-import Arrow from './../Arrow/arrow';
-import Film from './../Film/film';
-import Navbar from './../Navbar/navbar';
-import Search from './../Search/serach';
-import AddMovie from '../Add_movie/addMovie';
 import {Link} from 'react-router-dom';
-import LS from './../../../LS';
+import LS from '../../services/LS';
 
+import {
+    Arrow,
+    Poster,
+    Navbar,
+    SearchInput,
+    AddMovie
+} from './../../components';
 
-
-class App extends React.Component {
+export class App extends React.Component {
 
     constructor(props) {
         super(props);
@@ -74,7 +75,7 @@ class App extends React.Component {
             <div className="md__content">
                 <div className="md__navbarmd__navbar--white-text">
                     <div className="md__container">
-                        <Search filterItemsByTitle={this.filterItemsByTitle}/>
+                        <SearchInput filterItemsByTitle={this.filterItemsByTitle}/>
                         <Navbar
                             openAddMovieForm={this.state.openAddMovieForm}
                             handleOpenAddMovieForm={this.handleOpenAddMovieForm}
@@ -100,7 +101,7 @@ class App extends React.Component {
                         if(item.custom){
                             return(
                             <Link to={`/movies/${item.id}/custom`} key={index}>
-                                <Film
+                                <Poster
                                     title={item.title}
                                     name={item.name}
                                     imagePath={item.poster_path}
@@ -118,7 +119,7 @@ class App extends React.Component {
                         }
                         return (
                             <Link to={link} key={index}>
-                            <Film
+                            <Poster
                                   title={item.title}
                                   name={item.name}
                                   imagePath={item.poster_path}
@@ -205,5 +206,3 @@ class App extends React.Component {
         }
     }
 }
-
-export default App;

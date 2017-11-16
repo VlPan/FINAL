@@ -1,9 +1,9 @@
 import React from 'react';
-import './film.scss';
+import './db-poster.scss';
 
 
 
-class Films extends React.Component {
+export class Poster extends React.Component {
     constructor(props){
         super(props);
     }
@@ -19,6 +19,3 @@ class Films extends React.Component {
         );
     }
 }
-
-
-export default Films;

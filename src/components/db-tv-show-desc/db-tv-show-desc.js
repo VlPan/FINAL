@@ -1,11 +1,11 @@
 import React from 'react';
-import './tvShowDescription.scss';
+import './db-tv-show-desc.scss';
 import FilmService from './../../../film-SERVICE';
-import LS from './../../../LS';
+import LS from '../../services/LS';
 
 
 
-class TvShowDescription extends React.Component {
+export class TvShowDescription extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -30,6 +30,3 @@ class TvShowDescription extends React.Component {
         );
     }
 }
-
-
-export default TvShowDescription;

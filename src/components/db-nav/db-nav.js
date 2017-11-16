@@ -1,9 +1,9 @@
 import React from 'react';
-import './navbar.scss';
+import './db-nav.scss';
 
 
 
-const Navbar = (props) => {
+export const Navbar = (props) => {
 
     return (
         <div className="md-navbar md-navbar--left-margin">
@@ -18,5 +18,3 @@ const Navbar = (props) => {
         </div>
     );
 };
-
-export default Navbar;

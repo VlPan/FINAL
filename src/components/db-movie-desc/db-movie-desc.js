@@ -1,11 +1,11 @@
 import React from 'react';
-import './movieDescription.scss';
+import './db-movie-desc.scss';
 import FilmService from './../../../film-SERVICE';
-import LS from './../../../LS';
+import LS from '../../services/LS';
 
 
 
-class MovieDescription extends React.Component {
+export class MovieDescription extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -38,6 +38,3 @@ class MovieDescription extends React.Component {
         );
     }
 }
-
-
-export default MovieDescription;

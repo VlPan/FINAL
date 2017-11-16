@@ -1,10 +1,10 @@
 import React from 'react';
-import './addMovie.scss';
+import './db-add-movie.scss';
 import FilmService from './../../../film-SERVICE';
 import uuidv4 from 'uuid/v4';
 
 
-class AddMovie extends React.Component {
+export class AddMovie extends React.Component {
     constructor(props) {
         super(props);
         this.handleCloseAddMovieForm = this.handleCloseAddMovieForm.bind(this);
@@ -186,5 +186,3 @@ class AddMovie extends React.Component {
         );
     }
 }
-
-export default AddMovie;

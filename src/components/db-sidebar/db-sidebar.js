@@ -1,8 +1,8 @@
 import React from 'react';
-import './sidebar.scss';
+import './db-sidebar.scss';
 import {NavLink} from 'react-router-dom';
 
-const Sidebar = (props) => {
+export const Sidebar = (props) => {
     return (
         <div className="md-sidebar">
             <div className="md-sidebar__column">
@@ -60,6 +60,3 @@ const Sidebar = (props) => {
 
     );
 };
-
-
-export default Sidebar;
