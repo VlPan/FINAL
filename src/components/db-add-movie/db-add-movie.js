@@ -1,10 +1,15 @@
 import React from 'react';
 import './db-add-movie.scss';
-import FilmService from './../../../film-SERVICE';
+import { EntityGenresService } from '../../services/genres.entity.service';
+import { closeAddMovieForm } from './../../store/actions';
 import uuidv4 from 'uuid/v4';
+import { connect } from 'react-redux';
 
 
-export class AddMovie extends React.Component {
+export class AddMovieComponent extends React.Component {
+
+
+
     constructor(props) {
         super(props);
         this.handleCloseAddMovieForm = this.handleCloseAddMovieForm.bind(this);
@@ -23,13 +28,14 @@ export class AddMovie extends React.Component {
             genresFromServer: []
         };
 
-        FilmService.getGenres().then(response => {
+        const entityGenresService = new EntityGenresService();
+
+        entityGenresService.getGenres().then(genres => {
+            console.log(genres);
             this.setState(()=>({
-                genresFromServer: JSON.parse(response).genres
+                genresFromServer: genres
             }));
         });
-
-        console.log(this.state.genresFromServer);
     }
 
 
@@ -42,7 +48,7 @@ export class AddMovie extends React.Component {
 
     handleCloseAddMovieForm(e) {
         e && e.preventDefault();
-        this.props.handleCloseAddMovieForm();
+        this.props.closeAddMovieForm();
     }
 
     change(e) {
@@ -187,3 +193,17 @@ export class AddMovie extends React.Component {
         );
     }
 }
+
+
+const mapStateToProps = (state) => {
+    const isOpen = state.addMovieForm.isOpen;
+    return {
+        isOpen
+    };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    closeAddMovieForm: () => dispatch(closeAddMovieForm())
+});
+
+export const AddMovie = connect(mapStateToProps, mapDispatchToProps)(AddMovieComponent);

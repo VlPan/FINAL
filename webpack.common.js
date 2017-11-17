@@ -8,7 +8,7 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
     entry: {
-        app: path.join(__dirname, 'src', 'index'),
+        app: path.join(__dirname, 'src', 'index')
     },
     output: {
         filename: 'bundle.js',
@@ -29,7 +29,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['es2015', 'react']
+                        presets: ['es2015', 'react'],
+                        plugins: ['babel-plugin-transform-object-rest-spread']
                     }
                 }
             },
@@ -38,7 +39,7 @@ module.exports = {
                 use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: 'css-loader'
-                })),
+                }))
             },
             {
                 test: /\.(sass|scss)$/, exclude: /node_modules/, use: ['css-hot-loader']
@@ -92,9 +93,9 @@ module.exports = {
                     //         limit: 8192
                     //     }
                     // }
-            ]
+                ]
+            }
+        ]
     }
-]
-}
 }
 ;

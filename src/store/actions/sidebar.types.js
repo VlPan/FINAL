@@ -1,0 +1,1 @@
+export const TOGGLE_SIDEBAR = '[MD][SIDEBAR] TOGGLE_TODO';

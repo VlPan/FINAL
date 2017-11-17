@@ -2,6 +2,7 @@ import React from 'react';
 import './../shared-style/app.scss';
 import {Link} from 'react-router-dom';
 import LS from '../../services/LS';
+import { connect } from 'react-redux';
 
 import {
     Arrow,
@@ -11,20 +12,16 @@ import {
     AddMovie
 } from './../../components';
 
-export class MovieView extends React.Component {
+class MovieViewComponent extends React.Component {
 
     constructor(props) {
         super(props);
         this.handleArrowMove = this.handleArrowMove.bind(this);
         this.filterItemsByTitle = this.filterItemsByTitle.bind(this);
-        this.handleOpenAddMovieForm = this.handleOpenAddMovieForm.bind(this);
-        this.handleCloseAddMovieForm = this.handleCloseAddMovieForm.bind(this);
-        this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
         this.addNewFilm = this.addNewFilm.bind(this);
         this.state = {
             arrow: 'down',
-            dataArr: [],
-            openAddMovieForm: false
+            dataArr: []
         };
     }
 
@@ -33,25 +30,6 @@ export class MovieView extends React.Component {
         let addedFilms = LS.get('addedFilms') || [];
         this.setState({dataArr: [...films, ...addedFilms]});
     }
-
-
-    // componentWillReceiveProps(nextProps){
-    //     switch (nextProps.data) {
-    //         case 'films':
-    //             let films = LS.get('films') || [];
-    //             let addedFilms = LS.get('addedFilms') || [];
-    //             this.setState({dataArr: [...films, ...addedFilms]});
-    //             break;
-    //         case 'tvShows':
-    //             let tvShows = LS.get('tvShows') || [];
-    //             let addedTvShows = LS.get('addedTvShows') || [];
-    //             this.setState({dataArr: [...tvShows, ...addedTvShows]});
-    //             break;
-    //         default:
-    //             films = LS.get('films') || [];
-    //             this.setState({dataArr: films});
-    //     }
-    // }
 
     render() {
         return (
@@ -65,15 +43,11 @@ export class MovieView extends React.Component {
                         <div className="md__container">
                             <SearchInput filterItemsByTitle={this.filterItemsByTitle}/>
                             <Navbar
-                                openAddMovieForm={this.state.openAddMovieForm}
-                                handleOpenAddMovieForm={this.handleOpenAddMovieForm}
                                 isFilmPage={true}/>
                         </div>
                         <div className="md__add-movie">
-                            <AddMovie handleOpenAddMovieForm={this.handleOpenAddMovieForm}
-                                      handleCloseAddMovieForm={this.handleCloseAddMovieForm}
-                                      isOpen={this.state.openAddMovieForm}
-                                      addNewFilm={this.addNewFilm}
+                            <AddMovie
+                                addNewFilm={this.addNewFilm}
                             />
                         </div>
                     </div>
@@ -99,24 +73,6 @@ export class MovieView extends React.Component {
                 </div>
             </div>
         );
-    }
-
-    handleToggleSidebar() {
-        this.setState((prevState) => ({
-            openSidebar: !prevState.openSidebar
-        }));
-    }
-
-    handleOpenAddMovieForm() {
-        this.setState(() => ({
-            openAddMovieForm: true
-        }));
-    }
-
-    handleCloseAddMovieForm() {
-        this.setState(() => ({
-            openAddMovieForm: false
-        }));
     }
 
     handleArrowMove() {
@@ -148,3 +104,11 @@ export class MovieView extends React.Component {
         }));
     }
 }
+
+const mapStateToProps = (state) => {
+    const isOpenSidebar = state.sidebar.isOpen;
+    const isOpenAddMovieForm = state.addMovieForm.isOpen;
+    return { isOpenSidebar, isOpenAddMovieForm };
+};
+
+export const MovieView = connect(mapStateToProps)(MovieViewComponent);

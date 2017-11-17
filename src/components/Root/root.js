@@ -1,5 +1,7 @@
 import React from 'react';
 import './root.scss';
+import { connect } from 'react-redux';
+import { toggleSidebar } from './../../store/actions';
 import {
     MovieDescription,
     TvShowDescription,
@@ -9,11 +11,9 @@ import {
 
 import {MovieView} from '../../view/db-movie/db-movie-view';
 import {TvShowView} from '../../view/db-tvshow/db-tvshow-view';
-import FilmService from './../../../film-SERVICE';
 import {EntityMovieService} from './../../services/movie-entity.service';
 import {EntityTvService} from './../../services/tv-entity.service';
 import LS from './../../services/LS';
-
 import {
     BrowserRouter as Router,
     Route,
@@ -22,18 +22,21 @@ import {
 } from 'react-router-dom';
 
 
-export class Root extends React.Component {
+class RootComponent extends React.Component {
+
+
 
     constructor(props) {
         super(props);
-        this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
+        //this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
         this.state = {
-            isOpenSidebar: false,
+            //isOpenSidebar: false,
             dataLoadedFromServer: false
         };
 
         let entityMovieService = new EntityMovieService();
         let entityTvService = new EntityTvService();
+
         entityMovieService.getMovieEntities().then((movies) => {
             LS.set('films', movies);
         }).then(() => {
@@ -49,19 +52,18 @@ export class Root extends React.Component {
         if (this.state.dataLoadedFromServer) {
             return (
                 <Router>
-                    <div className="md__main-container  transition-item">
+                    <div className="md__main-container">
                         <div className={['md__sidebar',
                             'md__sidebar--black-body',
                             'md__sidebar--white-text',
-                            this.state.isOpenSidebar && 'md__sidebar--big-width']
+                            this.props.isOpenSidebar && 'md__sidebar--big-width']
                             .join(' ')}
                         >
                             <Sidebar
-                                toggleSidebar={this.handleToggleSidebar}
-                                openSidebar={this.state.isOpenSidebar}
+                                toggleSidebar={this.props.toggleSidebar}
+                                openSidebar={this.props.isOpenSidebar}
                             />
                         </div>
-
                         <Switch>
                             <Route exact path="/" render={() =>
                                 <Redirect to="/movies"/>
@@ -69,12 +71,12 @@ export class Root extends React.Component {
 
                             <Route exact path="/movies"
                                    render={(props) =>
-                                       <MovieView isOpenSidebar={this.state.isOpenSidebar}{...props} />
+                                       <MovieView {...props} />
                                    }
                             />
                             <Route exact path="/tvshows"
                                    render={(props) =>
-                                       <TvShowView isOpenSidebar={this.state.isOpenSidebar}{...props}/>
+                                       <TvShowView {...props}/>
                                    }
                             />
                             <Route path="/about" component={Sidebar}/>
@@ -87,10 +89,18 @@ export class Root extends React.Component {
         }
         return <div className="md-loading-title">Loading...</div>;
     }
-
-    handleToggleSidebar() {
-        this.setState((prevState) => ({
-            isOpenSidebar: !prevState.isOpenSidebar
-        }));
-    }
 }
+
+
+const mapStateToProps = (state) => {
+    const isOpenSidebar = state.sidebar.isOpen;
+    return {
+        isOpenSidebar
+    };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    toggleSidebar: () => dispatch(toggleSidebar())
+});
+
+export const Root = connect(mapStateToProps, mapDispatchToProps)(RootComponent);

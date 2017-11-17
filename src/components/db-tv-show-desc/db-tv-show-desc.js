@@ -1,6 +1,5 @@
 import React from 'react';
 import './db-tv-show-desc.scss';
-import FilmService from './../../../film-SERVICE';
 import LS from '../../services/LS';
 
 
