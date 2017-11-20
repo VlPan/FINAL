@@ -1,0 +1,4 @@
+export const DATA_RECIVED = '[MD][DATA] DATA_RECIVED';
+export const REQUEST_SENT = '[MD][DATA] REQUEST_SENT';
+export const CHECK_DATA_IN_LS = '[MD][DATA] CHECK_DATA_IN_LS';
+

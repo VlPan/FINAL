@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { appReducers } from './reducers/index';
 import { logger } from './middleware/index';
+import { getData } from './middleware/index';
 
 export const appStore = createStore(
     appReducers,
@@ -10,7 +11,7 @@ export const appStore = createStore(
         applyMiddleware(store => next => action =>
             typeof action === 'function'
                 ? action(store.dispatch, store.getState)
-                : next(action), logger
+                : next(action), logger, getData
         )
     )
 );

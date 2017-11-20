@@ -2,6 +2,8 @@ import React from 'react';
 import './root.scss';
 import { connect } from 'react-redux';
 import { toggleSidebar } from './../../store/actions';
+import { sendRequestToServer } from './../../store/actions';
+import { checkDataInLocalStorage } from './../../store/actions';
 import {
     MovieDescription,
     TvShowDescription,
@@ -28,28 +30,35 @@ class RootComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        //this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
-        this.state = {
-            //isOpenSidebar: false,
-            dataLoadedFromServer: false
-        };
+        LS.remove('films');
+        LS.remove('tvShows');
+        LS.remove('genres');
+        this.props.sendRequestToServer();
 
-        let entityMovieService = new EntityMovieService();
-        let entityTvService = new EntityTvService();
-
-        entityMovieService.getMovieEntities().then((movies) => {
-            LS.set('films', movies);
-        }).then(() => {
-            entityTvService.getTvEntities().then((tvShows) => {
-                LS.set('tvShows', tvShows);
-            });
-        }).then(()=>{
-            this.setState(()=>({dataLoadedFromServer: true}));
-        });
+        // this.state = {
+        //     dataLoadedFromServer: false
+        // };
+        //
+        // let entityMovieService = new EntityMovieService();
+        // let entityTvService = new EntityTvService();
+        //
+        // entityMovieService.getMovieEntities().then((movies) => {
+        //     LS.set('films', movies);
+        // }).then(() => {
+        //     entityTvService.getTvEntities().then((tvShows) => {
+        //         LS.set('tvShows', tvShows);
+        //     });
+        // }).then(()=>{
+        //     this.setState(()=>({dataLoadedFromServer: true}));
+        // });
     }
 
+    // componentWillMount(){
+    //
+    // }
+
     render() {
-        if (this.state.dataLoadedFromServer) {
+        if (this.props.loaded) {
             return (
                 <Router>
                     <div className="md__main-container">
@@ -86,21 +95,25 @@ class RootComponent extends React.Component {
                     </div>
                 </Router>
             );
+        } else{
+            return <div className="md-loading-title">Loading...</div>;
         }
-        return <div className="md-loading-title">Loading...</div>;
     }
 }
 
 
 const mapStateToProps = (state) => {
     const isOpenSidebar = state.sidebar.isOpen;
+    const loaded = state.dataControl.dataLoadedFromServer;
     return {
-        isOpenSidebar
+        isOpenSidebar,
+        loaded
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleSidebar: () => dispatch(toggleSidebar())
+    toggleSidebar: () => dispatch(toggleSidebar()),
+    sendRequestToServer: () => dispatch(sendRequestToServer())
 });
 
 export const Root = connect(mapStateToProps, mapDispatchToProps)(RootComponent);

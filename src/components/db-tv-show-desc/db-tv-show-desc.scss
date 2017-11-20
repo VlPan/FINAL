@@ -1,3 +1,38 @@
-h1{
-  color: aqua;
+@import './../../base_styles/settings';
+
+.db-tv-show{
+  color: grey;
+}
+
+.db-tv-show__container{
+  width: 90%;
+  margin-left: 5%;
+}
+
+.db-tv-show__image{
+  width: 300px;
+  height: 400px;
+  margin-right: 30px;
+}
+
+.db-tv-show__image img{
+  width: inherit;
+  height: inherit;
+}
+.db-tv-show__flex{
+  display: flex;
+}
+
+.db-tv-show__flex--column{
+  flex-direction: column;
+}
+
+.db-tv-show__desc{
+  overflow: auto;
+  height: 400px;
+}
+
+.db-tv-show__name{
+  margin: 40px 0;
+  font-size: $big-font;
 }

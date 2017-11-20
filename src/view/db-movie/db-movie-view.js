@@ -32,6 +32,7 @@ class MovieViewComponent extends React.Component {
     }
 
     render() {
+        console.log(this.state.dataArr);
         return (
             <div className="md__flex-box">
                 {
@@ -48,6 +49,7 @@ class MovieViewComponent extends React.Component {
                         <div className="md__add-movie">
                             <AddMovie
                                 addNewFilm={this.addNewFilm}
+                                arrToRender={LS.get('genres')}
                             />
                         </div>
                     </div>
@@ -94,12 +96,12 @@ class MovieViewComponent extends React.Component {
     filterItemsByTitle(string) {
         if (string.length === 0) {
             this.setState(() => ({
-                dataArr: LS.get('films')
+                dataArr: [...LS.get('films'), ...LS.get('addedFilms')]
             }));
         }
         this.setState(() => ({
-            dataArr: LS.get('films').filter((item) => {
-                return item.title.indexOf(string) !== -1;
+            dataArr: [...LS.get('films'), ...LS.get('addedFilms')].filter((item) => {
+                return item.name.indexOf(string) !== -1;
             })
         }));
     }

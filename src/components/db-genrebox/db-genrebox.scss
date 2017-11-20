@@ -1,0 +1,17 @@
+@import './../../base_styles/settings';
+
+.md-genre-box{
+  border: 2px solid grey;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 40px;
+}
+
+.md-genre-box__column{
+  color: $grey-color;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}

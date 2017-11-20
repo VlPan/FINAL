@@ -10,4 +10,8 @@ LS.get = (item) => {
     return typeof item === 'string' && JSON.parse(localStorage.getItem(item));
 };
 
+LS.remove = (item) => {
+    return typeof item === 'string' && localStorage.removeItem(item);
+};
+
 export default LS;

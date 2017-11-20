@@ -1,1 +1,2 @@
-export { default as logger } from './logger.middleware';
+export * from './logger.middleware';
+export * from './getData.middleware';

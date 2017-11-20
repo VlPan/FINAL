@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 
 
 export const NavbarCopmonent = (props) => {
-    console.log(props.isOpen);
-    console.log(props.openAddMovieForm);
     return (
         <div className="md-navbar md-navbar--left-margin">
             <ul className="md-navbar__container">

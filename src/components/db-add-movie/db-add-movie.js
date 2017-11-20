@@ -1,13 +1,13 @@
 import React from 'react';
 import './db-add-movie.scss';
-import { EntityGenresService } from '../../services/genres.entity.service';
-import { closeAddMovieForm } from './../../store/actions';
+import {closeAddMovieForm} from './../../store/actions';
 import uuidv4 from 'uuid/v4';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {Genrebox} from './../db-genrebox';
+import LS from '../../services/LS';
 
 
 export class AddMovieComponent extends React.Component {
-
 
 
     constructor(props) {
@@ -27,20 +27,17 @@ export class AddMovieComponent extends React.Component {
             posters: 0,
             genresFromServer: []
         };
+    }
 
-        const entityGenresService = new EntityGenresService();
-
-        entityGenresService.getGenres().then(genres => {
-            console.log(genres);
-            this.setState(()=>({
-                genresFromServer: genres
-            }));
-        });
+    componentWillMount(){
+        this.setState(() => ({
+            genresFromServer: LS.get('genres')
+        }));
     }
 
 
-    checkValidation(){
-        if(this.state.name && this.state.desc && this.state.posters !== 0 ){
+    checkValidation() {
+        if (this.state.name && this.state.desc && this.state.posters !== 0) {
             return false;
         }
         return true;
@@ -63,6 +60,7 @@ export class AddMovieComponent extends React.Component {
     changeGenre(e) {
         const target = e.target;
         const value = target.value;
+        console.log(value);
         if (target.checked === true) {
             this.setState((prevState) => ({
                 genre: prevState.genre.concat(value)
@@ -76,37 +74,36 @@ export class AddMovieComponent extends React.Component {
         }
     }
 
-    uploadPoster(){
+    uploadPoster() {
         this.setState((prevState) => ({
             posters: prevState.posters += 1
         }));
     }
 
-    saveMovie(e){
+    saveMovie(e) {
         e.preventDefault();
         let addedFilms = JSON.parse(localStorage.getItem('addedFilms'));
 
-        if(!addedFilms){
+        if (!addedFilms) {
             addedFilms = [];
         }
 
-            let genre_ids = this.state.genresFromServer.filter((genre)=>{
-                return this.state.genre.includes(genre.name);
-            });
-            const newMovie = {
-                name: this.state.name,
-                desc: this.state.desc,
-                genre_ids: genre_ids,
-                adult: this.state.isAdult,
-                id: uuidv4(),
-                custom: true
-            };
-            addedFilms.push(newMovie);
-            localStorage.setItem('addedFilms', JSON.stringify(addedFilms));
-            this.props.addNewFilm(newMovie);
-            this.handleCloseAddMovieForm();
+        let genreIds = this.state.genresFromServer.filter((genre) => {
+            return this.state.genre.includes(genre.name);
+        });
+        const newMovie = {
+            name: this.state.name,
+            desc: this.state.desc,
+            genreIds: genreIds,
+            adult: this.state.isAdult,
+            id: uuidv4(),
+            custom: true
+        };
+        addedFilms.push(newMovie);
+        localStorage.setItem('addedFilms', JSON.stringify(addedFilms));
+        this.props.addNewFilm(newMovie);
+        this.handleCloseAddMovieForm();
     }
-
 
 
     render() {
@@ -128,53 +125,7 @@ export class AddMovieComponent extends React.Component {
                     </div>
                     <div className="md-add-movie__genre">
                         <label htmlFor="">Genre</label>
-                        <div className="md-add-movie__box" onClick={this.changeGenre}>
-                            <div className="md-add-movie__column">
-                                <div>
-                                    <input type="checkbox" name="genre" value="Action"/>
-                                    <label>Action</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="Adventure"/>
-                                    <label>Adventure</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="Thriller"/>
-                                    <label>Thriller</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="Comedy"/>
-                                    <label>Comedy</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="Drama"/>
-                                    <label>Drama</label>
-                                </div>
-                            </div>
-
-                            <div className="md-add-movie__column">
-                                <div>
-                                    <input type="checkbox" name="genre" value="Horror"/>
-                                    <label>Horror</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="Action"/>
-                                    <label>Action</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="Action"/>
-                                    <label>Criminal</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="War"/>
-                                    <label>War</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="genre" value="Documentary"/>
-                                    <label>Documentary</label>
-                                </div>
-                            </div>
-                        </div>
+                        <Genrebox changeGenre={this.changeGenre}/>
                         {this.state.genre.length === 0 && <div className="md-add-movie__error">Genre is required</div>}
                         <div>
                             <input type="checkbox" name="isAdult" onChange={this.change}/>
@@ -184,7 +135,8 @@ export class AddMovieComponent extends React.Component {
 
                     <div className="md-add-movie__img-upload">
                         <input type="file" onChange={this.uploadPoster}/><br/>
-                        {this.state.posters === 0 && <div className="md-add-movie__error">Upload one poster as minimum</div>}
+                        {this.state.posters === 0 &&
+                        <div className="md-add-movie__error">Upload one poster as minimum</div>}
                         <button disabled={this.checkValidation()} onClick={this.saveMovie}>Add</button>
                         <button onClick={this.handleCloseAddMovieForm}>Cancel</button>
                     </div>
