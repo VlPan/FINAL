@@ -1,7 +1,6 @@
 import {RequestServise} from './request-service.js';
 
 
-
 export class EntityGenresService {
     constructor() {
         this.requestServise = new RequestServise();

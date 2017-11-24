@@ -1,4 +1,4 @@
-const LS = () => {
+export const LS = () => {
 
 };
 
@@ -14,4 +14,3 @@ LS.remove = (item) => {
     return typeof item === 'string' && localStorage.removeItem(item);
 };
 
-export default LS;

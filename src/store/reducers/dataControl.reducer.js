@@ -4,11 +4,11 @@ import { DATA_RECIVED,
 } from '../actions/index';
 import LS from './../../services/LS';
 import {recivedRecommendedMovies} from '../actions/dataControl.actions';
+import {INIT_GENRES} from '../actions/dataControl.types';
 
 const initialState = {
     dataLoadedFromServer: false,
-    requestSentToServer: false,
-    neededDataInLS: false
+    requestSentToServer: false
 };
 
 export function dataControlReducer(state = initialState, action, store) {
@@ -21,14 +21,6 @@ export function dataControlReducer(state = initialState, action, store) {
             return {
                 requestSentToServer: true
             };
-        case CHECK_DATA_IN_LS:
-            console.log(action);
-            action.payload.forEach((item)=>{
-                if(!LS.get(item)){
-                    return {neededDataInLS: false};
-                }
-            });
-            return{neededDataInLS: true};
         default:
             return state;
     }

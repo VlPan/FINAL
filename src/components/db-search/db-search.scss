@@ -1,17 +1,17 @@
 @import "../../base_styles/settings";
 
-.md-search{
+.md-search {
   display: flex;
 }
 
-.md-search__input{
+.md-search__input {
   background: transparent;
   padding: 10px 20px;
   color: $grey-color;
-  position:relative;
+  position: relative;
 }
 
-.md-search__box{
+.md-search__box {
   width: 40px;
   background-color: white;
   display: flex;
@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-.md-search__icon{
+.md-search__icon {
   color: black;
   font-size: $icons-font;
 }

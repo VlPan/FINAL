@@ -1,14 +1,18 @@
 import React from 'react';
 import './../shared-style/app.scss';
 import {Link} from 'react-router-dom';
-import LS from '../../services/LS';
-import { connect } from 'react-redux';
-
+import {LS} from '../../services';
+import {connect} from 'react-redux';
+import {
+    openAddMovieForm,
+    filterMoviesByName,
+    addMovie
+} from '../../store/actions';
+import {Input} from '../../components/FormControls';
 import {
     Arrow,
     Poster,
     Navbar,
-    SearchInput,
     AddMovie
 } from './../../components';
 
@@ -18,10 +22,9 @@ class MovieViewComponent extends React.Component {
         super(props);
         this.handleArrowMove = this.handleArrowMove.bind(this);
         this.filterItemsByTitle = this.filterItemsByTitle.bind(this);
-        this.addNewFilm = this.addNewFilm.bind(this);
+        //this.addNewFilm = this.addNewFilm.bind(this);
         this.state = {
-            arrow: 'down',
-            dataArr: []
+            arrow: 'down'
         };
     }
 
@@ -32,7 +35,6 @@ class MovieViewComponent extends React.Component {
     }
 
     render() {
-        console.log(this.state.dataArr);
         return (
             <div className="md__flex-box">
                 {
@@ -42,31 +44,55 @@ class MovieViewComponent extends React.Component {
                 <div className="md__content">
                     <div className="md__navbarmd__navbar--white-text">
                         <div className="md__container">
-                            <SearchInput filterItemsByTitle={this.filterItemsByTitle}/>
+                            <div className="md-search">
+                                <Input onKeyUpHandler={this.filterItemsByTitle}
+                                       className="md-search__input"
+                                       placeholder="Search Movies"
+                                />
+                                <div className="md-search__box">
+                                    <i className="fa fa-search md-search__icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
                             <Navbar
-                                isFilmPage={true}/>
+                                whatToAdd={'Add movie'}
+                                itemsToRender={[
+                                    {name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}
+                                ]}
+                                openAddMovieForm={this.props.openAddMovieForm}
+                                isOpenAddMovieForm={this.props.isOpenAddMovieForm}
+                            >
+                                <li
+                                    className={['md-navbar__nav-item',
+                                        this.props.isOpenAddMovieForm && 'md-navbar__nav-item--red-text'].join(' ')}
+                                    onClick={this.props.openAddMovieForm}>
+                                    Add Movie
+                                </li>
+                            </Navbar>
                         </div>
                         <div className="md__add-movie">
-                            <AddMovie
-                                addNewFilm={this.addNewFilm}
-                                arrToRender={LS.get('genres')}
-                            />
+                            {this.props.genres &&
+                                <AddMovie
+                                    addNewItemToArray={this.props.addMovie}
+                                    arrToRender={LS.get('genres')}
+                                />
+                            }
                         </div>
                     </div>
 
                     <div
-                        className={['md__films-container',
-                            'md__films-container--white-text'].join(' ')}
+                        className={['md__content-container',
+                            'md__films-container--white-text', 'md__content-container--flex'].join(' ')}
                         ref={(filmsContainer) => {
                             this.filmsContainer = filmsContainer;
                         }}
                     >
-                        {this.state.dataArr.map((item, index) => {
+                        {this.props.movies.map((item, index) => {
                             return (
                                 <Link to={`/movies/${item.id}`} key={index}>
                                     <Poster
                                         name={item.name}
                                         imagePath={item.poster}
+                                        key={item}
                                     />
                                 </Link>
                             );
@@ -87,30 +113,30 @@ class MovieViewComponent extends React.Component {
         }
     }
 
-    addNewFilm(film) {
-        this.setState((prevState) => ({
-            dataArr: prevState.dataArr.concat(film)
-        }));
-    }
+    // addNewFilm(film) {
+    //     this.setState((prevState) => ({
+    //         dataArr: prevState.dataArr.concat(film)
+    //     }));
+    // }
 
-    filterItemsByTitle(string) {
-        if (string.length === 0) {
-            this.setState(() => ({
-                dataArr: [...LS.get('films'), ...LS.get('addedFilms')]
-            }));
-        }
-        this.setState(() => ({
-            dataArr: [...LS.get('films'), ...LS.get('addedFilms')].filter((item) => {
-                return item.name.indexOf(string) !== -1;
-            })
-        }));
+    filterItemsByTitle(e) {
+        let string = e.target.value;
+        this.props.filterMoviesByName(string);
     }
 }
 
 const mapStateToProps = (state) => {
     const isOpenSidebar = state.sidebar.isOpen;
     const isOpenAddMovieForm = state.addMovieForm.isOpen;
-    return { isOpenSidebar, isOpenAddMovieForm };
+    const movies = state.movieControl.movies;
+    const genres = state.genresControl.genres;
+    return {isOpenSidebar, isOpenAddMovieForm, movies, genres};
 };
 
-export const MovieView = connect(mapStateToProps)(MovieViewComponent);
+const mapDispatchToProps = (dispatch) => ({
+    openAddMovieForm: () => dispatch(openAddMovieForm()),
+    filterMoviesByName: (string) => dispatch(filterMoviesByName(string)),
+    addMovie: (movie) => dispatch(addMovie(movie))
+});
+
+export const MovieView = connect(mapStateToProps, mapDispatchToProps)(MovieViewComponent);

@@ -17,14 +17,18 @@
   color: white;
 }
 
-.md__films-container{
-  display: flex;
+.md__content-container{
   height: 85vh;
+  border: 2px solid blueviolet;
   width: 100%;
+  overflow-y: scroll;
+}
+
+.md__content-container--flex{
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  overflow-y: scroll;
 }
 
 .md__navbar{

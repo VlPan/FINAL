@@ -1,6 +1,6 @@
 @import './../../base_styles/settings';
 
-.md-genre-box{
+.md-genre-box {
   border: 2px solid grey;
   border-radius: 15px;
   display: flex;
@@ -9,7 +9,7 @@
   margin-top: 40px;
 }
 
-.md-genre-box__column{
+.md-genre-box__column {
   color: $grey-color;
   display: flex;
   flex-wrap: wrap;

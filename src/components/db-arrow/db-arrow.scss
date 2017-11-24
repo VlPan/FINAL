@@ -1,10 +1,10 @@
 @import "./../../base_styles/settings";
 
-.md-arrow--black-body{
+.md-arrow--black-body {
   background: lighten($main-color, 5%);
 }
 
-.md-arrow{
+.md-arrow {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-.md-arrow__arrow{
+.md-arrow__arrow {
   font-size: $icons-font-big;
   color: $grey-color;
 }

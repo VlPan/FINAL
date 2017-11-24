@@ -20,41 +20,22 @@ export const Sidebar = (props) => {
                 </div>
 
 
-                    < NavLink exact to="/movies" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
-                    <i className="fa fa-film md-sidebar__icon" aria-hidden="true"></i>
-                    {props.openSidebar &&
-                    <div className="md-sidebar__label">
-                        Home
-                    </div>
-                    }
-                    </ NavLink>
-
-                < NavLink exact to="/tvshows" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
-                    <i className="fa fa-file-video-o md-sidebar__icon" aria-hidden="true"></i>
-                    {props.openSidebar &&
-                    <div className={['md-sidebar__label', !props.openSidebar && 'md-sidebar__label--hide'].join(' ')}>
-                        Tv-Shows
-                    </div>
-                    }
-                </NavLink>
-
-                < NavLink exact to="/mylibrary" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
-                    <i className="fa fa-history      md-sidebar__icon" aria-hidden="true"></i>
-                    {props.openSidebar &&
-                    <div className={['md-sidebar__label', !props.openSidebar && 'md-sidebar__label--hide'].join(' ')}>
-                        MyLibrary
-                    </div>
-                    }
-                </NavLink>
-
-                < NavLink exact to="/about" activeClassName="md-sidebar__line--active" className="md-sidebar__line">
-                    <i className="fa fa-question     md-sidebar__icon" aria-hidden="true"></i>
-                    {props.openSidebar &&
-                    <div className={['md-sidebar__label', !props.openSidebar && 'md-sidebar__label--hide'].join(' ')}>
-                        About
-                    </div>
-                    }
-                </NavLink>
+                {props.itemsToRender.map((item, index) => {
+                    return (
+                        <NavLink to={item.linkTo}
+                                 key={index}
+                                 activeClassName="md-sidebar__line--active"
+                                 className="md-sidebar__line">
+                            <i className={`fa fa-${item.iconClass} md-sidebar__icon`} aria-hidden="true"></i>
+                            {props.openSidebar &&
+                            <div className="md-sidebar__label">
+                                {item.name} {item.count && <div className="md-sidebar__count">({item.count})</div>}
+                            </div>
+                            }
+                        </ NavLink>
+                    );
+                })}
+                {props.children}
             </div>
         </div>
 

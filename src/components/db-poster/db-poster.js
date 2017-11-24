@@ -2,11 +2,11 @@ import React from 'react';
 import './db-poster.scss';
 
 
-
 export class Poster extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
+
     render() {
         return (
             <div className="md-film">

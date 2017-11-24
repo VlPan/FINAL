@@ -1,14 +1,17 @@
 import React from 'react';
-import './db-add-movie.scss';
-import {closeAddMovieForm} from './../../store/actions';
+import './db-add-item.scss';
 import uuidv4 from 'uuid/v4';
 import {connect} from 'react-redux';
-import {Genrebox} from './../db-genrebox';
-import LS from '../../services/LS';
-
+import {closeAddMovieForm} from './../../store/actions';
+import {SelectorBox} from '../db-selector-box';
+import {LS} from '../../services';
+import {
+    Input,
+    Button,
+    TextArea
+} from '../FormControls';
 
 export class AddMovieComponent extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -29,7 +32,8 @@ export class AddMovieComponent extends React.Component {
         };
     }
 
-    componentWillMount(){
+    componentWillMount() {
+        console.log('Comp Will Mount!!!!!!');
         this.setState(() => ({
             genresFromServer: LS.get('genres')
         }));
@@ -60,7 +64,6 @@ export class AddMovieComponent extends React.Component {
     changeGenre(e) {
         const target = e.target;
         const value = target.value;
-        console.log(value);
         if (target.checked === true) {
             this.setState((prevState) => ({
                 genre: prevState.genre.concat(value)
@@ -82,16 +85,10 @@ export class AddMovieComponent extends React.Component {
 
     saveMovie(e) {
         e.preventDefault();
-        let addedFilms = JSON.parse(localStorage.getItem('addedFilms'));
-
-        if (!addedFilms) {
-            addedFilms = [];
-        }
-
         let genreIds = this.state.genresFromServer.filter((genre) => {
             return this.state.genre.includes(genre.name);
         });
-        const newMovie = {
+        const newItem = {
             name: this.state.name,
             desc: this.state.desc,
             genreIds: genreIds,
@@ -99,46 +96,70 @@ export class AddMovieComponent extends React.Component {
             id: uuidv4(),
             custom: true
         };
-        addedFilms.push(newMovie);
-        localStorage.setItem('addedFilms', JSON.stringify(addedFilms));
-        this.props.addNewFilm(newMovie);
+        console.log(newItem);
+        this.props.addNewItemToArray(newItem);
         this.handleCloseAddMovieForm();
     }
 
 
     render() {
+        console.log(this.state);
         return (
             <div className={['md-add-movie', !this.props.isOpen && 'md-add-movie--hide'].join(' ')}>
                 <h1 className="md-add-movie__title">Add Movie</h1>
                 <form className="md-add-movie__form">
                     <div className="md-add-movie__main-params">
                         <label htmlFor="">title</label>
-                        <input type="text" name="name" value={this.state.value} onChange={this.change}/>
+                        <Input
+                            onChangeHandler={this.change}
+                            name="name"
+                            value={this.state.value}
+                        />
+
                         {!this.state.name &&
                         <div className="md-add-movie__error">Title is required</div>
                         }
                         <label>Description</label>
-                        <textarea name="desc" cols="30" rows="10" onChange={this.change}></textarea>
+                        <TextArea
+                            name="desc"
+                            className="md-add-item__text-area"
+                            onChangeHandler={this.change}
+                        />
                         {!this.state.desc &&
                         <div className="md-add-movie__error">description is required</div>
                         }
                     </div>
                     <div className="md-add-movie__genre">
                         <label htmlFor="">Genre</label>
-                        <Genrebox changeGenre={this.changeGenre}/>
+                        <SelectorBox onClickHandler={this.changeGenre}
+                                     array={LS.get('genres')}
+                                     chunk={4}
+                        />
                         {this.state.genre.length === 0 && <div className="md-add-movie__error">Genre is required</div>}
                         <div>
-                            <input type="checkbox" name="isAdult" onChange={this.change}/>
+                            <input type="checkbox"
+                                   name="isAdult"
+                                   onChange={this.change}
+                            />
                             <label htmlFor="Action">Adult</label>
                         </div>
                     </div>
 
                     <div className="md-add-movie__img-upload">
-                        <input type="file" onChange={this.uploadPoster}/><br/>
+                        <input type="file"
+                               onChange={this.uploadPoster}
+                        /><br/>
                         {this.state.posters === 0 &&
                         <div className="md-add-movie__error">Upload one poster as minimum</div>}
-                        <button disabled={this.checkValidation()} onClick={this.saveMovie}>Add</button>
-                        <button onClick={this.handleCloseAddMovieForm}>Cancel</button>
+                        <Button
+                            disabled={this.checkValidation()}
+                            onClickHandler={this.saveMovie}
+                            value="Add"
+                        />
+                        <Button
+                            onClickHandler={this.handleCloseAddMovieForm}
+                            value="Close"
+                        />
                     </div>
                 </form>
             </div>

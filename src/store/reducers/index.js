@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
 import {sidebarReducer} from './sidebar.reducer';
 import {addMovieFormReducer} from './addMovieForm.reducer';
-import {dataControlReducer} from './dataControl.reducer';
+import {movieReducer} from './movie.reducer';
+import {tvShowReducer} from './tvshow.reducer';
+import {genresReducer} from './genres.reducer';
 
 export const appReducers = combineReducers({
     sidebar: sidebarReducer,
     addMovieForm: addMovieFormReducer,
-    dataControl: dataControlReducer
+    movieControl: movieReducer,
+    tvShowsControl: tvShowReducer,
+    genresControl: genresReducer
 });

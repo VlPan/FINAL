@@ -1,4 +1,13 @@
 export const DATA_RECIVED = '[MD][DATA] DATA_RECIVED';
 export const REQUEST_SENT = '[MD][DATA] REQUEST_SENT';
-export const CHECK_DATA_IN_LS = '[MD][DATA] CHECK_DATA_IN_LS';
+export const INIT_MOVIES = '[MD][DATA] INIT_MOVIES';
+export const INIT_GENRES = '[MD][DATA] INIT_GENRES';
+export const INIT_TV_SHOWS = '[MD][DATA] INIT_TV_SHOWS';
+export const INITED_MOVIES = '[MD][DATA] INITED_MOVIES';
+export const INITED_GENRES = '[MD][DATA] INITED_GENRES';
+export const INITED_TV_SHOWS = '[MD][DATA] INITED_TV_SHOWS';
+export const FILTER_MOVIES_BY_NAME = '[MD][DATA] FILTER_MOVIES_BY_NAME';
+export const FILTER_TV_SHOWS_BY_NAME = '[MD][DATA] FILTER_TV_SHOWS_BY_NAME';
+export const ADD_MOVIE = '[MD][DATA] ADD_MOVIE';
+export const ADD_TV_SHOW = '[MD][DATA] ADD_TV_SHOW';
 

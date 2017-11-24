@@ -14,20 +14,24 @@
   max-width: 65px;
 }
 
-.md__main-container{
+.md__main-container {
   width: 100%;
 }
 
-.md__sidebar--big-width{
+.md-sidebar__count {
+  color: darkred;
+}
+
+.md__sidebar--big-width {
   flex: 1 0 200px;
   max-width: 200px;
 }
 
-.md__sidebar--white-text{
+.md__sidebar--white-text {
   color: white;
 }
 
-.md-loading-title{
+.md-loading-title {
   color: white;
   margin: 100px auto;
   font-size: 100px;

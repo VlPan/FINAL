@@ -1,47 +1,48 @@
-@import './../../base_styles/settings';
+@import '../../base_styles/settings';
 
-.db-tv-show{
+.db-tv-show {
   color: grey;
 }
 
-.db-tv-show__container{
+.db-tv-show__container {
   width: 90%;
   margin-right: 5%;
 }
 
-.md-main-container{
+.md-main-container {
 
 }
 
-.db-tv-show__image{
+.db-tv-show__image {
   width: 300px;
   height: 300px;
   margin-right: 30px;
 }
 
-.db-tv-show__image img{
+.db-tv-show__image img {
   width: inherit;
   height: inherit;
 }
-.db-tv-show__flex{
+
+.db-tv-show__flex {
   display: flex;
 }
 
-.db-tv-show__flex--column{
+.db-tv-show__flex--column {
   flex-direction: column;
 }
 
-.db-tv-show__desc{
+.db-tv-show__desc {
   overflow: auto;
   height: 300px;
 }
 
-.db-tv-show__name{
+.db-tv-show__name {
   margin: 40px 0;
   font-size: $big-font;
 }
 
-.db-tv-show__recommended{
+.db-tv-show__recommended {
   display: flex;
   width: 90vw;
   overflow-x: scroll;

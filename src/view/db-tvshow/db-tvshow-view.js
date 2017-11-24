@@ -1,14 +1,19 @@
 import React from 'react';
 import './../shared-style/app.scss';
 import {Link} from 'react-router-dom';
-import LS from '../../services/LS';
-import { connect } from 'react-redux';
-
+import {LS} from '../../services';
+import {connect} from 'react-redux';
+import {
+    openAddMovieForm,
+    filterTvShowsByName,
+    addTvShow
+} from '../../store/actions';
+import {Input} from '../../components/FormControls';
 import {
     Arrow,
     Poster,
     Navbar,
-    SearchInput
+    AddMovie
 } from './../../components';
 
 export class TvShowViewComponent extends React.Component {
@@ -17,19 +22,10 @@ export class TvShowViewComponent extends React.Component {
         super(props);
         this.handleArrowMove = this.handleArrowMove.bind(this);
         this.filterItemsByTitle = this.filterItemsByTitle.bind(this);
-        this.addNewFilm = this.addNewFilm.bind(this);
         this.state = {
-            arrow: 'down',
-            dataArr: []
+            arrow: 'down'
         };
     }
-
-    componentWillMount() {
-        let tvShows = LS.get('tvShows') || [];
-        let addedTvShows = LS.get('addedTvShows') || [];
-        this.setState({dataArr: [...tvShows, ...addedTvShows]});
-    }
-
 
     render() {
         return (
@@ -41,19 +37,48 @@ export class TvShowViewComponent extends React.Component {
                 <div className="md__content">
                     <div className="md__navbarmd__navbar--white-text">
                         <div className="md__container">
-                            <SearchInput filterItemsByTitle={this.filterItemsByTitle}/>
-                            <Navbar/>
+                            <div className="md-search">
+                                <Input onKeyUpHandler={this.filterItemsByTitle}
+                                       className="md-search__input"
+                                       placeholder="Search Tv SHows"
+                                />
+                                <div className="md-search__box">
+                                    <i className="fa fa-search md-search__icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <Navbar
+                                itemsToRender={[
+                                    {name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}
+                                ]}
+                                openAddMovieForm={this.props.openAddMovieForm}
+                                isOpenAddMovieForm={this.props.isOpenAddMovieForm}
+                            >
+                                <li
+                                    className={['md-navbar__nav-item',
+                                        this.props.isOpenAddMovieForm && 'md-navbar__nav-item--red-text'].join(' ')}
+                                    onClick={this.props.openAddMovieForm}>
+                                    Add TvShow
+                                </li>
+                            </Navbar>
+                        </div>
+                        <div className="md__add-movie">
+                            {this.props.genres &&
+                            <AddMovie
+                                addNewItemToArray={this.props.addTvShow}
+                                arrToRender={LS.get('genres')}
+                            />
+                            }
                         </div>
                     </div>
 
                     <div
-                        className={['md__films-container',
-                            'md__films-container--white-text'].join(' ')}
+                        className={['md__content-container',
+                            'md__films-container--white-text', 'md__content-container--flex'].join(' ')}
                         ref={(filmsContainer) => {
                             this.filmsContainer = filmsContainer;
                         }}
                     >
-                        {this.state.dataArr.map((item, index) => {
+                        {this.props.tvShows.map((item, index) => {
                             return (
                                 <Link to={`/tvshows/${item.id}`} key={index}>
                                     <Poster
@@ -79,30 +104,30 @@ export class TvShowViewComponent extends React.Component {
         }
     }
 
-    addNewFilm(film) {
-        this.setState((prevState) => ({
-            dataArr: prevState.dataArr.concat(film)
-        }));
-    }
+    // addNewFilm(film) {
+    //     this.setState((prevState) => ({
+    //         dataArr: prevState.dataArr.concat(film)
+    //     }));
+    // }
 
-    filterItemsByTitle(string) {
-        if (string.length === 0) {
-            this.setState(() => ({
-                dataArr: LS.get('tvShows')
-            }));
-        }
-        this.setState(() => ({
-            dataArr: LS.get('tvShows').filter((item) => {
-                return item.name.indexOf(string) !== -1;
-            })
-        }));
+    filterItemsByTitle(e) {
+        let string = e.target.value;
+        this.props.filterTvShowsByName(string);
     }
 }
 
 const mapStateToProps = (state) => {
     const isOpenSidebar = state.sidebar.isOpen;
     const isOpenAddMovieForm = state.addMovieForm.isOpen;
-    return { isOpenSidebar, isOpenAddMovieForm };
+    const tvShows = state.tvShowsControl.tvShows;
+    const genres = state.genresControl.genres;
+    return {isOpenSidebar, isOpenAddMovieForm, tvShows, genres};
 };
 
-export const TvShowView = connect(mapStateToProps)(TvShowViewComponent);
+const mapDispatchToProps = (dispatch) => ({
+    openAddMovieForm: () => dispatch(openAddMovieForm()),
+    filterTvShowsByName: (string) => dispatch(filterTvShowsByName(string)),
+    addTvShow: (tvShow) => dispatch(addTvShow(tvShow))
+});
+
+export const TvShowView = connect(mapStateToProps, mapDispatchToProps)(TvShowViewComponent);

@@ -1,21 +1,22 @@
 import React from 'react';
 import './root.scss';
-import { connect } from 'react-redux';
-import { toggleSidebar } from './../../store/actions';
-import { sendRequestToServer } from './../../store/actions';
-import { checkDataInLocalStorage } from './../../store/actions';
+import {connect} from 'react-redux';
+import {toggleSidebar} from './../../store/actions';
+import {
+    sendRequestToServer,
+    initMovies,
+    initTvShows,
+    initGenres
+} from './../../store/actions';
 import {
     MovieDescription,
     TvShowDescription,
     Sidebar
 } from './../../components';
-
+import{PageNotFound} from '../../view/db-not-found/db-page-not-found';
 
 import {MovieView} from '../../view/db-movie/db-movie-view';
 import {TvShowView} from '../../view/db-tvshow/db-tvshow-view';
-import {EntityMovieService} from './../../services/movie-entity.service';
-import {EntityTvService} from './../../services/tv-entity.service';
-import LS from './../../services/LS';
 import {
     BrowserRouter as Router,
     Route,
@@ -24,41 +25,21 @@ import {
 } from 'react-router-dom';
 
 
-class RootComponent extends React.Component {
 
+class RootComponent extends React.Component {
 
 
     constructor(props) {
         super(props);
-        LS.remove('films');
-        LS.remove('tvShows');
-        LS.remove('genres');
-        this.props.sendRequestToServer();
-
-        // this.state = {
-        //     dataLoadedFromServer: false
-        // };
-        //
-        // let entityMovieService = new EntityMovieService();
-        // let entityTvService = new EntityTvService();
-        //
-        // entityMovieService.getMovieEntities().then((movies) => {
-        //     LS.set('films', movies);
-        // }).then(() => {
-        //     entityTvService.getTvEntities().then((tvShows) => {
-        //         LS.set('tvShows', tvShows);
-        //     });
-        // }).then(()=>{
-        //     this.setState(()=>({dataLoadedFromServer: true}));
-        // });
+        this.props.initTvShows();
+        this.props.initMovies();
+        this.props.initGenres();
     }
 
-    // componentWillMount(){
-    //
-    // }
 
     render() {
-        if (this.props.loaded) {
+        console.log('<---------PROOOOOPS-------->', this.props);
+        if (this.props.initialMovies.length && this.props.initialTvShows.length) {
             return (
                 <Router>
                     <div className="md__main-container">
@@ -69,6 +50,31 @@ class RootComponent extends React.Component {
                             .join(' ')}
                         >
                             <Sidebar
+                                itemsToRender={
+                                    [
+                                        {
+                                            name: 'Home',
+                                            iconClass: 'film',
+                                            linkTo: '/movies'
+                                        },
+                                        {
+                                            name: 'Tv Show',
+                                            iconClass: 'file-video-o',
+                                            linkTo: '/tvshows'
+                                        },
+                                        {
+                                            name: 'Library',
+                                            iconClass: 'history',
+                                            linkTo: '/mylibrary',
+                                            count: 5
+                                        },
+                                        {
+                                            name: 'About',
+                                            iconClass: 'question',
+                                            linkTo: '/about'
+                                        }
+                                    ]
+                                }
                                 toggleSidebar={this.props.toggleSidebar}
                                 openSidebar={this.props.isOpenSidebar}
                             />
@@ -88,14 +94,14 @@ class RootComponent extends React.Component {
                                        <TvShowView {...props}/>
                                    }
                             />
-                            <Route path="/about" component={Sidebar}/>
                             <Route path="/movies/:id" component={MovieDescription}/>
                             <Route path="/tvshows/:id" component={TvShowDescription}/>
+                            <Route component={PageNotFound} />
                         </Switch>
                     </div>
                 </Router>
             );
-        } else{
+        } else {
             return <div className="md-loading-title">Loading...</div>;
         }
     }
@@ -104,16 +110,28 @@ class RootComponent extends React.Component {
 
 const mapStateToProps = (state) => {
     const isOpenSidebar = state.sidebar.isOpen;
-    const loaded = state.dataControl.dataLoadedFromServer;
+    const movies = state.movieControl.movies;
+    const tvShows = state.tvShowsControl.tvShows;
+    const genres = state.genresControl.genres;
+    const initialMovies = state.movieControl.initialMovies;
+    const initialTvShows = state.tvShowsControl.initialTvShows;
+    const initialGenres = state.tvShowsControl.initialGenres;
     return {
         isOpenSidebar,
-        loaded
+        movies,
+        tvShows,
+        genres,
+        initialMovies,
+        initialTvShows,
+        initialGenres
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
     toggleSidebar: () => dispatch(toggleSidebar()),
-    sendRequestToServer: () => dispatch(sendRequestToServer())
+    initMovies: () => dispatch(initMovies()),
+    initTvShows: () => dispatch(initTvShows()),
+    initGenres: () => dispatch(initGenres())
 });
 
 export const Root = connect(mapStateToProps, mapDispatchToProps)(RootComponent);

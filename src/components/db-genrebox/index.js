@@ -1,1 +1,0 @@
-export { Genrebox } from './db-genrebox';
