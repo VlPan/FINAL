@@ -10,4 +10,6 @@ export const FILTER_MOVIES_BY_NAME = '[MD][DATA] FILTER_MOVIES_BY_NAME';
 export const FILTER_TV_SHOWS_BY_NAME = '[MD][DATA] FILTER_TV_SHOWS_BY_NAME';
 export const ADD_MOVIE = '[MD][DATA] ADD_MOVIE';
 export const ADD_TV_SHOW = '[MD][DATA] ADD_TV_SHOW';
+export const SAVE_ITEM = '[MD][DATA] SAVE_ITEM';
+export const DELETE_ITEM = '[MD][DATA] DELETE_ITEM';
 

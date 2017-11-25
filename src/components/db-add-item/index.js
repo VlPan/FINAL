@@ -1,1 +1,1 @@
-export {AddMovie} from './db-add-item.js';
+export {AddItemForm} from './db-add-item.js';

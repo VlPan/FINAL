@@ -3,7 +3,6 @@ import './root.scss';
 import {connect} from 'react-redux';
 import {toggleSidebar} from './../../store/actions';
 import {
-    sendRequestToServer,
     initMovies,
     initTvShows,
     initGenres
@@ -13,17 +12,19 @@ import {
     TvShowDescription,
     Sidebar
 } from './../../components';
-import{PageNotFound} from '../../view/db-not-found/db-page-not-found';
+import {PageNotFound} from '../../view/db-not-found/db-page-not-found';
 
 import {MovieView} from '../../view/db-movie/db-movie-view';
 import {TvShowView} from '../../view/db-tvshow/db-tvshow-view';
+import {MyLibView} from '../../view/db-mylib-view/db-mylib-view';
 import {
     BrowserRouter as Router,
     Route,
     Switch,
-    Redirect
+    Redirect,
+    NavLink
 } from 'react-router-dom';
-
+import {LS} from '../../services';
 
 
 class RootComponent extends React.Component {
@@ -34,6 +35,7 @@ class RootComponent extends React.Component {
         this.props.initTvShows();
         this.props.initMovies();
         this.props.initGenres();
+        LS.get('savedItems') || LS.set('savedItems', []);
     }
 
 
@@ -50,34 +52,62 @@ class RootComponent extends React.Component {
                             .join(' ')}
                         >
                             <Sidebar
-                                itemsToRender={
-                                    [
-                                        {
-                                            name: 'Home',
-                                            iconClass: 'film',
-                                            linkTo: '/movies'
-                                        },
-                                        {
-                                            name: 'Tv Show',
-                                            iconClass: 'file-video-o',
-                                            linkTo: '/tvshows'
-                                        },
-                                        {
-                                            name: 'Library',
-                                            iconClass: 'history',
-                                            linkTo: '/mylibrary',
-                                            count: 5
-                                        },
-                                        {
-                                            name: 'About',
-                                            iconClass: 'question',
-                                            linkTo: '/about'
-                                        }
-                                    ]
-                                }
-                                toggleSidebar={this.props.toggleSidebar}
                                 openSidebar={this.props.isOpenSidebar}
-                            />
+                            >
+                                <div className="md-sidebar__line">
+                                    <i className="fa fa-th-list md-sidebar__icon md-sidebar__main"
+                                       aria-hidden="true"
+                                       onClick={this.props.toggleSidebar}
+                                    />
+                                    {this.props.isOpenSidebar &&
+                                    <div className="md-logo">
+                                        <div className="md-logo__logo-img"></div>
+                                        <div className="md-logo__logo-title">Logo</div>
+                                    </div>
+                                    }
+                                </div>
+                                <NavLink to="/movies"
+                                         activeClassName="md-sidebar__line--active"
+                                         className="md-sidebar__line">
+                                    <i className="fa fa-film md-sidebar__icon" aria-hidden="true"></i>
+                                    {this.props.isOpenSidebar &&
+                                    <div className="md-sidebar__label">
+                                        Home
+                                    </div>
+                                    }
+                                </ NavLink>
+                                <NavLink to="/tvshows"
+                                         activeClassName="md-sidebar__line--active"
+                                         className="md-sidebar__line">
+                                    <i className="fa fa-file-video-o md-sidebar__icon" aria-hidden="true"></i>
+                                    {this.props.isOpenSidebar &&
+                                    <div className="md-sidebar__label">
+                                        Tv Shows
+                                    </div>
+                                    }
+                                </ NavLink>
+                                <NavLink to="/mylibrary"
+                                         activeClassName="md-sidebar__line--active"
+                                         className="md-sidebar__line">
+                                    <i className="fa fa-history md-sidebar__icon" aria-hidden="true"></i>
+                                    {this.props.isOpenSidebar &&
+                                    <div className="md-sidebar__label">
+                                        My Library {LS.get('savedItems') &&
+                                    <div className="md-sidebar__count">({LS.get('savedItems').length})</div>}
+                                    </div>
+                                    }
+                                </ NavLink>
+                                <NavLink to="/support"
+                                         activeClassName="md-sidebar__line--active"
+                                         className="md-sidebar__line">
+                                    <i className="fa fa-question md-sidebar__icon" aria-hidden="true"></i>
+                                    {this.props.isOpenSidebar &&
+                                    <div className="md-sidebar__label">
+                                        Support
+                                    </div>
+                                    }
+                                </ NavLink>
+                            </Sidebar>
                         </div>
                         <Switch>
                             <Route exact path="/" render={() =>
@@ -94,9 +124,14 @@ class RootComponent extends React.Component {
                                        <TvShowView {...props}/>
                                    }
                             />
+                            <Route exact path="/mylibrary"
+                                   render={(props) =>
+                                       <MyLibView {...props}/>
+                                   }
+                            />
                             <Route path="/movies/:id" component={MovieDescription}/>
                             <Route path="/tvshows/:id" component={TvShowDescription}/>
-                            <Route component={PageNotFound} />
+                            <Route component={PageNotFound}/>
                         </Switch>
                     </div>
                 </Router>
@@ -116,6 +151,7 @@ const mapStateToProps = (state) => {
     const initialMovies = state.movieControl.initialMovies;
     const initialTvShows = state.tvShowsControl.initialTvShows;
     const initialGenres = state.tvShowsControl.initialGenres;
+    const savedItems = state.myLib.savedItems;
     return {
         isOpenSidebar,
         movies,
@@ -123,7 +159,8 @@ const mapStateToProps = (state) => {
         genres,
         initialMovies,
         initialTvShows,
-        initialGenres
+        initialGenres,
+        savedItems
     };
 };
 

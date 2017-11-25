@@ -7,7 +7,6 @@
   cursor: pointer;
   transition: all .3s;
   position: relative;
-  border: 2px dashed mediumvioletred;
 }
 
 .md-film__image {
@@ -19,6 +18,24 @@
 
 .md-film:hover > .md-film__desc {
   opacity: 1;
+}
+
+
+.md-poster__icon{
+  position: absolute;
+  opacity: 1;
+  top: 20px;
+  right: 20px;
+  font-size: $icons-font-big;
+  padding: 15px;
+}
+
+.md-poster--green-border{
+  border: 2px solid green;
+}
+
+.md-poster__icon--green{
+  color: greenyellow;
 }
 
 .md-film__desc {

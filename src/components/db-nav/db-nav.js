@@ -4,7 +4,7 @@ import './db-nav.scss';
 
 export const Navbar = (props) => {
     return (
-        <div className="md-navbar md-navbar--left-margin">
+        <div className={props.modificators ? ['md-navbar', ...props.modificators].join(' ') : 'md-navbar'}>
             <ul className="md-navbar__container">
                 {props.children}
                 {props.itemsToRender.map((item, index) => {

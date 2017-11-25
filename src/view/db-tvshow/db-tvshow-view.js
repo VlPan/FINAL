@@ -6,15 +6,19 @@ import {connect} from 'react-redux';
 import {
     openAddMovieForm,
     filterTvShowsByName,
-    addTvShow
+    addTvShow,
+    closeAddMovieForm,
+    saveItem,
+    deleteItem
 } from '../../store/actions';
 import {Input} from '../../components/FormControls';
 import {
     Arrow,
     Poster,
     Navbar,
-    AddMovie
+    AddItemForm
 } from './../../components';
+
 
 export class TvShowViewComponent extends React.Component {
 
@@ -25,6 +29,10 @@ export class TvShowViewComponent extends React.Component {
         this.state = {
             arrow: 'down'
         };
+    }
+
+    componentWillUnmount(){
+        this.props.closeAddMovieForm();
     }
 
     render() {
@@ -47,6 +55,7 @@ export class TvShowViewComponent extends React.Component {
                                 </div>
                             </div>
                             <Navbar
+                                modificators={['md-navbar--left-margin']}
                                 itemsToRender={[
                                     {name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}
                                 ]}
@@ -61,14 +70,6 @@ export class TvShowViewComponent extends React.Component {
                                 </li>
                             </Navbar>
                         </div>
-                        <div className="md__add-movie">
-                            {this.props.genres &&
-                            <AddMovie
-                                addNewItemToArray={this.props.addTvShow}
-                                arrToRender={LS.get('genres')}
-                            />
-                            }
-                        </div>
                     </div>
 
                     <div
@@ -78,12 +79,29 @@ export class TvShowViewComponent extends React.Component {
                             this.filmsContainer = filmsContainer;
                         }}
                     >
+                        <div className="md__add-movie">
+                            {this.props.genres &&
+                            <AddItemForm
+                                title="Tv Show"
+                                addNewItemToArray={this.props.addTvShow}
+                                arrToRender={LS.get('genres')}
+                            />
+                            }
+                        </div>
                         {this.props.tvShows.map((item, index) => {
+                            let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
+                            console.log(isAlreadySaved);
                             return (
                                 <Link to={`/tvshows/${item.id}`} key={index}>
                                     <Poster
+                                        item={item}
                                         name={item.name}
                                         imagePath={item.poster}
+                                        key={item}
+                                        saveItem={this.props.saveItem}
+                                        deleteItem={this.props.deleteItem}
+                                        saved={isAlreadySaved}
+                                        modificators={isAlreadySaved && ['md-poster--green-border']}
                                     />
                                 </Link>
                             );
@@ -104,11 +122,6 @@ export class TvShowViewComponent extends React.Component {
         }
     }
 
-    // addNewFilm(film) {
-    //     this.setState((prevState) => ({
-    //         dataArr: prevState.dataArr.concat(film)
-    //     }));
-    // }
 
     filterItemsByTitle(e) {
         let string = e.target.value;
@@ -121,13 +134,17 @@ const mapStateToProps = (state) => {
     const isOpenAddMovieForm = state.addMovieForm.isOpen;
     const tvShows = state.tvShowsControl.tvShows;
     const genres = state.genresControl.genres;
-    return {isOpenSidebar, isOpenAddMovieForm, tvShows, genres};
+    const savedItems = state.myLib.savedItems;
+    return {isOpenSidebar, isOpenAddMovieForm, tvShows, genres, savedItems};
 };
 
 const mapDispatchToProps = (dispatch) => ({
     openAddMovieForm: () => dispatch(openAddMovieForm()),
+    closeAddMovieForm: () => dispatch(closeAddMovieForm()),
     filterTvShowsByName: (string) => dispatch(filterTvShowsByName(string)),
-    addTvShow: (tvShow) => dispatch(addTvShow(tvShow))
+    addTvShow: (tvShow) => dispatch(addTvShow(tvShow)),
+    saveItem: (item) => dispatch(saveItem(item)),
+    deleteItem: (item) => dispatch(deleteItem(item))
 });
 
 export const TvShowView = connect(mapStateToProps, mapDispatchToProps)(TvShowViewComponent);

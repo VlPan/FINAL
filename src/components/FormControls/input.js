@@ -1,4 +1,5 @@
 import React from 'react';
+import './db-search.scss';
 
 export const Input = (props) => {
     return (

@@ -11,7 +11,7 @@ import {
     TextArea
 } from '../FormControls';
 
-export class AddMovieComponent extends React.Component {
+export class AddItemFormComponent extends React.Component {
 
     constructor(props) {
         super(props);
@@ -106,7 +106,7 @@ export class AddMovieComponent extends React.Component {
         console.log(this.state);
         return (
             <div className={['md-add-movie', !this.props.isOpen && 'md-add-movie--hide'].join(' ')}>
-                <h1 className="md-add-movie__title">Add Movie</h1>
+                <h1 className="md-add-movie__title">{this.props.title}</h1>
                 <form className="md-add-movie__form">
                     <div className="md-add-movie__main-params">
                         <label htmlFor="">title</label>
@@ -179,4 +179,4 @@ const mapDispatchToProps = (dispatch) => ({
     closeAddMovieForm: () => dispatch(closeAddMovieForm())
 });
 
-export const AddMovie = connect(mapStateToProps, mapDispatchToProps)(AddMovieComponent);
+export const AddItemForm = connect(mapStateToProps, mapDispatchToProps)(AddItemFormComponent);

@@ -10,7 +10,9 @@ import {
     FILTER_MOVIES_BY_NAME,
     FILTER_TV_SHOWS_BY_NAME,
     ADD_MOVIE,
-    ADD_TV_SHOW
+    ADD_TV_SHOW,
+    SAVE_ITEM,
+    DELETE_ITEM
 } from './dataControl.types';
 
 export function dataWasRecived(payload) {
@@ -94,6 +96,20 @@ export function addMovie(payload) {
 export function addTvShow(payload) {
     return {
         type: ADD_TV_SHOW,
+        payload
+    };
+}
+
+export function saveItem(payload) {
+    return {
+        type: SAVE_ITEM,
+        payload
+    };
+}
+
+export function deleteItem(payload) {
+    return {
+        type: DELETE_ITEM,
         payload
     };
 }

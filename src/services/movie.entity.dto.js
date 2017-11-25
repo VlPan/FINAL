@@ -9,5 +9,6 @@ export class MovieEntity {
         this.vote = entity.vote_average || '';
         this.popularity = entity.popularity || '';
         this.createdAt = (new Date).getMinutes();
+        this.movie = true;
     }
 }
