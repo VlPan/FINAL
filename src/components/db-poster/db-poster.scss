@@ -9,12 +9,13 @@
   position: relative;
 }
 
+
+
 .md-film__image {
   width: 100%;
   height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
+
 
 .md-film:hover > .md-film__desc {
   opacity: 1;
@@ -46,7 +47,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 98%;
   bottom: 0;
   color: white;
   background-color: fade_out($black-blue, .25);

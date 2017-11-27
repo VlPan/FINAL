@@ -1,50 +1,47 @@
 @import '../../base_styles/settings';
 
-.db-tv-show {
+.db-movie {
   color: grey;
 }
 
-.db-tv-show__container {
+.db-movie__container {
   width: 90%;
-  margin-right: 5%;
+  margin-left: 5%;
 }
 
-.md-main-container {
 
-}
-
-.db-tv-show__image {
+.db-movie__image {
   width: 300px;
-  height: 300px;
+  height: 400px;
   margin-right: 30px;
 }
 
-.db-tv-show__image img {
+.db-movie__image img {
   width: inherit;
   height: inherit;
 }
 
-.db-tv-show__flex {
+.db-movie__flex {
   display: flex;
 }
 
-.db-tv-show__flex--column {
+.db-movie__flex--column {
   flex-direction: column;
 }
 
-.db-tv-show__desc {
+.db-movie__desc {
   overflow: auto;
-  height: 300px;
+  height: 400px;
 }
 
-.db-tv-show__name {
+.db-movie__name {
   margin: 40px 0;
   font-size: $big-font;
 }
 
-.db-tv-show__recommended {
+.db-movie__recommended {
   display: flex;
-  width: 85vw;
+  width: 100%;
   overflow-x: scroll;
   height: 400px;
 }

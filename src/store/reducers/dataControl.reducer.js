@@ -1,25 +1,27 @@
-import { DATA_RECIVED,
-    REQUEST_SENT,
-    CHECK_DATA_IN_LS
+import {
+    DATA_RECIVED,
+    REQUEST_SENT
 } from '../actions/index';
-import LS from './../../services/LS';
-import {recivedRecommendedMovies} from '../actions/dataControl.actions';
-import {INIT_GENRES} from '../actions/dataControl.types';
 
 const initialState = {
     dataLoadedFromServer: false,
-    requestSentToServer: false
+    requestSentToServer: false,
+    fetchingData: false
 };
 
 export function dataControlReducer(state = initialState, action, store) {
     switch (action.type) {
         case DATA_RECIVED:
             return {
-                dataLoadedFromServer: true
+                ...state,
+                dataLoadedFromServer: true,
+                fetchingData: false
             };
         case REQUEST_SENT:
             return {
-                requestSentToServer: true
+                ...state,
+                requestSentToServer: true,
+                fetchingData: true
             };
         default:
             return state;

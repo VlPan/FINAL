@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom';
 import {LS} from '../../services';
 import {connect} from 'react-redux';
 import {
-    openAddMovieForm,
+    openAddItemForm,
     filterMoviesByName,
     addMovie,
-    closeAddMovieForm,
+    closeAddItemForm,
     saveItem,
     deleteItem
 } from '../../store/actions';
@@ -25,8 +25,7 @@ class MovieViewComponent extends React.Component {
     constructor(props) {
         super(props);
         this.handleArrowMove = this.handleArrowMove.bind(this);
-        this.filterItemsByTitle = this.filterItemsByTitle.bind(this);
-        //this.addNewFilm = this.addNewFilm.bind(this);
+        this.filterItemsByName = this.filterItemsByName.bind(this);
         this.state = {
             arrow: 'down'
         };
@@ -39,7 +38,7 @@ class MovieViewComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        this.props.closeAddMovieForm();
+        this.props.closeAddItemForm();
     }
 
 
@@ -58,7 +57,7 @@ class MovieViewComponent extends React.Component {
                     <div className="md__navbarmd__navbar--white-text">
                         <div className="md__container">
                             <div className="md-search">
-                                <Input onKeyUpHandler={this.filterItemsByTitle}
+                                <Input onKeyUpHandler={this.filterItemsByName}
                                        className="md-search__input"
                                        placeholder="Search Movies"
                                 />
@@ -71,13 +70,13 @@ class MovieViewComponent extends React.Component {
                                 itemsToRender={[
                                     {name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}
                                 ]}
-                                openAddMovieForm={this.props.openAddMovieForm}
-                                isOpenAddMovieForm={this.props.isOpenAddMovieForm}
+                                openAddMovieForm={this.props.openAddItemForm}
+                                isOpenAddMovieForm={this.props.isOpenAddItemForm}
                             >
                                 <li
                                     className={['md-navbar__nav-item',
-                                        this.props.isOpenAddMovieForm && 'md-navbar__nav-item--red-text'].join(' ')}
-                                    onClick={this.props.openAddMovieForm}>
+                                        this.props.isOpenAddItemForm && 'md-navbar__nav-item--red-text'].join(' ')}
+                                    onClick={this.props.openAddItemForm}>
                                     Add Movie
                                 </li>
                             </Navbar>
@@ -134,24 +133,30 @@ class MovieViewComponent extends React.Component {
         }
     }
 
-    filterItemsByTitle(e) {
+    filterItemsByName(e) {
         let string = e.target.value;
         this.props.filterMoviesByName(string);
     }
 }
 
 const mapStateToProps = (state) => {
-    const isOpenSidebar = state.sidebar.isOpen;
-    const isOpenAddMovieForm = state.addMovieForm.isOpen;
+    const isOpenSidebar = state.layout.isOpenSidebar;
+    const isOpenAddItemForm = state.layout.isOpenAddForm;
     const movies = state.movieControl.movies;
     const genres = state.genresControl.genres;
     const savedItems = state.myLib.savedItems;
-    return {isOpenSidebar, isOpenAddMovieForm, movies, genres, savedItems};
+    return {
+        isOpenSidebar,
+        isOpenAddItemForm,
+        movies,
+        genres,
+        savedItems
+    };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    openAddMovieForm: () => dispatch(openAddMovieForm()),
-    closeAddMovieForm: () => dispatch(closeAddMovieForm()),
+    openAddItemForm: () => dispatch(openAddItemForm()),
+    closeAddItemForm: () => dispatch(closeAddItemForm()),
     filterMoviesByName: (string) => dispatch(filterMoviesByName(string)),
     addMovie: (movie) => dispatch(addMovie(movie)),
     saveItem: (item) => dispatch(saveItem(item)),

@@ -20,58 +20,90 @@ export class TvShowDescriptionComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tvShow: {},
+            tvShow: null,
             genresFromServer: LS.get('genres'),
             recommended: []
         };
-        const entityTvService = new EntityTvService();
-        entityTvService.getRecommended(this.props.match.params.id).then((recommendedMovies) => {
-            this.setState(() => ({
-                recommended: recommendedMovies
-            }));
-        });
+        if(!props.custom) {
+            const entityTvService = new EntityTvService();
+            entityTvService.getRecommended(this.props.match.params.id).then((recommendedMovies) => {
+                this.setState(() => ({
+                    recommended: recommendedMovies
+                }));
+            });
+        }
     }
+
 
     componentWillMount() {
         let tvShows = LS.get('tvShows').filter((item) => {
             return item.id === parseInt(this.props.match.params.id);
         });
-        if (tvShows.length === 0) {
-            if(LS.get('addedTvShows')){
+        if (LS.arrayIsNotEmpty(tvShows)) {
+            console.log('TV IN LS');
+            this.setState(() => ({tvShow: tvShows[0]}));
+        } else {
+            if (LS.get('addedTvShows')) {
                 tvShows = LS.get('addedTvShows').filter((item) => {
                     return item.id === this.props.match.params.id;
                 });
-                this.setState(() => ({tvShow: tvShows[0]}));
-            }else{
-                const entityTvService = new EntityTvService();
-                entityTvService.getTvShowById(this.props.match.params.id).then((tvShow) => {
-                    return entityTvService.getRecommended(this.props.match.params.id).then((recommendedTv) => {
-                        this.setState(() => ({
-                            recommended: recommendedTv,
-                            tvShow: tvShow
-                        }));
-                    });
-                });
+                if (LS.arrayIsNotEmpty(tvShows)) {
+                    console.log('TV IN LS 2');
+                    this.setState(() => ({tvShow: tvShows[0]}));
+                }
             }
-        }else{
-            this.setState(() => ({tvShow: tvShows[0]}));
+        }
+
+        if (LS.arrayIsEmpty(tvShows)) {
+            const entityTvService = new EntityTvService();
+            entityTvService.getTvShowById(this.props.match.params.id).then((tvShow) => {
+                return entityTvService.getRecommended(this.props.match.params.id).then((recommendedTv) => {
+                    console.log('SET STATE');
+                    this.setState(() => ({
+                        recommended: recommendedTv,
+                        tvShow: tvShow
+                    }));
+                });
+            });
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        const entityTvService = new EntityTvService();
-        entityTvService.getTvShowById(nextProps.match.params.id).then((tvShow) => {
-            return entityTvService.getRecommended(this.props.match.params.id).then((recommendedTv) => {
-                this.setState(() => ({
-                    recommended: recommendedTv,
-                    tvShow: tvShow
-                }));
-            });
+        let tvShows = LS.get('tvShows').filter((item) => {
+            return item.id === parseInt(nextProps.match.params.id);
         });
+        if (LS.arrayIsNotEmpty(tvShows)) {
+            console.log('TV IN LS');
+            this.setState(() => ({tvShow: tvShows[0]}));
+        } else {
+            if (LS.get('addedTvShows')) {
+                tvShows = LS.get('addedTvShows').filter((item) => {
+                    return item.id === nextProps.match.params.id;
+                });
+                if (LS.arrayIsNotEmpty(tvShows)) {
+                    console.log('TV IN LS 2');
+                    this.setState(() => ({tvShow: tvShows[0]}));
+                }
+            }
+        }
+
+        if (LS.arrayIsEmpty(tvShows)) {
+            const entityTvService = new EntityTvService();
+            entityTvService.getTvShowById(nextProps.match.params.id).then((tvShow) => {
+                return entityTvService.getRecommended(nextProps.match.params.id).then((recommendedTv) => {
+                    console.log('SET STATE');
+                    this.setState(() => ({
+                        recommended: recommendedTv,
+                        tvShow: tvShow
+                    }));
+                });
+            });
+        }
     }
 
     render() {
-        if (this.state.tvShow.id) {
+        console.log('RENDER');
+        if (this.state.tvShow) {
             let genres = this.state.genresFromServer.filter((genre) => {
                 return this.state.tvShow.genreIds.includes(genre.id);
             });
@@ -91,12 +123,19 @@ export class TvShowDescriptionComponent extends React.Component {
                             <div className="db-tv-show__container">
                                 <div className="db-tv-show__flex">
                                     <div className="db-tv-show__image">
+                                        {this.state.tvShow.poster &&
                                         <img src={this.state.tvShow.poster} alt="Not found"/>
+                                        }
+
+                                        {this.state.tvShow.custom &&
+                                        <img src="../../assets/img/logo.jpg" alt="Not found"/>
+                                        }
                                     </div>
                                     <div className="db-tv-show__info">
                                         <div className="db-tv-show__name">
                                             {this.state.tvShow.name}
                                         </div>
+
                                         <div className="db-tv-show__desc">
                                             <p>{this.state.tvShow.desc}</p>
                                             <p>{this.state.tvShow.desc}</p>
@@ -147,7 +186,7 @@ export class TvShowDescriptionComponent extends React.Component {
                     </div>
                 </div>
             );
-        }else{
+        } else {
             return (
                 <h1>Loading...</h1>
             );
@@ -155,16 +194,19 @@ export class TvShowDescriptionComponent extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const isOpenSidebar = state.sidebar.isOpen;
-    const genres = state.genresControl.genres;
-    const savedItems = state.myLib.savedItems;
-    return {isOpenSidebar, genres, savedItems};
-};
+const
+    mapStateToProps = (state) => {
+        const isOpenSidebar = state.layout.isOpenSidebar;
+        const genres = state.genresControl.genres;
+        const savedItems = state.myLib.savedItems;
+        return {isOpenSidebar, genres, savedItems};
+    };
 
-const mapDispatchToProps = (dispatch) => ({
-    saveItem: (item) => dispatch(saveItem(item)),
-    deleteItem: (item) => dispatch(deleteItem(item))
-});
+const
+    mapDispatchToProps = (dispatch) => ({
+        saveItem: (item) => dispatch(saveItem(item)),
+        deleteItem: (item) => dispatch(deleteItem(item))
+    });
 
-export const TvShowDescription = connect(mapStateToProps, mapDispatchToProps)(TvShowDescriptionComponent);
+export const
+    TvShowDescription = connect(mapStateToProps, mapDispatchToProps)(TvShowDescriptionComponent);

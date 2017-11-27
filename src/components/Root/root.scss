@@ -3,6 +3,7 @@
 @import './../../base_styles/reset.css';
 @import './../../base_styles/queries';
 @import './../../assets/font-awesome-4.7.0/css/font-awesome.min.css';
+@import '~loaders.css/src/animations/line-scale.scss';
 
 .md__sidebar {
   z-index: 5;
@@ -33,6 +34,38 @@
 
 .md-loading-title {
   color: white;
-  margin: 100px auto;
-  font-size: 100px;
+
+}
+
+
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}
+
+.md-lod{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.md__loading-container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.md-lod div{
+  height: 200px;
+  width: 30px;
+}
+
+.md__content-container--full-height{
+  height: 100%;
 }

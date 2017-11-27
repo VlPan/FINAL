@@ -3,7 +3,7 @@ import './db-mylib.scss';
 import './../shared-style/app.scss';
 import {LS} from '../../services';
 import {connect} from 'react-redux';
-import {deleteItem} from '../../store/actions';
+import {deleteItem, filterItemsByName, setInitialState} from '../../store/actions';
 import {Link} from 'react-router-dom';
 import {
     Navbar,
@@ -12,34 +12,43 @@ import {
 import {Input} from '../../components/FormControls';
 
 
-
 class MyLibViewComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.filterItemsByName = this.filterItemsByName.bind(this);
+    }
+
+    filterItemsByName(e) {
+        let string = e.target.value || '';
+        this.props.filterItemsByName(string);
+    }
+
+    componentWillUnmount() {
+        this.props.filterItemsByName('');
     }
 
     render() {
         return (
             <div className="md__view-container">
-                    <div className="md__container">
-                        <div className="md-search">
-                            <Input onKeyUpHandler={this.filterItemsByTitle}
-                                   className="md-search__input"
-                                   placeholder="Search Movies"
-                            />
-                            <div className="md-search__box">
-                                <i className="fa fa-search md-search__icon" aria-hidden="true"></i>
-                            </div>
+                <div className="md__container">
+                    <div className="md-search">
+                        <Input onKeyUpHandler={this.filterItemsByName}
+                               className="md-search__input"
+                               placeholder="Search Saved Movies/TvShows"
+                        />
+                        <div className="md-search__box">
+                            <i className="fa fa-search md-search__icon" aria-hidden="true"></i>
                         </div>
-                        <Navbar itemsToRender={[{name: 'About'}]}/>
                     </div>
+                    <Navbar itemsToRender={[{name: 'About'}]}/>
+                </div>
                 <div className="md__content">
                     <div className="md__content-container md__content-container--flex">
                         {this.props.savedItems.map((item, index) => {
                             let linkTo;
-                            if(item.movie){
+                            if (item.movie) {
                                 linkTo = `/movies/${item.id}`;
-                            } else if(item.tvShow){
+                            } else if (item.tvShow) {
                                 linkTo = `/tvshows/${item.id}`;
                             }
                             return (
@@ -65,13 +74,15 @@ class MyLibViewComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const isOpenSidebar = state.sidebar.isOpen;
+    const isOpenSidebar = state.layout.isOpenSidebar;
     const savedItems = state.myLib.savedItems;
     return {isOpenSidebar, savedItems};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteItem: (item) => dispatch(deleteItem(item))
+    deleteItem: (item) => dispatch(deleteItem(item)),
+    filterItemsByName: (item) => dispatch(filterItemsByName(item)),
+    setInitialStateOfItems: () => dispatch(setInitialState())
 });
 
 export const MyLibView = connect(mapStateToProps, mapDispatchToProps)(MyLibViewComponent);

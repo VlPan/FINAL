@@ -2,7 +2,7 @@ import React from 'react';
 import './db-add-item.scss';
 import uuidv4 from 'uuid/v4';
 import {connect} from 'react-redux';
-import {closeAddMovieForm} from './../../store/actions';
+import {closeAddItemForm} from './../../store/actions';
 import {SelectorBox} from '../db-selector-box';
 import {LS} from '../../services';
 import {
@@ -49,7 +49,7 @@ export class AddItemFormComponent extends React.Component {
 
     handleCloseAddMovieForm(e) {
         e && e.preventDefault();
-        this.props.closeAddMovieForm();
+        this.props.closeAddItemForm();
     }
 
     change(e) {
@@ -169,14 +169,14 @@ export class AddItemFormComponent extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    const isOpen = state.addMovieForm.isOpen;
+    const isOpen = state.layout.isOpenAddForm;
     return {
         isOpen
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    closeAddMovieForm: () => dispatch(closeAddMovieForm())
+    closeAddItemForm: () => dispatch(closeAddItemForm())
 });
 
 export const AddItemForm = connect(mapStateToProps, mapDispatchToProps)(AddItemFormComponent);

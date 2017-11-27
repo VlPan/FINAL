@@ -12,8 +12,10 @@ import {
     ADD_MOVIE,
     ADD_TV_SHOW,
     SAVE_ITEM,
-    DELETE_ITEM
-} from './dataControl.types';
+    DELETE_ITEM,
+    FILTER_ITEMS_BY_NAME,
+    SET_INITIAL_STATE
+} from './store.types';
 
 export function dataWasRecived(payload) {
     return {
@@ -113,5 +115,13 @@ export function deleteItem(payload) {
         payload
     };
 }
+
+export function filterItemsByName(payload) {
+    return {
+        type: FILTER_ITEMS_BY_NAME,
+        payload
+    };
+}
+
 
 

@@ -29,6 +29,7 @@ export function tvShowReducer(state = initialState, action) {
             };
         case ADD_TV_SHOW:
             let adddedTvShows = LS.get('addedTvShows') || [];
+            action.payload.tvShow = true;
             adddedTvShows.push(action.payload);
             LS.set('addedTvShows', adddedTvShows);
             return {

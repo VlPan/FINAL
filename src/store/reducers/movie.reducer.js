@@ -30,6 +30,7 @@ export function movieReducer(state = initialState, action) {
             };
         case ADD_MOVIE:
             let adddedFilms = LS.get('addedFilms') || [];
+            action.payload.movie = true;
             adddedFilms.push(action.payload);
             LS.set('addedFilms', adddedFilms);
             return {

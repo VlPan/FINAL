@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom';
 import {LS} from '../../services';
 import {connect} from 'react-redux';
 import {
-    openAddMovieForm,
+    openAddItemForm,
     filterTvShowsByName,
     addTvShow,
-    closeAddMovieForm,
+    closeAddItemForm,
     saveItem,
     deleteItem
 } from '../../store/actions';
@@ -25,14 +25,14 @@ export class TvShowViewComponent extends React.Component {
     constructor(props) {
         super(props);
         this.handleArrowMove = this.handleArrowMove.bind(this);
-        this.filterItemsByTitle = this.filterItemsByTitle.bind(this);
+        this.filterItemsByName = this.filterItemsByName.bind(this);
         this.state = {
             arrow: 'down'
         };
     }
 
     componentWillUnmount(){
-        this.props.closeAddMovieForm();
+        this.props.closeAddItemForm();
     }
 
     render() {
@@ -46,7 +46,7 @@ export class TvShowViewComponent extends React.Component {
                     <div className="md__navbarmd__navbar--white-text">
                         <div className="md__container">
                             <div className="md-search">
-                                <Input onKeyUpHandler={this.filterItemsByTitle}
+                                <Input onKeyUpHandler={this.filterItemsByName}
                                        className="md-search__input"
                                        placeholder="Search Tv SHows"
                                 />
@@ -59,13 +59,13 @@ export class TvShowViewComponent extends React.Component {
                                 itemsToRender={[
                                     {name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}
                                 ]}
-                                openAddMovieForm={this.props.openAddMovieForm}
-                                isOpenAddMovieForm={this.props.isOpenAddMovieForm}
+                                openAddMovieForm={this.props.openAddItemForm}
+                                isOpenAddMovieForm={this.props.isOpenAddItemForm}
                             >
                                 <li
                                     className={['md-navbar__nav-item',
-                                        this.props.isOpenAddMovieForm && 'md-navbar__nav-item--red-text'].join(' ')}
-                                    onClick={this.props.openAddMovieForm}>
+                                        this.props.isOpenAddItemForm && 'md-navbar__nav-item--red-text'].join(' ')}
+                                    onClick={this.props.openAddItemForm}>
                                     Add TvShow
                                 </li>
                             </Navbar>
@@ -123,24 +123,24 @@ export class TvShowViewComponent extends React.Component {
     }
 
 
-    filterItemsByTitle(e) {
+    filterItemsByName(e) {
         let string = e.target.value;
         this.props.filterTvShowsByName(string);
     }
 }
 
 const mapStateToProps = (state) => {
-    const isOpenSidebar = state.sidebar.isOpen;
-    const isOpenAddMovieForm = state.addMovieForm.isOpen;
+    const isOpenSidebar = state.layout.isOpenSidebar;
+    const isOpenAddItemForm = state.layout.isOpenAddForm;
     const tvShows = state.tvShowsControl.tvShows;
     const genres = state.genresControl.genres;
     const savedItems = state.myLib.savedItems;
-    return {isOpenSidebar, isOpenAddMovieForm, tvShows, genres, savedItems};
+    return {isOpenSidebar, isOpenAddItemForm, tvShows, genres, savedItems};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    openAddMovieForm: () => dispatch(openAddMovieForm()),
-    closeAddMovieForm: () => dispatch(closeAddMovieForm()),
+    openAddItemForm: () => dispatch(openAddItemForm()),
+    closeAddItemForm: () => dispatch(closeAddItemForm()),
     filterTvShowsByName: (string) => dispatch(filterTvShowsByName(string)),
     addTvShow: (tvShow) => dispatch(addTvShow(tvShow)),
     saveItem: (item) => dispatch(saveItem(item)),

@@ -37,3 +37,10 @@
   margin: 40px 0;
   font-size: $big-font;
 }
+
+.db-tv-show__recommended {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  height: 400px;
+}

@@ -16,7 +16,7 @@ import {PageNotFound} from '../../view/db-not-found/db-page-not-found';
 
 import {MovieView} from '../../view/db-movie/db-movie-view';
 import {TvShowView} from '../../view/db-tvshow/db-tvshow-view';
-import {MyLibView} from '../../view/db-mylib-view/db-mylib-view';
+import {MyLibView} from '../../view/db-mylib/db-mylib-view';
 import {
     BrowserRouter as Router,
     Route,
@@ -25,6 +25,8 @@ import {
     NavLink
 } from 'react-router-dom';
 import {LS} from '../../services';
+
+import {Loader} from 'react-loaders';
 
 
 class RootComponent extends React.Component {
@@ -93,7 +95,11 @@ class RootComponent extends React.Component {
                                     {this.props.isOpenSidebar &&
                                     <div className="md-sidebar__label">
                                         My Library {LS.get('savedItems') &&
-                                    <div className="md-sidebar__count">({LS.get('savedItems').length})</div>}
+                                    <div className="md-sidebar__count">
+                                        {LS.get('savedItems').length > 0 &&
+                                        LS.get('savedItems').length
+                                        }
+                                    </div>}
                                     </div>
                                     }
                                 </ NavLink>
@@ -109,6 +115,7 @@ class RootComponent extends React.Component {
                                 </ NavLink>
                             </Sidebar>
                         </div>
+
                         <Switch>
                             <Route exact path="/" render={() =>
                                 <Redirect to="/movies"/>
@@ -137,14 +144,19 @@ class RootComponent extends React.Component {
                 </Router>
             );
         } else {
-            return <div className="md-loading-title">Loading...</div>;
+            return (
+                <div className="md__loading-container">
+                    <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>;
+                </div>
+            );
+
         }
     }
 }
 
 
 const mapStateToProps = (state) => {
-    const isOpenSidebar = state.sidebar.isOpen;
+    const isOpenSidebar = state.layout.isOpenSidebar;
     const movies = state.movieControl.movies;
     const tvShows = state.tvShowsControl.tvShows;
     const genres = state.genresControl.genres;
