@@ -9,14 +9,17 @@ import {
     addTvShow,
     closeAddItemForm,
     saveItem,
-    deleteItem
+    deleteItem,
+    filterTvShowsAdvanced,
+    toggleSearch
 } from '../../store/actions';
 import {Input} from '../../components/FormControls';
 import {
     Arrow,
     Poster,
     Navbar,
-    AddItemForm
+    AddItemForm,
+    AdvancedSearch
 } from './../../components';
 
 
@@ -51,8 +54,16 @@ export class TvShowViewComponent extends React.Component {
                                        placeholder="Search Tv SHows"
                                 />
                                 <div className="md-search__box">
-                                    <i className="fa fa-search md-search__icon" aria-hidden="true"></i>
+                                    <i className="fa fa-search md-search__icon"
+                                       aria-hidden="true"
+                                       onClick={this.props.toggleSearch}
+                                    ></i>
                                 </div>
+                                <AdvancedSearch
+                                    title="Advanced Search by Tv Shows"
+                                    filterItemsAdvanced = {this.props.filterTvShowsAdvanced}
+                                    rememberFrom={LS.get('filterOptionsTvs')}
+                                />
                             </div>
                             <Navbar
                                 modificators={['md-navbar--left-margin']}
@@ -141,10 +152,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     openAddItemForm: () => dispatch(openAddItemForm()),
     closeAddItemForm: () => dispatch(closeAddItemForm()),
+    toggleSearch: () => dispatch(toggleSearch()),
     filterTvShowsByName: (string) => dispatch(filterTvShowsByName(string)),
     addTvShow: (tvShow) => dispatch(addTvShow(tvShow)),
     saveItem: (item) => dispatch(saveItem(item)),
-    deleteItem: (item) => dispatch(deleteItem(item))
+    deleteItem: (item) => dispatch(deleteItem(item)),
+    filterTvShowsAdvanced: (searchOptions) => dispatch(filterTvShowsAdvanced(searchOptions))
 });
 
 export const TvShowView = connect(mapStateToProps, mapDispatchToProps)(TvShowViewComponent);

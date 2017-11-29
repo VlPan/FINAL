@@ -8,7 +8,8 @@ import {LS} from '../../services';
 import {
     Input,
     Button,
-    TextArea
+    TextArea,
+    Selector
 } from '../FormControls';
 
 export class AddItemFormComponent extends React.Component {
@@ -28,16 +29,11 @@ export class AddItemFormComponent extends React.Component {
             genre: [],
             isAdult: false,
             posters: 0,
-            genresFromServer: []
+            genresFromServer: LS.get('genres') || []
         };
     }
 
-    componentWillMount() {
-        console.log('Comp Will Mount!!!!!!');
-        this.setState(() => ({
-            genresFromServer: LS.get('genres')
-        }));
-    }
+
 
 
     checkValidation() {
@@ -91,7 +87,7 @@ export class AddItemFormComponent extends React.Component {
         const newItem = {
             name: this.state.name,
             desc: this.state.desc,
-            genreIds: genreIds,
+            genreIds: genreIds.map(elem => elem.id),
             adult: this.state.isAdult,
             id: uuidv4(),
             custom: true
@@ -137,11 +133,11 @@ export class AddItemFormComponent extends React.Component {
                         />
                         {this.state.genre.length === 0 && <div className="md-add-movie__error">Genre is required</div>}
                         <div>
-                            <input type="checkbox"
-                                   name="isAdult"
-                                   onChange={this.change}
+                            <Selector
+                                name="isAdult"
+                                onChangeHandler={this.change}
                             />
-                            <label htmlFor="Action">Adult</label>
+                            <label htmlFor="isAction">Adult</label>
                         </div>
                     </div>
 

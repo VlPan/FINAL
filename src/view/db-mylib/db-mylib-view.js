@@ -3,11 +3,18 @@ import './db-mylib.scss';
 import './../shared-style/app.scss';
 import {LS} from '../../services';
 import {connect} from 'react-redux';
-import {deleteItem, filterItemsByName, setInitialState} from '../../store/actions';
+import {
+    deleteItem,
+    filterItemsByName,
+    toggleSearch,
+    initMyLib,
+    filterItemsAdvanced
+} from '../../store/actions';
 import {Link} from 'react-router-dom';
 import {
     Navbar,
-    Poster
+    Poster,
+    AdvancedSearch
 } from '../../components';
 import {Input} from '../../components/FormControls';
 
@@ -16,6 +23,7 @@ class MyLibViewComponent extends React.Component {
     constructor(props) {
         super(props);
         this.filterItemsByName = this.filterItemsByName.bind(this);
+        this.props.initMyLib();
     }
 
     filterItemsByName(e) {
@@ -37,8 +45,16 @@ class MyLibViewComponent extends React.Component {
                                placeholder="Search Saved Movies/TvShows"
                         />
                         <div className="md-search__box">
-                            <i className="fa fa-search md-search__icon" aria-hidden="true"></i>
+                            <i className="fa fa-search md-search__icon"
+                               aria-hidden="true"
+                               onClick={this.props.toggleSearch}
+                            ></i>
                         </div>
+                        <AdvancedSearch
+                            title="Advanced Search by MyLib"
+                            filterItemsAdvanced={this.props.filterItemsAdvanced}
+                            rememberFrom={LS.get('filterOptionsMyLib')}
+                        />
                     </div>
                     <Navbar itemsToRender={[{name: 'About'}]}/>
                 </div>
@@ -82,7 +98,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     deleteItem: (item) => dispatch(deleteItem(item)),
     filterItemsByName: (item) => dispatch(filterItemsByName(item)),
-    setInitialStateOfItems: () => dispatch(setInitialState())
+    toggleSearch: () => dispatch(toggleSearch()),
+    initMyLib: () => dispatch(initMyLib()),
+    filterItemsAdvanced: (searchOptions) => dispatch(filterItemsAdvanced(searchOptions))
 });
 
 export const MyLibView = connect(mapStateToProps, mapDispatchToProps)(MyLibViewComponent);

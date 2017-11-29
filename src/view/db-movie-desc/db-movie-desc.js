@@ -2,7 +2,7 @@ import React from 'react';
 import './db-movie-desc.scss';
 import './../shared-style/app.scss';
 import {connect} from 'react-redux';
-import {LS} from '../../services';
+import {LS, customLib} from '../../services';
 import {
     saveItem,
     deleteItem
@@ -41,7 +41,7 @@ export class MovieDescriptionComponent extends React.Component {
 
             return item.id === parseInt(this.props.match.params.id);
         });
-        if (LS.arrayIsNotEmpty(films)) {
+        if (customLib.arrayIsNotEmpty(films)) {
             console.log(true);
             this.setState(() => ({film: films[0]}));
         } else {
@@ -49,14 +49,14 @@ export class MovieDescriptionComponent extends React.Component {
                 films = LS.get('addedFilms').filter((item) => {
                     return item.id === this.props.match.params.id;
                 });
-                if (LS.arrayIsNotEmpty(films)) {
+                if (customLib.arrayIsNotEmpty(films)) {
                     console.log(true);
                     this.setState(() => ({film: films[0]}));
                 }
             }
         }
 
-        if (LS.arrayIsEmpty(films)) {
+        if (customLib.arrayIsEmpty(films)) {
             console.log(true);
             const entityMovieService = new EntityMovieService();
             entityMovieService.getMovieById(this.props.match.params.id).then((movie) => {
@@ -77,7 +77,7 @@ export class MovieDescriptionComponent extends React.Component {
 
             return item.id === parseInt(nextProps.match.params.id);
         });
-        if (LS.arrayIsNotEmpty(films)) {
+        if (customLib.arrayIsNotEmpty(films)) {
             console.log(true);
             this.setState(() => ({film: films[0]}));
         } else {
@@ -85,14 +85,14 @@ export class MovieDescriptionComponent extends React.Component {
                 films = LS.get('addedFilms').filter((item) => {
                     return item.id === nextProps.match.params.id;
                 });
-                if (LS.arrayIsNotEmpty(films)) {
+                if (customLib.arrayIsNotEmpty(films)) {
                     console.log(true);
                     this.setState(() => ({film: films[0]}));
                 }
             }
         }
 
-        if (LS.arrayIsEmpty(films)) {
+        if (customLib.arrayIsEmpty(films)) {
             console.log(true);
             const entityMovieService = new EntityMovieService();
             entityMovieService.getMovieById(nextProps.match.params.id).then((movie) => {
@@ -153,7 +153,7 @@ export class MovieDescriptionComponent extends React.Component {
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
-                                        compareArray={genres}
+                                        compareArray={genres.map(genre=>genre.name)}
                                         readOnly={true}
                                     />
                                     <div className="db-movie__flex db-movie__flex--column">

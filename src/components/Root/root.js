@@ -24,7 +24,7 @@ import {
     Redirect,
     NavLink
 } from 'react-router-dom';
-import {LS} from '../../services';
+import {LS, customLib} from '../../services';
 
 import {Loader} from 'react-loaders';
 
@@ -43,7 +43,7 @@ class RootComponent extends React.Component {
 
     render() {
         console.log('<---------PROOOOOPS-------->', this.props);
-        if (this.props.initialMovies.length && this.props.initialTvShows.length) {
+        if (customLib.arrayIsNotEmpty(this.props.fullMovies) && customLib.arrayIsNotEmpty(this.props.fullTvShows)) {
             return (
                 <Router>
                     <div className="md__main-container">
@@ -160,6 +160,8 @@ const mapStateToProps = (state) => {
     const movies = state.movieControl.movies;
     const tvShows = state.tvShowsControl.tvShows;
     const genres = state.genresControl.genres;
+    const fullMovies = state.movieControl.fullMovies;
+    const fullTvShows = state.tvShowsControl.fullTvShows;
     const initialMovies = state.movieControl.initialMovies;
     const initialTvShows = state.tvShowsControl.initialTvShows;
     const initialGenres = state.tvShowsControl.initialGenres;
@@ -170,9 +172,11 @@ const mapStateToProps = (state) => {
         tvShows,
         genres,
         initialMovies,
+        fullMovies,
         initialTvShows,
         initialGenres,
-        savedItems
+        savedItems,
+        fullTvShows
     };
 };
 

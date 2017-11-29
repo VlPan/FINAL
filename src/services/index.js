@@ -17,3 +17,8 @@ export {
 export {
     LS
 } from './LS';
+
+
+export {
+    customLib
+} from './customLib';

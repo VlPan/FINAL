@@ -2,7 +2,7 @@ import React from 'react';
 import './db-tv-show-desc.scss';
 import './../shared-style/app.scss';
 import {connect} from 'react-redux';
-import {LS} from '../../services';
+import {LS, customLib} from '../../services';
 import {
     saveItem,
     deleteItem
@@ -39,7 +39,7 @@ export class TvShowDescriptionComponent extends React.Component {
         let tvShows = LS.get('tvShows').filter((item) => {
             return item.id === parseInt(this.props.match.params.id);
         });
-        if (LS.arrayIsNotEmpty(tvShows)) {
+        if (customLib.arrayIsNotEmpty(tvShows)) {
             console.log('TV IN LS');
             this.setState(() => ({tvShow: tvShows[0]}));
         } else {
@@ -47,14 +47,14 @@ export class TvShowDescriptionComponent extends React.Component {
                 tvShows = LS.get('addedTvShows').filter((item) => {
                     return item.id === this.props.match.params.id;
                 });
-                if (LS.arrayIsNotEmpty(tvShows)) {
+                if (customLib.arrayIsNotEmpty(tvShows)) {
                     console.log('TV IN LS 2');
                     this.setState(() => ({tvShow: tvShows[0]}));
                 }
             }
         }
 
-        if (LS.arrayIsEmpty(tvShows)) {
+        if (customLib.arrayIsEmpty(tvShows)) {
             const entityTvService = new EntityTvService();
             entityTvService.getTvShowById(this.props.match.params.id).then((tvShow) => {
                 return entityTvService.getRecommended(this.props.match.params.id).then((recommendedTv) => {
@@ -72,7 +72,7 @@ export class TvShowDescriptionComponent extends React.Component {
         let tvShows = LS.get('tvShows').filter((item) => {
             return item.id === parseInt(nextProps.match.params.id);
         });
-        if (LS.arrayIsNotEmpty(tvShows)) {
+        if (customLib.arrayIsNotEmpty(tvShows)) {
             console.log('TV IN LS');
             this.setState(() => ({tvShow: tvShows[0]}));
         } else {
@@ -80,14 +80,14 @@ export class TvShowDescriptionComponent extends React.Component {
                 tvShows = LS.get('addedTvShows').filter((item) => {
                     return item.id === nextProps.match.params.id;
                 });
-                if (LS.arrayIsNotEmpty(tvShows)) {
+                if (customLib.arrayIsNotEmpty(tvShows)) {
                     console.log('TV IN LS 2');
                     this.setState(() => ({tvShow: tvShows[0]}));
                 }
             }
         }
 
-        if (LS.arrayIsEmpty(tvShows)) {
+        if (customLib.arrayIsEmpty(tvShows)) {
             const entityTvService = new EntityTvService();
             entityTvService.getTvShowById(nextProps.match.params.id).then((tvShow) => {
                 return entityTvService.getRecommended(nextProps.match.params.id).then((recommendedTv) => {
@@ -151,7 +151,7 @@ export class TvShowDescriptionComponent extends React.Component {
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
-                                        compareArray={genres}
+                                        compareArray={genres.map(genre=>genre.name)}
                                         readOnly={true}
                                     />
                                     <div className="db-tv-show__flex db-tv-show__flex--column">

@@ -4,6 +4,7 @@ import {
     INIT_GENRES,
     INIT_MOVIES,
     INIT_TV_SHOWS,
+    INIT_MYLIB,
     INITED_GENRES,
     INITED_MOVIES,
     INITED_TV_SHOWS,
@@ -14,7 +15,9 @@ import {
     SAVE_ITEM,
     DELETE_ITEM,
     FILTER_ITEMS_BY_NAME,
-    SET_INITIAL_STATE
+    FILTER_ITEMS_ADVANCED,
+    FILTER_TV_SHOWS_ADVANCED,
+    FILTER_MOVIES_ADVANCED
 } from './store.types';
 
 export function dataWasRecived(payload) {
@@ -101,6 +104,12 @@ export function addTvShow(payload) {
         payload
     };
 }
+export function initMyLib(payload) {
+    return {
+        type: INIT_MYLIB,
+        payload
+    };
+}
 
 export function saveItem(payload) {
     return {
@@ -122,6 +131,28 @@ export function filterItemsByName(payload) {
         payload
     };
 }
+
+export function filterMoviesAdvanced(payload) {
+    return {
+        type: FILTER_MOVIES_ADVANCED,
+        payload
+    };
+}
+
+export function filterTvShowsAdvanced(payload) {
+    return {
+        type: FILTER_TV_SHOWS_ADVANCED,
+        payload
+    };
+}
+
+export function filterItemsAdvanced(payload) {
+    return {
+        type: FILTER_ITEMS_ADVANCED,
+        payload
+    };
+}
+
 
 
 

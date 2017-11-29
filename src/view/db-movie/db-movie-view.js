@@ -9,15 +9,19 @@ import {
     addMovie,
     closeAddItemForm,
     saveItem,
-    deleteItem
+    deleteItem,
+    toggleSearch,
+    filterMoviesAdvanced
 } from '../../store/actions';
 import {Input} from '../../components/FormControls';
 import {
     Arrow,
     Poster,
     Navbar,
-    AddItemForm
+    AddItemForm,
+    AdvancedSearch
 } from './../../components';
+
 
 
 class MovieViewComponent extends React.Component {
@@ -43,6 +47,7 @@ class MovieViewComponent extends React.Component {
 
 
     render() {
+
         return (
             <div className="md__flex-box">
                 {
@@ -62,8 +67,16 @@ class MovieViewComponent extends React.Component {
                                        placeholder="Search Movies"
                                 />
                                 <div className="md-search__box">
-                                    <i className="fa fa-search md-search__icon" aria-hidden="true"></i>
+                                    <i className="fa fa-search md-search__icon"
+                                       aria-hidden="true"
+                                       onClick={this.props.toggleSearch}
+                                    ></i>
                                 </div>
+                                <AdvancedSearch
+                                    title="Advanced Search"
+                                    filterItemsAdvanced = {this.props.filterMoviesAdvanced}
+                                    rememberFrom={LS.get('filterOptionsMovies')}
+                                />
                             </div>
                             <Navbar
                                 modificators={['md-navbar--left-margin']}
@@ -142,7 +155,9 @@ class MovieViewComponent extends React.Component {
 const mapStateToProps = (state) => {
     const isOpenSidebar = state.layout.isOpenSidebar;
     const isOpenAddItemForm = state.layout.isOpenAddForm;
+    const isOpenSearchForm = state.layout.isOpenSearch;
     const movies = state.movieControl.movies;
+    const fullMovies = state.movieControl.fullMovies;
     const genres = state.genresControl.genres;
     const savedItems = state.myLib.savedItems;
     return {
@@ -150,17 +165,20 @@ const mapStateToProps = (state) => {
         isOpenAddItemForm,
         movies,
         genres,
-        savedItems
+        savedItems,
+        fullMovies
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
     openAddItemForm: () => dispatch(openAddItemForm()),
+    toggleSearch: () => dispatch(toggleSearch()),
     closeAddItemForm: () => dispatch(closeAddItemForm()),
     filterMoviesByName: (string) => dispatch(filterMoviesByName(string)),
     addMovie: (movie) => dispatch(addMovie(movie)),
     saveItem: (item) => dispatch(saveItem(item)),
-    deleteItem: (item) => dispatch(deleteItem(item))
+    deleteItem: (item) => dispatch(deleteItem(item)),
+    filterMoviesAdvanced: (searchOptions) => dispatch(filterMoviesAdvanced(searchOptions))
 });
 
 export const MovieView = connect(mapStateToProps, mapDispatchToProps)(MovieViewComponent);

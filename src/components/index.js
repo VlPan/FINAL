@@ -5,4 +5,5 @@ export * from './db-nav';
 export * from './db-poster';
 export * from './db-sidebar';
 export * from './db-selector-box';
+export * from './db-advanced-search';
 export * from '../view/db-tv-show-desc';

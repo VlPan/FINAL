@@ -1,6 +1,7 @@
 import React from 'react';
 import './db-selector-box.scss';
 import chunk from 'chunk';
+import {Selector} from '../FormControls';
 
 export const SelectorBox = (props) => {
     const arr = props.array;
@@ -13,17 +14,18 @@ export const SelectorBox = (props) => {
                         {array.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <input
-                                        type="checkbox"
+                                    <Selector
                                         name="genre"
                                         value={item.name}
                                         readOnly={props.readOnly}
                                         checked={
                                             props.compareArray &&
                                             props.compareArray.map((propsItem) => {
-                                                return propsItem.name === item.name;
+                                                return propsItem === item.name;
                                             }).includes(true)
-                                        }/>
+                                        }
+                                        onChangeHandler={props.onChangeHandler}
+                                    />
                                     <label>{item.name}</label>
                                 </div>
                             );
