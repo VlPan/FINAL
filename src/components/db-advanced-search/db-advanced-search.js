@@ -34,8 +34,9 @@ export class AdvancedSearchFormComponent extends React.Component {
             isAdult: this.filterOptions && this.filterOptions.adult || false,
             genresFromServer: LS.get('genres'),
             rememberInputs: this.filterOptions && this.filterOptions.rememberInputs || false,
-            vote: 0,
-            popularity: 300
+            vote: this.filterOptions && this.filterOptions.vote || 0,
+            popularity: this.filterOptions && this.filterOptions.popularity || 0,
+            custom: this.filterOptions && this.filterOptions.custom || false
         };
     }
 
@@ -82,7 +83,9 @@ export class AdvancedSearchFormComponent extends React.Component {
     }
 
     filterItems(e) {
+        console.log('FILTER');
         e.preventDefault();
+        e.stopPropagation();
         let genreIds = this.state.genresFromServer.filter((genre) => {
             return this.state.genre.includes(genre.name);
         });
@@ -92,10 +95,14 @@ export class AdvancedSearchFormComponent extends React.Component {
             desc: this.state.desc,
             genreIds: genreIds,
             adult: this.state.isAdult,
-            rememberInputs: this.state.rememberInputs
+            vote: this.state.vote,
+            popularity: this.state.popularity,
+            rememberInputs: this.state.rememberInputs,
+            custom: this.state.custom
         };
         console.log(newItem);
         this.props.filterItemsAdvanced(newItem);
+        this.props.closeSearch();
     }
 
 
@@ -138,7 +145,7 @@ export class AdvancedSearchFormComponent extends React.Component {
                         <div className='slider slider--yellow'>
                             <Slider
                                 min={0}
-                                max={1400}
+                                max={800}
                                 step={30}
                                 value={popularity}
                                 onChange={this.handleChangePopularity}
@@ -173,12 +180,17 @@ export class AdvancedSearchFormComponent extends React.Component {
                                 onChangeHandler={this.change}
                                 checked={this.state.rememberInputs}
                             />
-                            />
                             <label htmlFor="RememberInputs">Remember Inputs</label>
+                            <Selector
+                                name="custom"
+                                onChangeHandler={this.change}
+                                checked={this.state.custom}
+                            />
+                            <label htmlFor="custom">Custom</label>
                         </div>
                         <Button
                             onClickHandler={this.filterItems}
-                            value="Add"
+                            value="Search"
                         />
                     </div>
                 </form>

@@ -27,11 +27,13 @@
 
 .db-movie__flex--column {
   flex-direction: column;
+  width: 300px;
 }
 
 .db-movie__desc {
   overflow: auto;
   height: 400px;
+  width: 80%;
 }
 
 .db-movie__name {
@@ -46,3 +48,10 @@
   height: 400px;
 }
 
+.slider--yellow .rangeslider-horizontal .rangeslider__fill{
+  background-color: #939e19;
+}
+
+.slider--green .rangeslider-horizontal .rangeslider__fill{
+  background-color: #579e18;
+}

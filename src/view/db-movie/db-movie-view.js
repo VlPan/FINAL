@@ -1,6 +1,6 @@
 import React from 'react';
 import './../shared-style/app.scss';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {LS} from '../../services';
 import {connect} from 'react-redux';
 import {
@@ -11,7 +11,8 @@ import {
     saveItem,
     deleteItem,
     toggleSearch,
-    filterMoviesAdvanced
+    filterMoviesAdvanced,
+    closeSearch
 } from '../../store/actions';
 import {Input} from '../../components/FormControls';
 import {
@@ -21,7 +22,6 @@ import {
     AddItemForm,
     AdvancedSearch
 } from './../../components';
-
 
 
 class MovieViewComponent extends React.Component {
@@ -43,6 +43,8 @@ class MovieViewComponent extends React.Component {
 
     componentWillUnmount() {
         this.props.closeAddItemForm();
+        this.props.closeSearch();
+        this.props.filterMoviesByName('');
     }
 
 
@@ -60,29 +62,27 @@ class MovieViewComponent extends React.Component {
                 }
                 <div className="md__content">
                     <div className="md__navbarmd__navbar--white-text">
-                        <div className="md__container">
+                        <div className="md__nav-container">
                             <div className="md-search">
                                 <Input onKeyUpHandler={this.filterItemsByName}
                                        className="md-search__input"
                                        placeholder="Search Movies"
                                 />
-                                <div className="md-search__box">
-                                    <i className="fa fa-search md-search__icon"
-                                       aria-hidden="true"
-                                       onClick={this.props.toggleSearch}
-                                    ></i>
+                                <div className="md-search__container">
+                                    <div className="md-search__box" onClick={this.props.toggleSearch}>
+                                        <i className="fa fa-search md-search__icon"
+                                           aria-hidden="true"
+                                        ></i>
+                                    </div>
+                                    <AdvancedSearch
+                                        title="Advanced Search"
+                                        filterItemsAdvanced={this.props.filterMoviesAdvanced}
+                                        rememberFrom={LS.get('filterOptionsMovies')}
+                                    />
                                 </div>
-                                <AdvancedSearch
-                                    title="Advanced Search"
-                                    filterItemsAdvanced = {this.props.filterMoviesAdvanced}
-                                    rememberFrom={LS.get('filterOptionsMovies')}
-                                />
                             </div>
                             <Navbar
                                 modificators={['md-navbar--left-margin']}
-                                itemsToRender={[
-                                    {name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}
-                                ]}
                                 openAddMovieForm={this.props.openAddItemForm}
                                 isOpenAddMovieForm={this.props.isOpenAddItemForm}
                             >
@@ -92,6 +92,12 @@ class MovieViewComponent extends React.Component {
                                     onClick={this.props.openAddItemForm}>
                                     Add Movie
                                 </li>
+                                <NavLink
+                                    to="/about"
+                                    activeClassName="md-about--red-color"
+                                    className="md-navbar__nav-item">
+                                    About
+                                </NavLink>
                             </Navbar>
                         </div>
                     </div>
@@ -173,6 +179,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     openAddItemForm: () => dispatch(openAddItemForm()),
     toggleSearch: () => dispatch(toggleSearch()),
+    closeSearch: () => dispatch(closeSearch()),
     closeAddItemForm: () => dispatch(closeAddItemForm()),
     filterMoviesByName: (string) => dispatch(filterMoviesByName(string)),
     addMovie: (movie) => dispatch(addMovie(movie)),

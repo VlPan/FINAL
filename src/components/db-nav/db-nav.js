@@ -7,7 +7,7 @@ export const Navbar = (props) => {
         <div className={props.modificators ? ['md-navbar', ...props.modificators].join(' ') : 'md-navbar'}>
             <ul className="md-navbar__container">
                 {props.children}
-                {props.itemsToRender.map((item, index) => {
+                {props.itemsToRender && props.itemsToRender.map((item, index) => {
                     return (
                         <li className='md-navbar__nav-item' key={index}>{item.name}</li>
                     );

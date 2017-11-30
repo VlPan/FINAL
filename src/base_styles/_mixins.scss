@@ -1,0 +1,19 @@
+@mixin button($padding){
+  padding: $padding;
+  cursor: pointer;
+}
+
+@mixin submit-button($innerColor) {
+  @include button(5px 25px);
+  color: $innerColor;
+  background-color: #289b39;
+  border: 1px solid #e3fce6;
+}
+
+@mixin cancel-button($innerColor) {
+  @include button(5px 10px);
+  color: $innerColor;
+  background-color: #fc3232;
+  border: 1px solid #f9efef;
+}
+

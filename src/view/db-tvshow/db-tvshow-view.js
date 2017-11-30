@@ -1,6 +1,6 @@
 import React from 'react';
 import './../shared-style/app.scss';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {LS} from '../../services';
 import {connect} from 'react-redux';
 import {
@@ -11,7 +11,8 @@ import {
     saveItem,
     deleteItem,
     filterTvShowsAdvanced,
-    toggleSearch
+    toggleSearch,
+    closeSearch
 } from '../../store/actions';
 import {Input} from '../../components/FormControls';
 import {
@@ -34,8 +35,10 @@ export class TvShowViewComponent extends React.Component {
         };
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.props.closeAddItemForm();
+        this.props.closeSearch();
+        this.props.filterTvShowsByName('');
     }
 
     render() {
@@ -46,30 +49,30 @@ export class TvShowViewComponent extends React.Component {
                     <Arrow arrowState={this.state.arrow} handleArrowMove={this.handleArrowMove}/>
                 }
                 <div className="md__content">
-                    <div className="md__navbarmd__navbar--white-text">
-                        <div className="md__container">
+                    <div className="md__navbar__navbar--white-text">
+                        <div className="md__nav-container">
+
                             <div className="md-search">
                                 <Input onKeyUpHandler={this.filterItemsByName}
                                        className="md-search__input"
                                        placeholder="Search Tv SHows"
                                 />
-                                <div className="md-search__box">
-                                    <i className="fa fa-search md-search__icon"
-                                       aria-hidden="true"
-                                       onClick={this.props.toggleSearch}
-                                    ></i>
+                                <div className="md-search__container" >
+                                    <div className="md-search__box" onClick={this.props.toggleSearch}>
+                                        <i className="fa fa-search md-search__icon"
+                                           aria-hidden="true"
+
+                                        ></i>
+                                    </div>
+                                    <AdvancedSearch
+                                        title="Advanced Search by Tv Shows"
+                                        filterItemsAdvanced={this.props.filterTvShowsAdvanced}
+                                        rememberFrom={LS.get('filterOptionsTvs')}
+                                    />
                                 </div>
-                                <AdvancedSearch
-                                    title="Advanced Search by Tv Shows"
-                                    filterItemsAdvanced = {this.props.filterTvShowsAdvanced}
-                                    rememberFrom={LS.get('filterOptionsTvs')}
-                                />
                             </div>
                             <Navbar
                                 modificators={['md-navbar--left-margin']}
-                                itemsToRender={[
-                                    {name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}
-                                ]}
                                 openAddMovieForm={this.props.openAddItemForm}
                                 isOpenAddMovieForm={this.props.isOpenAddItemForm}
                             >
@@ -79,6 +82,12 @@ export class TvShowViewComponent extends React.Component {
                                     onClick={this.props.openAddItemForm}>
                                     Add TvShow
                                 </li>
+                                <NavLink
+                                    to="/about"
+                                    activeClassName="md-about--red-color"
+                                    className="md-navbar__nav-item">
+                                    About
+                                </NavLink>
                             </Navbar>
                         </div>
                     </div>
@@ -153,6 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
     openAddItemForm: () => dispatch(openAddItemForm()),
     closeAddItemForm: () => dispatch(closeAddItemForm()),
     toggleSearch: () => dispatch(toggleSearch()),
+    closeSearch: () => dispatch(closeSearch()),
     filterTvShowsByName: (string) => dispatch(filterTvShowsByName(string)),
     addTvShow: (tvShow) => dispatch(addTvShow(tvShow)),
     saveItem: (item) => dispatch(saveItem(item)),

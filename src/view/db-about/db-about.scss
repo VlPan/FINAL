@@ -1,0 +1,35 @@
+@import './../../base_styles/mixins';
+
+.md-about--red-color{
+  color: red;
+}
+
+.md-about--underline{
+  text-decoration: underline;
+}
+
+.md-about--grey-color{
+  color: grey;
+}
+
+.md-about__title{
+  margin-top: 100px;
+  font-size: 40px;
+}
+
+.md-about__text{
+  height: 300px;
+  overflow: auto;
+  width: 60%
+}
+
+.md-about__icon{
+  width: 40%;
+  font-size: 320px;
+}
+
+.md-about__icon--flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

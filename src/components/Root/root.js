@@ -17,6 +17,8 @@ import {PageNotFound} from '../../view/db-not-found/db-page-not-found';
 import {MovieView} from '../../view/db-movie/db-movie-view';
 import {TvShowView} from '../../view/db-tvshow/db-tvshow-view';
 import {MyLibView} from '../../view/db-mylib/db-mylib-view';
+import {Support} from '../../view/db-support/db-support';
+import {About} from '../../view/db-about/db-about';
 import {
     BrowserRouter as Router,
     Route,
@@ -25,7 +27,6 @@ import {
     NavLink
 } from 'react-router-dom';
 import {LS, customLib} from '../../services';
-
 import {Loader} from 'react-loaders';
 
 
@@ -134,6 +135,16 @@ class RootComponent extends React.Component {
                             <Route exact path="/mylibrary"
                                    render={(props) =>
                                        <MyLibView {...props}/>
+                                   }
+                            />
+                            <Route exact path="/support"
+                                   render={(props) =>
+                                       <Support {...props}/>
+                                   }
+                            />
+                            <Route exact path="/about"
+                                   render={(props) =>
+                                       <About {...props}/>
                                    }
                             />
                             <Route path="/movies/:id" component={MovieDescription}/>

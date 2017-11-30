@@ -13,7 +13,8 @@ import {
     SelectorBox
 } from '../../components/';
 import {EntityTvService} from '../../services';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import Slider from 'react-rangeslider';
 
 
 export class TvShowDescriptionComponent extends React.Component {
@@ -24,7 +25,7 @@ export class TvShowDescriptionComponent extends React.Component {
             genresFromServer: LS.get('genres'),
             recommended: []
         };
-        if(!props.custom) {
+        if (!props.custom) {
             const entityTvService = new EntityTvService();
             entityTvService.getRecommended(this.props.match.params.id).then((recommendedMovies) => {
                 this.setState(() => ({
@@ -107,16 +108,19 @@ export class TvShowDescriptionComponent extends React.Component {
             let genres = this.state.genresFromServer.filter((genre) => {
                 return this.state.tvShow.genreIds.includes(genre.id);
             });
-            if (this.state.tvShow.custom) {
-                genres = this.state.tvShow.genreIds;
-            }
-
-            console.log(this.state);
-            console.log(genres);
             return (
-                <div className="md__view-container">
-                    <div className="md__container">
-                        <Navbar itemsToRender={[{name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}]}/>
+
+                <div className="md__content">
+
+                    <div className="md__nav-container">
+                        <Navbar>
+                            <NavLink
+                                to="/about"
+                                activeClassName="md-about--red-color"
+                                className="md-navbar__nav-item">
+                                About
+                            </NavLink>
+                        </Navbar>
                     </div>
                     <div className="md__content-container">
                         <div className="db-tv-show">
@@ -151,15 +155,33 @@ export class TvShowDescriptionComponent extends React.Component {
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
-                                        compareArray={genres.map(genre=>genre.name)}
+                                        compareArray={genres.map(genre => genre.name)}
                                         readOnly={true}
                                     />
-                                    <div className="db-tv-show__flex db-tv-show__flex--column">
-                                        <div className="db-tv-show__container">
+                                    {!this.state.tvShow.custom &&
+                                    <div className="db-movie__flex db-movie__flex--column">
+                                        <div className="db-movie__container ">
                                             <div>Popularity</div>
+                                            <div className="slider slider--yellow">
+                                                <Slider
+                                                    min={0}
+                                                    max={1000}
+                                                    step={50}
+                                                    value={this.state.tvShow.popularity}
+                                                />
+                                            </div>
                                             <div> Vote Average</div>
+                                            <div className="slider slider--green">
+                                                <Slider
+                                                    min={0}
+                                                    max={10}
+                                                    step={0.3}
+                                                    value={this.state.tvShow.vote}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
+                                    }
                                 </div>
                                 {this.state.recommended &&
                                 <div className="db-tv-show__recommended">
@@ -185,6 +207,8 @@ export class TvShowDescriptionComponent extends React.Component {
                         </div>
                     </div>
                 </div>
+
+
             );
         } else {
             return (

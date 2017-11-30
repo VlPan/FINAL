@@ -7,7 +7,7 @@
   position: absolute;
   top: 30px;
   z-index: 100;
-  left: 570px;
+  left: 50px;
   width: 500px;
   background-color: $main-color;
   color: grey;
@@ -76,11 +76,6 @@
   margin-left: 100px;
 }
 
-.md-add-item__text-area{
-  height: 350px;
-  border-radius: 20px;
-  border: 5px solid green;
-}
 
 .md-add-item__name{
   border-radius: 20px;
@@ -94,7 +89,23 @@
   background-color: #579e18;
 }
 
+.slider--yellow .rangeslider-horizontal .rangeslider__handle{
+  background-color: #939e19;
+}
+
+.slider--green .rangeslider-horizontal .rangeslider__handle{
+  background-color: #579e18;
+}
+.slider--yellow .rangeslider-horizontal .rangeslider__handle:after{
+  background-color: #939e19;
+}
+
+.slider--green .rangeslider-horizontal .rangeslider__handle:after{
+  background-color: #579e18;
+}
+
 .md-advanced-search__text-area{
   height: 100%;
-  border-radius: 25px;
+  border-radius: 15px;
+  padding: 5px;
 }

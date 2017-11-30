@@ -2,6 +2,7 @@
 @import './../../base_styles/base';
 @import './../../base_styles/reset.css';
 @import './../../base_styles/queries';
+@import './../../base_styles/mixins';
 @import './../../assets/font-awesome-4.7.0/css/font-awesome.min.css';
 @import '~loaders.css/src/animations/line-scale.scss';
 
@@ -15,8 +16,10 @@
   max-width: 65px;
 }
 
+
+
 .md__main-container {
-  width: 100%;
+
 }
 
 .md-sidebar__count {

@@ -28,6 +28,18 @@ customLib.filterArray = (array, filterOptions) => {
                 .some(elem => customLib.getUncommon(movie.desc, customLib.common).includes(elem));
         });
     }
+
+    if (filterOptions.vote && !filterOptions.custom) {
+        array = array.filter(movie => movie.vote >= filterOptions.vote);
+    }
+
+    if (filterOptions.popularity && !filterOptions.custom) {
+        array = array.filter(movie => movie.popularity >= filterOptions.popularity);
+    }
+
+    if (filterOptions.custom) {
+        array = array.filter(movie => movie.custom === true);
+    }
     return array;
 };
 

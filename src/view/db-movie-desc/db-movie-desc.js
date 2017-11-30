@@ -14,8 +14,9 @@ import {
 } from '../../components/';
 
 import {EntityMovieService} from '../../services';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {Loader} from 'react-loaders';
+import Slider from 'react-rangeslider';
 
 export class MovieDescriptionComponent extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export class MovieDescriptionComponent extends React.Component {
             genresFromServer: LS.get('genres'),
             recommended: []
         };
-        if(!props.custom){
+        if (!props.custom) {
             const entityMovieService = new EntityMovieService();
             entityMovieService.getRecommended(this.props.match.params.id).then((recommendedMovies) => {
                 this.setState(() => ({
@@ -111,15 +112,20 @@ export class MovieDescriptionComponent extends React.Component {
         if (this.state.film.id) {
             console.log('RENDER');
             let genres = this.state.genresFromServer.filter((genre) => {
+
                 return this.state.film.genreIds.includes(genre.id);
             });
-            if (this.state.film.custom) {
-                genres = this.state.film.genreIds;
-            }
             return (
-                <div className="md__view-container">
-                    <div className="md__container">
-                        <Navbar itemsToRender={[{name: 'About'}, {name: 'Pricing'}, {name: 'Blog'}]}/>
+                <div className="md__content">
+                    <div className="md__nav-container">
+                        <Navbar>
+                            <NavLink
+                                to="/about"
+                                activeClassName="md-about--red-color"
+                                className="md-navbar__nav-item">
+                                About
+                            </NavLink>
+                        </Navbar>
                     </div>
                     <div className="md__content-container">
                         <div className="db-movie">
@@ -153,35 +159,53 @@ export class MovieDescriptionComponent extends React.Component {
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
-                                        compareArray={genres.map(genre=>genre.name)}
+                                        compareArray={genres.map(genre => genre.name)}
                                         readOnly={true}
                                     />
+                                    {!this.state.film.custom &&
                                     <div className="db-movie__flex db-movie__flex--column">
-                                        <div className="db-movie__container">
+                                        <div className="db-movie__container ">
                                             <div>Popularity</div>
+                                            <div className="slider slider--yellow">
+                                                <Slider
+                                                    min={0}
+                                                    max={1000}
+                                                    step={50}
+                                                    value={this.state.film.popularity}
+                                                />
+                                            </div>
                                             <div> Vote Average</div>
+                                            <div className="slider slider--green">
+                                                <Slider
+                                                    min={0}
+                                                    max={10}
+                                                    step={0.3}
+                                                    value={this.state.film.vote}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
+                                    }
                                 </div>
-                                    <div className="db-movie__recommended">
-                                        {this.state.recommended.map((item, index) => {
-                                            let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
-                                            return (
-                                                <Link to={`/movies/${item.id}`} key={index}>
-                                                    <Poster
-                                                        item={item}
-                                                        name={item.name}
-                                                        imagePath={item.poster}
-                                                        key={item}
-                                                        saveItem={this.props.saveItem}
-                                                        deleteItem={this.props.deleteItem}
-                                                        saved={isAlreadySaved}
-                                                        modificators={isAlreadySaved && ['md-poster--green-border']}
-                                                    />
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
+                                <div className="db-movie__recommended">
+                                    {this.state.recommended.map((item, index) => {
+                                        let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
+                                        return (
+                                            <Link to={`/movies/${item.id}`} key={index}>
+                                                <Poster
+                                                    item={item}
+                                                    name={item.name}
+                                                    imagePath={item.poster}
+                                                    key={item}
+                                                    saveItem={this.props.saveItem}
+                                                    deleteItem={this.props.deleteItem}
+                                                    saved={isAlreadySaved}
+                                                    modificators={isAlreadySaved && ['md-poster--green-border']}
+                                                />
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -51,6 +51,7 @@ export function movieReducer(state = initialState, action) {
             LS.set('addedFilms', adddedFilms);
             return {
                 ...state,
+                fullMovies: state.fullMovies.concat(action.payload),
                 movies: state.initialMovies.concat(action.payload)
             };
         case FILTER_MOVIES_ADVANCED:

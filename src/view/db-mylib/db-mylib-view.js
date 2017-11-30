@@ -8,9 +8,10 @@ import {
     filterItemsByName,
     toggleSearch,
     initMyLib,
-    filterItemsAdvanced
+    filterItemsAdvanced,
+    closeSearch
 } from '../../store/actions';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {
     Navbar,
     Poster,
@@ -33,30 +34,39 @@ class MyLibViewComponent extends React.Component {
 
     componentWillUnmount() {
         this.props.filterItemsByName('');
+        this.props.closeSearch();
     }
 
     render() {
         return (
             <div className="md__view-container">
-                <div className="md__container">
+                <div className="md__nav-container">
                     <div className="md-search">
                         <Input onKeyUpHandler={this.filterItemsByName}
                                className="md-search__input"
                                placeholder="Search Saved Movies/TvShows"
                         />
-                        <div className="md-search__box">
-                            <i className="fa fa-search md-search__icon"
-                               aria-hidden="true"
-                               onClick={this.props.toggleSearch}
-                            ></i>
+                        <div className="md-search__container">
+                            <div className="md-search__box" onClick={this.props.toggleSearch}>
+                                <i className="fa fa-search md-search__icon"
+                                   aria-hidden="true"
+                                ></i>
+                            </div>
+                            <AdvancedSearch
+                                title="Advanced Search by MyLib"
+                                filterItemsAdvanced={this.props.filterItemsAdvanced}
+                                rememberFrom={LS.get('filterOptionsMyLib')}
+                            />
                         </div>
-                        <AdvancedSearch
-                            title="Advanced Search by MyLib"
-                            filterItemsAdvanced={this.props.filterItemsAdvanced}
-                            rememberFrom={LS.get('filterOptionsMyLib')}
-                        />
                     </div>
-                    <Navbar itemsToRender={[{name: 'About'}]}/>
+                    <Navbar modificators={['md-navbar--left-margin']}>
+                        <NavLink
+                            to="/about"
+                            activeClassName="md-about--red-color"
+                            className="md-navbar__nav-item">
+                            About
+                        </NavLink>
+                    </Navbar>
                 </div>
                 <div className="md__content">
                     <div className="md__content-container md__content-container--flex">
@@ -99,6 +109,7 @@ const mapDispatchToProps = (dispatch) => ({
     deleteItem: (item) => dispatch(deleteItem(item)),
     filterItemsByName: (item) => dispatch(filterItemsByName(item)),
     toggleSearch: () => dispatch(toggleSearch()),
+    closeSearch: () => dispatch(closeSearch()),
     initMyLib: () => dispatch(initMyLib()),
     filterItemsAdvanced: (searchOptions) => dispatch(filterItemsAdvanced(searchOptions))
 });

@@ -50,6 +50,7 @@ export function tvShowReducer(state = initialState, action) {
             LS.set('addedTvShows', adddedTvShows);
             return {
                 ...state,
+                fullTvShows: state.fullTvShows.concat(action.payload),
                 tvShows: state.initialTvShows.concat(action.payload)
             };
         case FILTER_TV_SHOWS_ADVANCED:
