@@ -20,7 +20,7 @@ import {MyLibView} from '../../view/db-mylib/db-mylib-view';
 import {Support} from '../../view/db-support/db-support';
 import {About} from '../../view/db-about/db-about';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Switch,
     Redirect,
