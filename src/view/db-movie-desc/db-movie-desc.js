@@ -136,7 +136,7 @@ export class MovieDescriptionComponent extends React.Component {
                                         <img src={this.state.film.poster} alt="Not found"/>
                                         }
                                         {this.state.film.custom &&
-                                        <img src="../../assets/img/logo.jpg" alt="Not found"/>
+                                        <img src="assets/img/logo.jpg" alt="Not found"/>
                                         }
 
                                     </div>

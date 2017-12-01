@@ -12,7 +12,7 @@ import {
 } from '../FormControls';
 import {closeSearch} from '../../store/actions';
 import Slider from 'react-rangeslider';
-import 'react-rangeslider/lib/Custom_index.css';
+import '../../base_styles/Custom_index.css';
 
 export class AdvancedSearchFormComponent extends React.Component {
 

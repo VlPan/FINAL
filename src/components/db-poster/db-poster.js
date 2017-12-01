@@ -23,7 +23,7 @@ export const Poster = (props) => {
                 <ImageLoader
                     src={props.imagePath || '../../assets/img/logo.jpg'}
                 >
-                    <img src={props.imagePath || '../../assets/img/tv.png'} className="md-film__image"/>
+                    <img src={props.imagePath || '../../assets/img/logo.jpg'} className="md-film__image"/>
                     <div>Error!</div>
 
                     <Loader type="line-scale" color="#f4df42" active/>
