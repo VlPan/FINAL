@@ -27,5 +27,5 @@ module.exports = merge(commonConfig, {
                 failOnError: false
             }
         } ]
-    }   
+    }
 });
