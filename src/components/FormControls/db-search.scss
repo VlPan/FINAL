@@ -1,17 +1,17 @@
 @import "../../base_styles/settings";
 
-.md-search {
+.db-search {
   display: flex;
 }
 
-.md-search__input {
+.db-search__input {
   background: transparent;
   padding: 10px 20px;
   color: $grey-color;
   position: relative;
 }
 
-.md-search__box {
+.db-search__box {
   width: 40px;
   background-color: white;
   display: flex;
@@ -23,22 +23,22 @@
   margin-right: 10px;
 }
 
-.md-search__box--black-box{
+.db-search__box--black-box{
   background: $main-color;
   border: 1px solid darkgreen;
 }
 
 
-.md-search__icon {
+.db-search__icon {
   color: black;
   font-size: $icons-font;
 
 }
 
-.md-search__icon--red-icon{
+.db-search__icon--red-icon{
   color: red;
 }
 
-.md-search__container{
+.db-search__container{
   display: flex;
 }

@@ -87,37 +87,37 @@ export class TvShowDescriptionComponent extends React.Component {
             });
             return (
 
-                <div className="md__content">
+                <div className="db__content">
 
-                    <div className="md__nav-container">
-                        <Navbar modificators={['md-navbar--left-margin']}>
+                    <div className="db__nav-container">
+                        <Navbar modificators={['db-navbar--left-margin']}>
                             <NavLink
                                 to="/about"
-                                activeClassName="md-about--red-color"
-                                className="md-navbar__nav-item">
+                                activeClassName="db-about--red-color"
+                                className="db-navbar__nav-item">
                                 About
                             </NavLink>
                         </Navbar>
                     </div>
-                    <div className="md__content-container">
-                        <div className="md-tv-show">
-                            <div className="md-tv-show__container">
-                                <div className="md-tv-show__flex">
-                                    <div className="md-tv-show__image">
+                    <div className="db__content-container">
+                        <div className="db-tv-show">
+                            <div className="db-tv-show__container">
+                                <div className="db-tv-show__flex">
+                                    <div className="db-tv-show__image">
                                         {this.state.tvShow.poster &&
                                         <img src={this.state.tvShow.poster} alt="Not found"/>
                                         }
 
                                         {this.state.tvShow.custom &&
                                         <img src={this.state.tvShow.posterImg || '../../assets/img/logo.jpg'}
-                                             alt="Not found" className="md-film__image"/>
+                                             alt="Not found" className="db-film__image"/>
                                         }
                                     </div>
-                                    <div className="md-tv-show__info">
-                                        <div className="md-tv-show__name">
+                                    <div className="db-tv-show__info">
+                                        <div className="db-tv-show__name">
                                             {this.state.tvShow.name}
                                         </div>
-                                        <div className="md-tv-show__desc">
+                                        <div className="db-tv-show__desc">
                                             <p>{this.state.tvShow.desc}</p>
                                             <p>{this.state.tvShow.desc}</p>
                                             <p>{this.state.tvShow.desc}</p>
@@ -128,7 +128,7 @@ export class TvShowDescriptionComponent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="md-tv-show__flex">
+                                <div className="db-tv-show__flex">
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
@@ -136,8 +136,8 @@ export class TvShowDescriptionComponent extends React.Component {
                                         readOnly={true}
                                     />
                                     {!this.state.tvShow.custom &&
-                                    <div className="md-movie__flex md-movie__flex--column">
-                                        <div className="md-movie__container ">
+                                    <div className="db-movie__flex db-movie__flex--column">
+                                        <div className="db-movie__container ">
                                             <div>Popularity</div>
                                             <div className="slider slider--yellow">
                                                 <Slider
@@ -161,7 +161,7 @@ export class TvShowDescriptionComponent extends React.Component {
                                     }
                                 </div>
                                 {customLib.arrayIsNotEmpty(this.state.recommended) ?
-                                    <div className="md-tv-show__recommended">
+                                    <div className="db-tv-show__recommended">
                                         {this.state.recommended.map((item, index) => {
                                             let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
                                             return (
@@ -174,7 +174,7 @@ export class TvShowDescriptionComponent extends React.Component {
                                                         saveItem={this.props.saveItem}
                                                         deleteItem={this.props.deleteItem}
                                                         saved={isAlreadySaved}
-                                                        modificators={isAlreadySaved && ['md-poster--green-border']}
+                                                        modificators={isAlreadySaved && ['db-poster--green-border']}
                                                     />
                                                 </Link>
                                             );
@@ -182,9 +182,9 @@ export class TvShowDescriptionComponent extends React.Component {
                                     </div>
                                     :
                                     !this.state.tvShow.custom &&
-                                    <div className="md-tv-show__container">
-                                        <div className="md__loading-container">
-                                            <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                                    <div className="db-tv-show__container">
+                                        <div className="db__loading-container">
+                                            <Loader type="line-scale" innerClassName="db-lod" color="#f4df42" active/>
                                         </div>
                                     </div>
                                 }
@@ -197,8 +197,8 @@ export class TvShowDescriptionComponent extends React.Component {
             );
         } else {
             return (
-                <div className="md__loading-container">
-                    <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                <div className="db__loading-container">
+                    <Loader type="line-scale" innerClassName="db-lod" color="#f4df42" active/>
                 </div>
             );
         }

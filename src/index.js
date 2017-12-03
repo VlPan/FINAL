@@ -8,7 +8,7 @@ import { appStore } from './store';
 ReactDOM.render(
     <Provider store={appStore}>
         <Root />
-    </Provider>, document.querySelector('.md')
+    </Provider>, document.querySelector('.db')
 );
 
 

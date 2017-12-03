@@ -9,11 +9,11 @@ export class Arrow extends React.Component{
     render(){
         return (
             <div
-                className={this.props.modificators ? ['md-arrow', ...this.props.modificators]. join(' ') : 'md-arrow'}
+                className={this.props.modificators ? ['db-arrow', ...this.props.modificators]. join(' ') : 'db-arrow'}
                 onClick={this.props.onClick}
             >
-                {this.props.arrowIsDown && <i className="fa fa-arrow-down md-arrow__arrow" aria-hidden="true"></i>}
-                {!this.props.arrowIsDown && <i className="fa fa-arrow-up md-arrow__arrow" aria-hidden="true"></i>}
+                {this.props.arrowIsDown && <i className="fa fa-arrow-down db-arrow__arrow" aria-hidden="true"></i>}
+                {!this.props.arrowIsDown && <i className="fa fa-arrow-up db-arrow__arrow" aria-hidden="true"></i>}
             </div>
         );
     }

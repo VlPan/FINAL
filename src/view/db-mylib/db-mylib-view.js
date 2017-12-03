@@ -51,16 +51,16 @@ class MyLibViewComponent extends React.Component {
 
     render() {
         return (
-            <div className="md__view-container">
-                <div className="md__nav-container">
-                    <div className="md-search">
+            <div className="db__view-container">
+                <div className="db__nav-container">
+                    <div className="db-search">
                         <Input onKeyUpHandler={this.filterItemsByName}
-                               className="md-search__input"
+                               className="db-search__input"
                                placeholder="Search Saved Movies/TvShows"
                         />
-                        <div className="md-search__container">
-                            <div className="md-search__box" onClick={this.props.toggleSearch}>
-                                <i className="fa fa-search md-search__icon"
+                        <div className="db-search__container">
+                            <div className="db-search__box" onClick={this.props.toggleSearch}>
+                                <i className="fa fa-search db-search__icon"
                                    aria-hidden="true"
                                 ></i>
                             </div>
@@ -70,29 +70,29 @@ class MyLibViewComponent extends React.Component {
                                 rememberFrom={LS.get('filterOptionsMyLib')}
                             />
                             {LS.get('filterOptionsMyLib') &&
-                            <div className="md-search__box md-search__box--black-box" onClick={() => {
+                            <div className="db-search__box db-search__box--black-box" onClick={() => {
                                 localStorage.removeItem('filterOptionsMyLib');
                                 this.props.filterItemsAdvanced({});
                                 this.props.watchAllItems();
                             }}>
-                                <i className="fa fa-ban md-search__icon md-search__icon--red-icon"
+                                <i className="fa fa-ban db-search__icon db-search__icon--red-icon"
                                    aria-hidden="true"
                                 ></i>
                             </div>
                             }
                         </div>
                     </div>
-                    <Navbar modificators={['md-navbar--left-margin']}>
+                    <Navbar modificators={['db-navbar--left-margin']}>
                         <NavLink
                             to="/about"
-                            activeClassName="md-about--red-color"
-                            className="md-navbar__nav-item">
+                            activeClassName="db-about--red-color"
+                            className="db-navbar__nav-item">
                             About
                         </NavLink>
                     </Navbar>
                 </div>
-                <div className="md__content">
-                    <div className="md__content-container md__content-container--flex">
+                <div className="db__content">
+                    <div className="db__content-container db__content-container--flex">
                         {this.props.savedItems.map((item, index) => {
                             let linkTo;
                             if (item.movie) {
@@ -110,7 +110,7 @@ class MyLibViewComponent extends React.Component {
                                         saveItem={this.props.saveItem}
                                         deleteItem={this.props.deleteItem}
                                         saved={true}
-                                        modificators={item.watched && ['md-poster--watched']}
+                                        modificators={item.watched && ['db-poster--watched']}
                                     />
                                 </Link>
                             );

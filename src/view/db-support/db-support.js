@@ -8,6 +8,7 @@ import {
 } from '../../components';
 import {Button, TextArea, Input} from '../../components/FormControls';
 
+
 export class SupportComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -44,58 +45,58 @@ export class SupportComponent extends React.Component {
 
     render() {
         return (
-            <div className="md__content">
-                <div className="md__nav-container">
-                    <Navbar modificators={['md-navbar--left-margin']}>
+            <div className="db__content">
+                <div className="db__nav-container">
+                    <Navbar modificators={['db-navbar--left-margin']}>
                         <NavLink
                             to="/about"
-                            activeClassName="md-about--red-color"
-                            className="md-navbar__nav-item">
+                            activeClassName="db-about--red-color"
+                            className="db-navbar__nav-item">
                             About
                         </NavLink>
                     </Navbar>
                 </div>
-                <div className="md__container">
-                    <div className="md__flex-row">
-                        <div className="md__flex-column md-support__main-params">
-                            <h1 className="md-support__title">Request</h1>
-                            <label className="md-support__title-form">Name</label>
+                <div className="db__container">
+                    <div className="db__flex-row">
+                        <div className="db__flex-column db-support__main-params">
+                            <h1 className="db-support__title">Request</h1>
+                            <label className="db-support__title-form">Name</label>
                             <Input
                                 onChangeHandler={this.change}
                                 name="name"
-                                className="md-support__name"
+                                className="db-support__name"
                             />
-                            <label className="md-support__title-form">Description</label>
+                            <label className="db-support__title-form">Description</label>
                             <TextArea
                                 name="desc"
-                                className="md-support__desc"
+                                className="db-support__desc"
                             />
                         </div>
-                        <div className="md__flex-column md-support__poster">
-                            <div className="md-add-movie__drop-files" draggable="true"
+                        <div className="db__flex-column db-support__poster">
+                            <div className="db-add-movie__drop-files" draggable="true"
                                  ref={div => {
                                      this.dropzone = div;
                                  }}>
 
                             </div>
-                            <div className="md-add-movie__dropped">
-                                <img src="" alt="" className="md-add-movie__dropped-image"
+                            <div className="db-add-movie__dropped">
+                                <img src="" alt="" className="db-add-movie__dropped-image"
                                      ref={img => {
                                          this.dropped = img;
                                      }}/>
                             </div>
                         </div>
                     </div>
-                    <div className="md-support__buttons">
-                        <div className="md-flex-row md-flex-row--reverse">
+                    <div className="db-support__buttons">
+                        <div className="db-flex-row db-flex-row--reverse">
 
                             <Button
                                 value="Cancel"
-                                className="md-support__cancel"
+                                className="db-support__cancel"
                             />
                             <Button
                                 value="Submit"
-                                className="md-support__submit"
+                                className="db-support__submit"
                             />
 
                         </div>

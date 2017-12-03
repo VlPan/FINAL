@@ -89,37 +89,37 @@ export class MovieDescriptionComponent extends React.Component {
                 return this.state.film.genreIds.includes(genre.id);
             });
             return (
-                <div className="md__content">
-                    <div className="md__nav-container">
-                            <Navbar modificators={['md-navbar--left-margin']}>
+                <div className="db__content">
+                    <div className="db__nav-container">
+                            <Navbar modificators={['db-navbar--left-margin']}>
                                 <NavLink
                                     to="/about"
-                                    activeClassName="md-about--red-color"
-                                    className="md-navbar__nav-item">
+                                    activeClassName="db-about--red-color"
+                                    className="db-navbar__nav-item">
                                     About
                                 </NavLink>
                             </Navbar>
                     </div>
-                    <div className="md__content-container">
-                        <div className="md-movie">
-                            <div className="md-movie__container">
-                                <div className="md-movie__flex">
-                                    <div className="md-movie__image">
+                    <div className="db__content-container">
+                        <div className="db-movie">
+                            <div className="db-movie__container">
+                                <div className="db-movie__flex">
+                                    <div className="db-movie__image">
                                         {this.state.film.poster &&
                                         <img src={this.state.film.poster} alt="Not found"/>
                                         }
                                         {this.state.film.custom &&
                                         <img src={this.state.film.posterImg || '../../assets/img/logo.jpg'}
-                                             alt="Not found" className="md-film__image"/>
+                                             alt="Not found" className="db-film__image"/>
                                         }
 
 
                                     </div>
-                                    <div className="md-movie__info">
-                                        <div className="md-movie__name">
+                                    <div className="db-movie__info">
+                                        <div className="db-movie__name">
                                             {this.state.film.name}
                                         </div>
-                                        <div className="md-movie__desc">
+                                        <div className="db-movie__desc">
                                             <p>{this.state.film.desc}</p>
                                             <p>{this.state.film.desc}</p>
                                             <p>{this.state.film.desc}</p>
@@ -130,7 +130,7 @@ export class MovieDescriptionComponent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="md-movie__flex">
+                                <div className="db-movie__flex">
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
@@ -138,8 +138,8 @@ export class MovieDescriptionComponent extends React.Component {
                                         readOnly={true}
                                     />
                                     {!this.state.film.custom &&
-                                    <div className="md-movie__flex md-movie__flex--column">
-                                        <div className="md-movie__container ">
+                                    <div className="db-movie__flex db-movie__flex--column">
+                                        <div className="db-movie__container ">
                                             <div>Popularity</div>
                                             <div className="slider slider--yellow">
                                                 <Slider
@@ -163,7 +163,7 @@ export class MovieDescriptionComponent extends React.Component {
                                     }
                                 </div>
                                 {customLib.arrayIsNotEmpty(this.state.recommended) ?
-                                    <div className="md-movie__recommended">
+                                    <div className="db-movie__recommended">
                                         {this.state.recommended.map((item, index) => {
                                             let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
                                             return (
@@ -176,7 +176,7 @@ export class MovieDescriptionComponent extends React.Component {
                                                         saveItem={this.props.saveItem}
                                                         deleteItem={this.props.deleteItem}
                                                         saved={isAlreadySaved}
-                                                        modificators={isAlreadySaved && ['md-poster--green-border']}
+                                                        modificators={isAlreadySaved && ['db-poster--green-border']}
                                                     />
                                                 </Link>
                                             );
@@ -184,9 +184,9 @@ export class MovieDescriptionComponent extends React.Component {
                                     </div>
                                     :
                                     !this.state.film.custom &&
-                                    <div className="md-tv-show__container">
-                                        <div className="md__loading-container">
-                                            <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                                    <div className="db-tv-show__container">
+                                        <div className="db__loading-container">
+                                            <Loader type="line-scale" innerClassName="db-lod" color="#f4df42" active/>
                                         </div>
                                     </div>
                                 }
@@ -197,8 +197,8 @@ export class MovieDescriptionComponent extends React.Component {
             );
         } else {
             return (
-                <div className="md__loading-container">
-                    <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                <div className="db__loading-container">
+                    <Loader type="line-scale" innerClassName="db-lod" color="#f4df42" active/>
                 </div>
             );
         }

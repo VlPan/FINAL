@@ -1,11 +1,11 @@
 @media (max-width: 890px) {
-  .md-navbar--big-left-margin {
+  .db-navbar--big-left-margin {
     margin-left: 100px !important;
   }
-  .md__sidebar{
+  .db__sidebar{
     z-index: 3;
   }
-  .md-navbar{
+  .db-navbar{
      padding-right: 0 !important;
      margin-left: 10px !important;
     justify-content: center !important;
@@ -13,12 +13,12 @@
     text-align: center;
     width: 100%;
    }
-  .md-container{
+  .db-container{
     justify-content: center !important;
     align-items: center !important;
   }
 
-  .md__nav-container{
+  .db__nav-container{
     justify-content: center !important;
     align-items: center !important;
     margin-left: 0 !important;
@@ -29,7 +29,7 @@
 
 
 
-  .md-navbar__nav-item {
+  .db-navbar__nav-item {
     position: relative;
     width: 50%;
     padding: 20px;
@@ -41,47 +41,47 @@
     font-weight: bold;
   }
 
-  .md-navbar__nav-item::after {
+  .db-navbar__nav-item::after {
     display: none;
   }
 
-  .md-navbar__nav-item:last-of-type:after {
+  .db-navbar__nav-item:last-of-type:after {
     display: none;
   }
 
-  .md-navbar{
+  .db-navbar{
     padding-right: 0;
   }
 
-  .md-navbar__container{
+  .db-navbar__container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
   }
-  .md-arrow{
+  .db-arrow{
     display: none !important;
   }
 
-  .md-search__input{
+  .db-search__input{
     width: 100% !important;
   }
 
- .md-navbar{
+ .db-navbar{
    padding-right: 0px !important;
  }
 
-  .md-support__main-params{
+  .db-support__main-params{
     width: 100% !important;
   }
 
-  .md-movie__image{
+  .db-movie__image{
     margin: 0 auto !important;
   }
-  .md-support__poster{
+  .db-support__poster{
     width: 100% !important;
   }
-  .md-movie__flex--column{
+  .db-movie__flex--column{
     width: 100% !important;
   }
 
@@ -91,20 +91,26 @@
 }
 
 @media (max-width: 730px) {
-  .md-tv-show__info{
+  .db-tv-show__info{
     width: 100% !important;
   }
-  .md-movie__flex{
+  .db-movie__flex{
     justify-content: center !important;
     align-items: center !important;
   }
 
-  .md-tv-show__info__desc{
+  .db-tv-show__info__desc{
     width: 100%;
   }
 
-  .md-tv-show__flex{
+  .db-tv-show__flex{
     justify-content: center !important;
     align-items: center !important;
+  }
+  .db-about__text{
+    width: 100% !important;
+  }
+  .db-about__icon{
+    width: 100% !important;
   }
 }

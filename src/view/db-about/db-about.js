@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './db-about.scss';
 import './../shared-style/app.scss';
 import {connect} from 'react-redux';
@@ -9,6 +10,8 @@ import {
     Navbar
 } from '../../components';
 import {Button} from '../../components/FormControls';
+import Carousel from 'nuka-carousel';
+
 
 export class AboutComponent extends React.Component {
     constructor(props) {
@@ -17,27 +20,27 @@ export class AboutComponent extends React.Component {
 
     render() {
         return (
-            <div className="md__content">
-                <div className="md__nav-container">
+            <div className="db__content">
+                <div className="db__nav-container">
                     <Navbar
-                        modificators={['md-navbar--left-margin']}
+                        modificators={['db-navbar--left-margin']}
                     >
                         <NavLink
                             to="/about"
-                            activeClassName="md-about--red-color"
-                            className="md-navbar__nav-item">
+                            activeClassName="db-about--red-color"
+                            className="db-navbar__nav-item">
                             About
                         </NavLink>
                     </Navbar>
                 </div>
-                <div className="md__container md-about--grey-color">
-                    <div className="md__flex-row">
-                        <div className="md-about__title">
+                <div className="db__container db-about--grey-color">
+                    <div className="db__flex-row">
+                        <div className="db-about__title">
                             I built this website
                         </div>
                     </div>
-                    <div className="md__flex-row">
-                        <div className="md-about__text">
+                    <div className="db__flex-row">
+                        <div className="db-about__text">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                             Delectus dolor in labore nesciunt nihil nisi ratione
                             sapiente sed similique veniam? Accusamus debitis, dolorem
@@ -83,9 +86,22 @@ export class AboutComponent extends React.Component {
                             ius expedita ipsum molestias nam necessitatibus, nemo nostrum quas quidem quis,
                             quisquam sapiente sit soluta ut, veniam vero voluptatum!
                         </div>
-                        <div className="md-about__icon md-about__icon--flex-center">
+                        <div className="db-about__icon db-about__icon--flex-center">
                             <i className="fa fa-smile-o" aria-hidden="true"></i>
                         </div>
+                    </div>
+                    <div className="db__flex-row db__flex-row--center" style={{marginBottom: '80px'}}>
+                            <Carousel dragging={true} width="80%">
+                                <div className="db-about__img1"></div>
+                                <div className="db-about__img2"></div>
+                                <div className="db-about__img3"></div>
+                                <div className="db-about__img4"></div>
+                                <div className="db-about__img5"></div>
+                                <div className="db-about__img6"></div>
+                                <div className="db-about__img7"></div>
+                                <div className="db-about__img8"></div>
+                                <div className="db-about__img9"></div>
+                            </Carousel>
                     </div>
                 </div>
             </div>

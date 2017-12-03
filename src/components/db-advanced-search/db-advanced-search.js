@@ -11,7 +11,7 @@ import {
     Selector,
     ClickableIcon
 } from '../FormControls';
-import {closeSearch} from '../../store/actions';
+import {closeSearch, watchAllItems} from '../../store/actions';
 import Slider from 'react-rangeslider';
 import '../../base_styles/Custom_index.css';
 import {customLib} from '../../services/customLib';
@@ -105,6 +105,7 @@ export class AdvancedSearchFormComponent extends React.Component {
         };
         console.log(newItem);
         this.props.filterItemsAdvanced(newItem);
+        this.props.watchAllItems();
         console.log('AFTER FILTERING ITEMS!!!!');
         this.props.closeSearch();
     }
@@ -115,29 +116,29 @@ export class AdvancedSearchFormComponent extends React.Component {
         const vote = this.state.vote;
         console.log(this.state);
         return (
-            <div className={['md-advanced-search', !this.props.isOpen && 'md-advanced-search--hide'].join(' ')}>
-                <h1 className="md-advanced-search__title">{this.props.title}</h1>
-                <form className="md-advanced-search__form">
-                    <div className="md-advanced-search__main-params">
+            <div className={['db-advanced-search', !this.props.isOpen && 'db-advanced-search--hide'].join(' ')}>
+                <h1 className="db-advanced-search__title">{this.props.title}</h1>
+                <form className="db-advanced-search__form">
+                    <div className="db-advanced-search__main-params">
                         <label htmlFor="">title</label>
                         <Input
                             onChangeHandler={this.change}
                             name="name"
                             value={this.state.name}
-                            className="md-advanced-search__name"
+                            className="db-advanced-search__name"
                         />
 
 
                         <label>Description</label>
                         <TextArea
                             name="desc"
-                            className="md-advanced-search__text-area"
+                            className="db-advanced-search__text-area"
                             onChangeHandler={this.change}
                             value={this.state.desc}
                         />
                     </div>
-                    <div className="md-advanced-search__second_params">
-                        <div className="md__flex-box">
+                    <div className="db-advanced-search__second_params">
+                        <div className="db__flex-box">
                             <Selector
                                 name="isAdult"
                                 onChangeHandler={this.change}
@@ -166,7 +167,7 @@ export class AdvancedSearchFormComponent extends React.Component {
                             />
                         </div>
                     </div>
-                    <div className="md-advanced-search__genre">
+                    <div className="db-advanced-search__genre">
                         <label htmlFor="">Genre</label>
                         <SelectorBox onChangeHandler={this.changeGenre}
                                      array={LS.get('genres')}
@@ -177,20 +178,20 @@ export class AdvancedSearchFormComponent extends React.Component {
                         <div>
                         </div>
                     </div>
-                    <div className="md-advanced-search__submit_params">
-                        <div className="md__flex-box">
+                    <div className="db-advanced-search__submit_params">
+                        <div className="db__flex-box">
 
                                 <ClickableIcon
                                     icon="times"
-                                    className="md-advanced-search__reset"
+                                    className="db-advanced-search__reset"
                                     onClickHandler={() => {
                                         this.setState(this.baseState);
                                     }}
                                 />
-                                <div className="md-advanced-search__label">Reset Form</div>
+                                <div className="db-advanced-search__label">Reset Form</div>
 
                         </div>
-                        <div className="md__flex-box">
+                        <div className="db__flex-box">
                             <Selector
                                 name="rememberInputs"
                                 onChangeHandler={this.change}
@@ -225,7 +226,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    closeSearch: () => dispatch(closeSearch())
+    closeSearch: () => dispatch(closeSearch()),
+    watchAllItems: () => dispatch(watchAllItems())
 });
 
 export const AdvancedSearch = connect(mapStateToProps, mapDispatchToProps)(AdvancedSearchFormComponent);

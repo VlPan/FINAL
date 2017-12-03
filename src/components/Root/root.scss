@@ -6,7 +6,7 @@
 @import './../../assets/font-awesome-4.7.0/css/font-awesome.min.css';
 @import '~loaders.css/src/animations/line-scale.scss';
 
-.md__sidebar {
+.db__sidebar {
   z-index: 5;
   flex: 1 0 65px;
   height: 100vh;
@@ -18,24 +18,28 @@
 
 
 
-.md__main-container {
+.db__main-container {
   //display: flex;
 }
 
-.md-sidebar__count {
-  color: darkred;
+.db-sidebar__count {
+  color: #e01f39;
+  font-weight: 700;
+  font-size: 25px;
+  text-align:  center;
+  margin: 7px auto;
 }
 
-.md__sidebar--big-width {
+.db__sidebar--big-width {
   flex: 1 0 200px;
   max-width: 200px;
 }
 
-.md__sidebar--white-text {
+.db__sidebar--white-text {
   color: white;
 }
 
-.md-loading-title {
+.db-loading-title {
   color: white;
 
 }
@@ -49,14 +53,14 @@
   display: block;
 }
 
-.md-lod{
+.db-lod{
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.md__loading-container{
+.db__loading-container{
   width: 100%;
   height: 100vh;
   display: flex;
@@ -65,9 +69,14 @@
   align-items: center;
 }
 
-.md-lod div{
+.db-lod div{
   height: 200px;
   width: 30px;
 }
 
-.md__content-container--full-height{}
+.db__content-container--full-height{}
+
+.db__flex-row--center{
+  justify-content: center;
+  align-items: center;
+}

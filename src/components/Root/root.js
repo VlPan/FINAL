@@ -5,7 +5,8 @@ import {toggleSidebar} from './../../store/actions';
 import {
     initMovies,
     initTvShows,
-    initGenres
+    initGenres,
+    initMyLib
 } from './../../store/actions';
 import {
     MovieDescription,
@@ -35,9 +36,10 @@ class RootComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.props.initTvShows();
         this.props.initMovies();
+        this.props.initTvShows();
         this.props.initGenres();
+        this.props.initMyLib();
         LS.get('savedItems') || LS.set('savedItems', []);
     }
 
@@ -48,69 +50,69 @@ class RootComponent extends React.Component {
         if (customLib.arrayIsNotEmpty(this.props.fullMovies) && customLib.arrayIsNotEmpty(this.props.fullTvShows)) {
             return (
                 <Router>
-                    <div className="md__main-container">
-                        <div className={['md__sidebar',
-                            'md__sidebar--black-body',
-                            'md__sidebar--white-text',
-                            this.props.isOpenSidebar && 'md__sidebar--big-width']
+                    <div className="db__main-container">
+                        <div className={['db__sidebar',
+                            'db__sidebar--black-body',
+                            'db__sidebar--white-text',
+                            this.props.isOpenSidebar && 'db__sidebar--big-width']
                             .join(' ')}
                         >
                             <Sidebar
                                 openSidebar={this.props.isOpenSidebar}
                             >
-                                <div className="md-sidebar__line">
-                                    <i className="fa fa-th-list md-sidebar__icon md-sidebar__main"
+                                <div className="db-sidebar__line">
+                                    <i className="fa fa-th-list db-sidebar__icon db-sidebar__main"
                                        aria-hidden="true"
                                        onClick={this.props.toggleSidebar}
                                     />
                                     {this.props.isOpenSidebar &&
-                                    <div className="md-logo">
-                                        <div className="md-logo__logo-img"></div>
-                                        <div className="md-logo__logo-title">Logo</div>
+                                    <div className="db-logo">
+                                        <div className="db-logo__logo-img"></div>
+                                        <div className="db-logo__logo-title">Logo</div>
                                     </div>
                                     }
                                 </div>
                                 <NavLink to="/movies"
-                                         activeClassName="md-sidebar__line--active"
-                                         className="md-sidebar__line">
-                                    <i className="fa fa-film md-sidebar__icon" aria-hidden="true"></i>
+                                         activeClassName="db-sidebar__line--active"
+                                         className="db-sidebar__line">
+                                    <i className="fa fa-film db-sidebar__icon" aria-hidden="true"></i>
                                     {this.props.isOpenSidebar &&
-                                    <div className="md-sidebar__label">
+                                    <div className="db-sidebar__label">
                                         Home
                                     </div>
                                     }
                                 </ NavLink>
                                 <NavLink to="/tvshows"
-                                         activeClassName="md-sidebar__line--active"
-                                         className="md-sidebar__line">
-                                    <i className="fa fa-file-video-o md-sidebar__icon" aria-hidden="true"></i>
+                                         activeClassName="db-sidebar__line--active"
+                                         className="db-sidebar__line">
+                                    <i className="fa fa-file-video-o db-sidebar__icon" aria-hidden="true"></i>
                                     {this.props.isOpenSidebar &&
-                                    <div className="md-sidebar__label">
+                                    <div className="db-sidebar__label">
                                         Tv Shows
                                     </div>
                                     }
                                 </ NavLink>
                                 <NavLink to="/mylibrary"
-                                         activeClassName="md-sidebar__line--active"
-                                         className="md-sidebar__line">
-                                    <i className="fa fa-history md-sidebar__icon" aria-hidden="true"></i>
+                                         activeClassName="db-sidebar__line--active"
+                                         className="db-sidebar__line">
+                                    <i className="fa fa-history db-sidebar__icon" aria-hidden="true"></i>
                                     {this.props.isOpenSidebar &&
-                                    <div className="md-sidebar__label">
-                                        My Library {LS.get('savedItems') &&
-                                    <div className="md-sidebar__count">
+                                    <div className="db-sidebar__label">
+                                        My Library
+                                    <div className="db-sidebar__count">
                                         {unwatchedItemsNumber > 0 &&
                                         unwatchedItemsNumber
                                         }
-                                    </div>}
+                                    </div>
                                     </div>
                                     }
                                 </ NavLink>
                                 <NavLink to="/support"
-                                         activeClassName="md-sidebar__line--active"
-                                         className="md-sidebar__line">
-                                    <i className="fa fa-question md-sidebar__icon" aria-hidden="true"></i>
+                                         activeClassName="db-sidebar__line--active"
+                                         className="db-sidebar__line">
+                                    <i className="fa fa-question db-sidebar__icon" aria-hidden="true"></i>
                                     {this.props.isOpenSidebar &&
-                                    <div className="md-sidebar__label">
+                                    <div className="db-sidebar__label">
                                         Support
                                     </div>
                                     }
@@ -157,8 +159,8 @@ class RootComponent extends React.Component {
             );
         } else {
             return (
-                <div className="md__loading-container">
-                    <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>;
+                <div className="db__loading-container">
+                    <Loader type="line-scale" innerClassName="db-lod" color="#f4df42" active/>;
                 </div>
             );
 
@@ -198,7 +200,8 @@ const mapDispatchToProps = (dispatch) => ({
     toggleSidebar: () => dispatch(toggleSidebar()),
     initMovies: () => dispatch(initMovies()),
     initTvShows: () => dispatch(initTvShows()),
-    initGenres: () => dispatch(initGenres())
+    initGenres: () => dispatch(initGenres()),
+    initMyLib: () => dispatch(initMyLib())
 });
 
 export const Root = connect(mapStateToProps, mapDispatchToProps)(RootComponent);

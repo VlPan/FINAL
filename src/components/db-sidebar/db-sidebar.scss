@@ -1,65 +1,66 @@
 @import "./../../base_styles/settings";
 
-.md-sidebar {
+.db-sidebar {
   width: 20px;
   display: flex;
 }
 
-.md-sidebar__line {
+.db-sidebar__line {
   display: flex;
   align-content: center;
   color: white;
   text-decoration: none;
 }
 
-.md-sidebar__line--active {
+.db-sidebar__line--active {
   color: deepskyblue;
 }
 
-.md-sidebar__column {
+.db-sidebar__column {
   margin-top: 20px;
   margin-left: 20px;
 }
 
-.md-sidebar__icon {
+.db-sidebar__icon {
   margin-right: 20px;
   margin-bottom: 27px;
   cursor: pointer;
   font-size: $icons-font;
 }
 
-.md-sidebar__label {
+.db-sidebar__label {
   cursor: pointer;
   font-weight: 700;
   font-size: $middle-font;
 }
 
-.md-sidebar__label--hide {
+.db-sidebar__label--hide {
   display: none;
 }
 
-.md-logo--hide {
+.db-logo--hide {
   border: 1px solid red;
   display: none;
 }
 
-.md-logo {
+.db-logo {
   display: flex;
 }
 
-.md-logo__logo-title {
+.db-logo__logo-title {
   color: grey;
   font-size: $big-font;
   margin-left: 10px;
 }
 
-.md-logo__logo-img {
+.db-logo__logo-img {
   background: url('./../../assets/img/logo.jpg') no-repeat center/cover;
+  background-size: cover;
   height: 30px;
   width: 30px;
 }
 
-.md-poster__icon--red{
+.db-poster__icon--red{
   color: red;
 }
 

@@ -1,11 +1,11 @@
 @import './../../base_styles/mixins';
 
-.md-support__title{
+.db-support__title{
   color: grey;
   margin-bottom: 30px;
 }
 
-.md-support__title:after{
+.db-support__title:after{
   content: '';
   display: block;
   width: 300px;
@@ -13,50 +13,50 @@
   background-color: grey;
 }
 
-.md-support__main-params{
+.db-support__main-params{
   width: 60%;
   color: grey;
 }
 
-.md-support__poster{
+.db-support__poster{
   width: 40%;
   color: grey;
 }
 
-.md-support__title-form{
+.db-support__title-form{
   margin-bottom: 5px;
   color: grey;
 }
 
-.md-support__name, .md-support__desc{
+.db-support__name, .db-support__desc{
    margin-bottom: 20px;
    padding: 15px;
  }
 
-.md-support__name:focus, .md-support__desc:focus{
+.db-support__name:focus, .db-support__desc:focus{
   outline: none;
 }
 
-.md-support__name{
+.db-support__name{
   width: 60%;
   border: none;
   border-radius: 10px;
 }
-.md-support__desc{
+.db-support__desc{
   width: 85%;
   border: none;
   border-radius: 10px;
 }
 
-.md-support__submit{
+.db-support__submit{
   @include submit-button(#fff9f9);
   margin-right: 10px;
 }
 
-.md-support__cancel{
+.db-support__cancel{
   @include cancel-button(grey);
 }
 
-.md-support__buttons{
+.db-support__buttons{
   margin-top: 40px;
 }

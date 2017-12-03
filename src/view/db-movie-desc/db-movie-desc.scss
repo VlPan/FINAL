@@ -1,49 +1,49 @@
 @import '../../base_styles/settings';
 
-.md-movie {
+.db-movie {
   color: grey;
 }
 
-.md-movie__container {
+.db-movie__container {
   width: 90%;
   margin-left: 5%;
 }
 
 
-.md-movie__image {
+.db-movie__image {
   width: 200px;
   height: 300px;
   margin-right: 30px;
 }
 
-.md-movie__image img {
+.db-movie__image img {
   width: inherit;
   height: inherit;
 }
 
-.md-movie__flex {
+.db-movie__flex {
   display: flex;
   flex-wrap: wrap;
 }
 
-.md-movie__flex--column {
+.db-movie__flex--column {
   flex-direction: column;
   width: 300px;
   flex-wrap: wrap;
 }
 
-.md-movie__desc {
+.db-movie__desc {
   overflow: auto;
   height: 250px;
   width: 100%;
 }
 
-.md-movie__name {
+.db-movie__name {
   margin: 40px 0;
   font-size: $big-font;
 }
 
-.md-movie__recommended {
+.db-movie__recommended {
   display: flex;
   width: 100%;
   overflow-x: scroll;
@@ -58,6 +58,6 @@
   background-color: #579e18;
 }
 
-.md-movie__info{
+.db-movie__info{
   width: 60%;
 }

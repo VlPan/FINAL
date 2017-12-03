@@ -1,6 +1,6 @@
 @import "./../../base_styles/settings";
 
-.md-film {
+.db-film {
   height: 350px;
   width: 220px;
   margin: 10px;
@@ -11,18 +11,18 @@
 
 
 
-.md-film__image {
+.db-film__image {
   width: 100%;
   height: 100%;
 }
 
 
-.md-film:hover > .md-film__desc {
+.db-film:hover > .db-film__desc {
   opacity: 1;
 }
 
 
-.md-poster__icon{
+.db-poster__icon{
   position: absolute;
   opacity: 1;
   top: 20px;
@@ -31,7 +31,7 @@
   padding: 15px;
 }
 
-.md-poster__icon-info{
+.db-poster__icon-info{
   position: absolute;
   opacity: 1;
   top: 20px;
@@ -40,7 +40,7 @@
   padding: 15px;
 }
 
-.md-film__desc-text{
+.db-film__desc-text{
   position: absolute;
   opacity: 0;
   transition: opacity .3s;
@@ -58,20 +58,20 @@
   font-family: sans-serif;
 }
 
-.md-poster__icon-info:hover + .md-film__desc-text{
+.db-poster__icon-info:hover + .db-film__desc-text{
   opacity: 1;
 }
 
 
-.md-poster--green-border{
+.db-poster--green-border{
   border: 2px solid green;
 }
 
-.md-poster__icon--green{
+.db-poster__icon--green{
   color: greenyellow;
 }
 
-.md-film__desc {
+.db-film__desc {
   position: absolute;
   opacity: 0;
   transition: opacity .3s;

@@ -134,10 +134,10 @@ export class AddItemFormComponent extends React.Component {
     render() {
         console.log(this.state);
         return (
-            <div className={['md-add-movie', !this.props.isOpen && 'md-add-movie--hide'].join(' ')}>
-                <h1 className="md-add-movie__title">{this.props.title}</h1>
-                <form className="md-add-movie__form">
-                    <div className="md-add-movie__main-params">
+            <div className={['db-add-movie', !this.props.isOpen && 'db-add-movie--hide'].join(' ')}>
+                <h1 className="db-add-movie__title">{this.props.title}</h1>
+                <form className="db-add-movie__form">
+                    <div className="db-add-movie__main-params">
                         <label htmlFor="">title</label>
                         <Input
                             onChangeHandler={this.change}
@@ -146,25 +146,25 @@ export class AddItemFormComponent extends React.Component {
                         />
 
                         {!this.state.name &&
-                        <div className="md-add-movie__error">Title is required</div>
+                        <div className="db-add-movie__error">Title is required</div>
                         }
                         <label>Description</label>
                         <TextArea
                             name="desc"
-                            className="md-add-item__text-area"
+                            className="db-add-item__text-area"
                             onChangeHandler={this.change}
                         />
                         {!this.state.desc &&
-                        <div className="md-add-movie__error">description is required</div>
+                        <div className="db-add-movie__error">description is required</div>
                         }
                     </div>
-                    <div className="md-add-movie__genre">
+                    <div className="db-add-movie__genre">
                         <label htmlFor="">Genre</label>
                         <SelectorBox onClickHandler={this.changeGenre}
                                      array={LS.get('genres')}
                                      chunk={4}
                         />
-                        {this.state.genre.length === 0 && <div className="md-add-movie__error">Genre is required</div>}
+                        {this.state.genre.length === 0 && <div className="db-add-movie__error">Genre is required</div>}
                         <div>
                             <Selector
                                 name="isAdult"
@@ -174,32 +174,32 @@ export class AddItemFormComponent extends React.Component {
                         </div>
                     </div>
 
-                    <div className="md-add-movie__img-upload">
-                        <div className="md-add-movie__drop-files" draggable="true"
+                    <div className="db-add-movie__img-upload">
+                        <div className="db-add-movie__drop-files" draggable="true"
                              ref={div => {
                                  this.dropzone = div;
                              }}>
 
                         </div>
-                        <div className="md-add-movie__dropped">
-                            <img src="" alt="" className="md-add-movie__dropped-image"
+                        <div className="db-add-movie__dropped">
+                            <img src="" alt="" className="db-add-movie__dropped-image"
                                  ref={img => {
                                      this.dropped = img;
                                  }}/>
                         </div>
                         {this.state.posters === 0 &&
-                        <div className="md-add-movie__error">Upload one poster as minimum</div>}
-                        <div className="md-add-movie__buttons ">
+                        <div className="db-add-movie__error">Upload one poster as minimum</div>}
+                        <div className="db-add-movie__buttons ">
                         <Button
                             disabled={this.checkValidation()}
                             onClickHandler={this.saveMovie}
                             value="Add"
-                            className={['md-add-movie__submit', this.checkValidation() && 'md-add-movie__submit--disabled' ].join(' ')}
+                            className={['db-add-movie__submit', this.checkValidation() && 'db-add-movie__submit--disabled' ].join(' ')}
                         />
                         <Button
                             onClickHandler={this.handleCloseAddMovieForm}
                             value="Close"
-                            className="md-add-movie__cancel"
+                            className="db-add-movie__cancel"
                         />
                         </div>
                     </div>

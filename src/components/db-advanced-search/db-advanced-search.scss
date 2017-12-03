@@ -1,6 +1,6 @@
 @import "./../../base_styles/settings";
 
-.md-advanced-search{
+.db-advanced-search{
   transition: max-height 1s ease-in;
   max-height: 1500px;
   overflow: hidden;
@@ -14,26 +14,26 @@
   padding: 15px;
 }
 
-.md-advanced-search--hide{
+.db-advanced-search--hide{
   max-height: 0;
   transition: max-height .5s ease-out;
   transition-delay: .1s;
   display: none;
 }
 
-.md-advanced-search__form{
+.db-advanced-search__form{
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.md-advanced-search__title{
+.db-advanced-search__title{
   margin-bottom: 30px;
   font-size: $big-font;
 }
 
-.md-advanced-search__title:after{
+.db-advanced-search__title:after{
   content: '';
   display: block;
   width: 300px;
@@ -42,7 +42,7 @@
 }
 
 
-.md-advanced-search__main-params{
+.db-advanced-search__main-params{
   display: flex;
   flex-direction: column;
   color: $grey-color;
@@ -50,7 +50,7 @@
   width: 50%;
 }
 
-.md-advanced-search__second_params{
+.db-advanced-search__second_params{
   display: flex;
   flex-direction: column;
   color: $grey-color;
@@ -59,7 +59,7 @@
 
 }
 
-.md-advanced-search__submit_params{
+.db-advanced-search__submit_params{
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -67,17 +67,17 @@
 
 }
 
-.md-advanced-search__error{
+.db-advanced-search__error{
   color: red;
   font-weight: 700;
 }
 
-.md-advanced-search__img-upload{
+.db-advanced-search__img-upload{
   margin-left: 100px;
 }
 
 
-.md-add-item__name{
+.db-add-item__name{
   border-radius: 20px;
 }
 
@@ -104,18 +104,18 @@
   background-color: #579e18;
 }
 
-.md-advanced-search__text-area{
-  height: 100%;
+.db-advanced-search__text-area{
+  height: 100px;
   border-radius: 15px;
   padding: 5px;
 }
 
-.md-advanced-search__reset{
+.db-advanced-search__reset{
   font-size: 20px;
   color: red;
 }
 
-.md-advanced-search__label{
+.db-advanced-search__label{
   margin-left: 10px;
   font-size: $big-font;
 }

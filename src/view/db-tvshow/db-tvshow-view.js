@@ -68,27 +68,27 @@ export class TvShowViewComponent extends React.Component {
 
     render() {
         return (
-            <div className="md__flex-box">
+            <div className="db__flex-box">
                 {
                     this.props.isOpenSidebar &&
                     <Arrow
                         arrowIsDown={this.state.arrowIsDown}
                         onClick={this.changingArrow.bind(this)}
-                        modificators={['md-arrow--black-body', 'md-arrow--position-fixed', 'md-arrow--big-left-margin']}
+                        modificators={['db-arrow--black-body', 'db-arrow--position-fixed', 'db-arrow--big-left-margin']}
                     />
                 }
-                <div className="md__content">
-                    <div className="md__navbar__navbar--white-text">
-                        <div className="md__nav-container">
+                <div className="db__content">
+                    <div className="db__navbar__navbar--white-text">
+                        <div className="db__nav-container">
 
-                            <div className="md-search">
+                            <div className="db-search">
                                 <Input onKeyUpHandler={this.filterItemsByName}
-                                       className="md-search__input"
+                                       className="db-search__input"
                                        placeholder="Search Tv SHows"
                                 />
-                                <div className="md-search__container" >
-                                    <div className="md-search__box" onClick={this.props.toggleSearch}>
-                                        <i className="fa fa-search md-search__icon"
+                                <div className="db-search__container" >
+                                    <div className="db-search__box" onClick={this.props.toggleSearch}>
+                                        <i className="fa fa-search db-search__icon"
                                            aria-hidden="true"
 
                                         ></i>
@@ -99,11 +99,11 @@ export class TvShowViewComponent extends React.Component {
                                         rememberFrom={LS.get('filterOptionsTvs')}
                                     />
                                     {LS.get('filterOptionsTvs') &&
-                                    <div className="md-search__box md-search__box--black-box" onClick={() => {
+                                    <div className="db-search__box db-search__box--black-box" onClick={() => {
                                         localStorage.removeItem('filterOptionsTvs');
                                         this.props.filterTvShowsAdvanced({});
                                     }}>
-                                        <i className="fa fa-ban md-search__icon md-search__icon--red-icon"
+                                        <i className="fa fa-ban db-search__icon db-search__icon--red-icon"
                                            aria-hidden="true"
                                         ></i>
                                     </div>
@@ -111,20 +111,20 @@ export class TvShowViewComponent extends React.Component {
                                 </div>
                             </div>
                             <Navbar
-                                modificators={['md-navbar--left-margin']}
+                                modificators={['db-navbar--left-margin']}
                                 openAddMovieForm={this.props.openAddItemForm}
                                 isOpenAddMovieForm={this.props.isOpenAddItemForm}
                             >
                                 <li
-                                    className={['md-navbar__nav-item',
-                                        this.props.isOpenAddItemForm && 'md-navbar__nav-item--red-text'].join(' ')}
+                                    className={['db-navbar__nav-item',
+                                        this.props.isOpenAddItemForm && 'db-navbar__nav-item--red-text'].join(' ')}
                                     onClick={this.props.openAddItemForm}>
                                     Add TvShow
                                 </li>
                                 <NavLink
                                     to="/about"
-                                    activeClassName="md-about--red-color"
-                                    className="md-navbar__nav-item">
+                                    activeClassName="db-about--red-color"
+                                    className="db-navbar__nav-item">
                                     About
                                 </NavLink>
                             </Navbar>
@@ -132,14 +132,14 @@ export class TvShowViewComponent extends React.Component {
                     </div>
 
                     <div
-                        className={['md__content-container',
-                            'md__films-container--white-text', 'md__content-container--flex'].join(' ')}
+                        className={['db__content-container',
+                            'db__films-container--white-text', 'db__content-container--flex'].join(' ')}
                         ref={(filmsContainer) => {
                             this.filmsContainer = filmsContainer;
                         }}
                         onScroll={this.scrollingHandler.bind(this)}
                     >
-                        <div className="md__add-movie">
+                        <div className="db__add-movie">
                             {this.props.genres &&
                             <AddItemForm
                                 title="Tv Show"
@@ -161,7 +161,7 @@ export class TvShowViewComponent extends React.Component {
                                         saveItem={this.props.saveItem}
                                         deleteItem={this.props.deleteItem}
                                         saved={isAlreadySaved}
-                                        modificators={isAlreadySaved && ['md-poster--green-border']}
+                                        modificators={isAlreadySaved && ['db-poster--green-border']}
                                     />
                                 </Link>
                             );

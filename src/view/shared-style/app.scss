@@ -3,78 +3,78 @@
 
 
 
-.md__main-container{
+.db__main-container{
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
   height: 100%;
 }
 
-.md__flex-row{
+.db__flex-row{
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 }
 
-.md-flex-row--reverse{
+.db-flex-row--reverse{
   display: flex;
   flex-wrap: wrap;
   flex-direction: row-reverse;
 }
 
-.md__flex-column{
+.db__flex-column{
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
 }
 
-.md__container{
+.db__container{
   width: 90%;
   margin-left: 5%;
   flex-wrap: wrap;
 }
 
 
-.md__content{
+.db__content{
   width: 100%;
   overflow-y: auto;
   height: 99vh;
 }
 
-.md__films-container--white-text{
+.db__films-container--white-text{
   color: white;
 }
 
-.md__content-container{
+.db__content-container{
   height: 85vh;
   width: 100%;
   overflow-y: auto;
 }
 
-.md__view-container{
+.db__view-container{
   width: 100%;
 }
 
-.md__content-container--flex{
+.db__content-container--flex{
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 }
 
-.md__navbar{
+.db__navbar{
   width: 100%;
   min-height: 10vh;
   overflow: hidden;
   background: $main-color;
 }
 
-.md__navbar--white-text{
+.db__navbar--white-text{
   color: white;
 }
 
 
-.md__nav-container{
+.db__nav-container{
   display: flex;
   flex-wrap: wrap;
   min-height: 80px;
@@ -82,38 +82,38 @@
   align-items: center;
 }
 
-.md__container--flex-center{
+.db__container--flex-center{
   justify-content: center;
 }
 
 
-.md__add-movie{
+.db__add-movie{
   margin-top: 40px;
   margin-left: 100px;
   width: 100%;
 }
 
-.md__flex-box{
+.db__flex-box{
   display: flex;
   //flex-wrap: wrap;
   width: 100%;
   cursor: pointer;
 }
 
-.md__flex-box--border-radius{
+.db__flex-box--border-radius{
   border-radius: 15px;
 }
 
-.md__flex-box--column{
+.db__flex-box--column{
   flex-direction: column;
 
 }
 
-.md-search__container{
+.db-search__container{
   position: relative;
 }
 
-.md-flex-row{
+.db-flex-row{
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: wrap;

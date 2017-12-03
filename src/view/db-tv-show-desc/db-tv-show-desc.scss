@@ -1,54 +1,54 @@
 @import '../../base_styles/settings';
 
-.md-tv-show {
+.db-tv-show {
   color: grey;
 }
 
-.md-tv-show__container {
+.db-tv-show__container {
   width: 90%;
   margin-left: 5%;
 }
 
-.md-tv-show__image {
+.db-tv-show__image {
   width: 200px;
   height: 300px;
   margin-right: 30px;
 }
 
-.md-tv-show__image img {
+.db-tv-show__image img {
   width: inherit;
   height: inherit;
 }
 
-.md-tv-show__flex {
+.db-tv-show__flex {
   display: flex;
   flex-wrap: wrap;
 }
 
-.md-tv-show__flex--column {
+.db-tv-show__flex--column {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
 
-.md-tv-show__desc {
+.db-tv-show__desc {
   overflow: auto;
   height: 250px;
   width: 100%;
 }
 
-.md-tv-show__name {
+.db-tv-show__name {
   margin: 40px 0;
   font-size: $big-font;
 }
 
-.md-tv-show__recommended {
+.db-tv-show__recommended {
   display: flex;
   width: 100%;
   overflow-x: scroll;
   height: 400px;
 }
 
-.md-tv-show__info{
+.db-tv-show__info{
   width: 60%;
 }

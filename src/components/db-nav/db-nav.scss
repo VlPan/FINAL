@@ -1,18 +1,18 @@
 @import "./../../base_styles/settings";
 
-.md-navbar {
+.db-navbar {
   display: flex;
 }
 
-.md-navbar--left-margin {
+.db-navbar--left-margin {
   margin-left: auto;
 }
 
-.md-navbar__container {
+.db-navbar__container {
   display: flex;
 }
 
-.md-navbar__nav-item {
+.db-navbar__nav-item {
   position: relative;
   margin: 25px;
   color: $black-blue;
@@ -21,7 +21,7 @@
   font-weight: bold;
 }
 
-.md-navbar__nav-item::after {
+.db-navbar__nav-item::after {
   content: '|';
   position: absolute;
   margin-left: 25px;
@@ -29,15 +29,15 @@
   font-weight: bold;
 }
 
-.md-navbar__nav-item:last-of-type:after {
+.db-navbar__nav-item:last-of-type:after {
   content: '';
 }
 
-.md-navbar__nav-item--red-text {
+.db-navbar__nav-item--red-text {
   color: red;
 }
 
-.md-navbar--float-left{
+.db-navbar--float-left{
   float: left;
 }
 

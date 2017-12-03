@@ -8,8 +8,8 @@ export class PageNotFound extends React.Component {
 
     render() {
         return (
-            <div className="md-page-not-found">
-                <h1 className="md-page-not-found__title">Sorry, Page Was Not Found! :(</h1>
+            <div className="db-page-not-found">
+                <h1 className="db-page-not-found__title">Sorry, Page Was Not Found! :(</h1>
             </div>
         );
     }

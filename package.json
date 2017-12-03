@@ -44,6 +44,7 @@
   "dependencies": {
     "chunk": "0.0.2",
     "loaders.css": "^0.1.2",
+    "nuka-carousel": "^3.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-imageloader": "^2.1.0",
