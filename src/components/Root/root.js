@@ -45,8 +45,7 @@ class RootComponent extends React.Component {
 
 
     render() {
-        let unwatchedItemsNumber = this.props.fullItems.filter(item => !item.watched).length;
-        console.log('<---------PROOOOOPS-------->', this.props);
+        let unwatchedItemsNumber = this.props.fullItems && this.props.fullItems.filter(item => !item.watched).length;
         if (customLib.arrayIsNotEmpty(this.props.fullMovies) && customLib.arrayIsNotEmpty(this.props.fullTvShows)) {
             return (
                 <Router>
