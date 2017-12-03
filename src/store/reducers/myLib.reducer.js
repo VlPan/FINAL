@@ -55,11 +55,15 @@ export function myLibReducer(state = initialState, action) {
             newFullItems = state.fullItems.filter((item) => {
                 return item.id !== action.payload.id;
             });
+            newInitialItems = state.initialItems.filter((item) => {
+                return item.id !== action.payload.id;
+            });
             LS.set('savedItems', newFullItems);
             return {
                 ...state,
                 savedItems: newItems,
-                fullItems: newFullItems
+                fullItems: newFullItems,
+                initialItems: newInitialItems
             };
         case FILTER_ITEMS_BY_NAME:
             if (action.payload.length === 0) {
