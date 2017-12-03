@@ -14,28 +14,28 @@ export class SupportComponent extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
-        this.dropzone.ondrop = (e)=>{
+        this.dropzone.ondrop = (e) => {
             e.preventDefault();
             let file = e.dataTransfer.files[0];
             this.loadInView(file, this.dropped);
         };
 
-        this.dropzone.ondragover = function(){
+        this.dropzone.ondragover = function () {
             return false;
         };
 
-        this.dropzone.ondragleave = function(){
+        this.dropzone.ondragleave = function () {
             return false;
         };
     }
 
-    loadInView(file,elem){
+    loadInView(file, elem) {
         var fileReader = new FileReader();
-        fileReader.onloadend = ()=>{
+        fileReader.onloadend = () => {
             elem.src = fileReader.result;
-            this.setState(()=>({
+            this.setState(() => ({
                 posterImg: elem.src
             }));
         };

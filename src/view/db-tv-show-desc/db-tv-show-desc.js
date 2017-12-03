@@ -42,7 +42,7 @@ export class TvShowDescriptionComponent extends React.Component {
                     tvShow: tvShows[0]
                 }));
             });
-            return ;
+            return;
         } else {
             if (LS.get('addedTvShows')) {
                 tvShows = LS.get('addedTvShows').filter((item) => {
@@ -51,7 +51,7 @@ export class TvShowDescriptionComponent extends React.Component {
                 if (customLib.arrayIsNotEmpty(tvShows)) {
 
                     this.setState(() => ({tvShow: tvShows[0]}));
-                    return ;
+                    return;
                 }
             }
         }

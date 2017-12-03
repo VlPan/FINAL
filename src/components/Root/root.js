@@ -100,11 +100,11 @@ class RootComponent extends React.Component {
                                     {this.props.isOpenSidebar &&
                                     <div className="db-sidebar__label">
                                         My Library
-                                    <div className="db-sidebar__count">
-                                        {unwatchedItemsNumber > 0 &&
-                                        unwatchedItemsNumber
-                                        }
-                                    </div>
+                                        <div className="db-sidebar__count">
+                                            {unwatchedItemsNumber > 0 &&
+                                            unwatchedItemsNumber
+                                            }
+                                        </div>
                                     </div>
                                     }
                                 </ NavLink>

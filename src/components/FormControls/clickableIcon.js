@@ -5,7 +5,6 @@ export const ClickableIcon = (props) => {
         <div
             className={props.className}
             onClick={props.onClickHandler}
-            onMouseOver={props.onMouseOverHandler}
         >
             <i className={`fa fa-${props.icon}`}
                aria-hidden="true"

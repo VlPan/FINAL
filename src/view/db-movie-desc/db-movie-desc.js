@@ -90,14 +90,14 @@ export class MovieDescriptionComponent extends React.Component {
             return (
                 <div className="db__content">
                     <div className="db__nav-container">
-                            <Navbar modificators={['db-navbar--left-margin']}>
-                                <NavLink
-                                    to="/about"
-                                    activeClassName="db-about--red-color"
-                                    className="db-navbar__nav-item">
-                                    About
-                                </NavLink>
-                            </Navbar>
+                        <Navbar modificators={['db-navbar--left-margin']}>
+                            <NavLink
+                                to="/about"
+                                activeClassName="db-about--red-color"
+                                className="db-navbar__nav-item">
+                                About
+                            </NavLink>
+                        </Navbar>
                     </div>
                     <div className="db__content-container">
                         <div className="db-movie">

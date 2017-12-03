@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './db-about.scss';
 import './../shared-style/app.scss';
 import {connect} from 'react-redux';
@@ -9,7 +8,6 @@ import {
 import {
     Navbar
 } from '../../components';
-import {Button} from '../../components/FormControls';
 import Carousel from 'nuka-carousel';
 
 

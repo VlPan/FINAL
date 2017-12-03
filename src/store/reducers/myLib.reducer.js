@@ -34,7 +34,7 @@ export function myLibReducer(state = initialState, action) {
         case SAVE_ITEM:
             const saved = state.savedItems.filter((item) => item.id === action.payload.id).length > 0;
             if (saved) {
-                alert('Item has already been saved');
+                alert('Item has already been saved!');
                 break;
             }
 

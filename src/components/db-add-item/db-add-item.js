@@ -35,19 +35,19 @@ export class AddItemFormComponent extends React.Component {
         };
     }
 
-    componentDidMount(){
-        this.dropzone.ondrop = (e)=>{
+    componentDidMount() {
+        this.dropzone.ondrop = (e) => {
             e.preventDefault();
-            var file = e.dataTransfer.files[0];
+            let file = e.dataTransfer.files[0];
             this.loadInView(file, this.dropped);
             this.uploadPoster();
         };
 
-        this.dropzone.ondragover = function(){
+        this.dropzone.ondragover = function () {
             return false;
         };
 
-        this.dropzone.ondragleave = function(){
+        this.dropzone.ondragleave = function () {
             return false;
         };
     }
@@ -115,17 +115,16 @@ export class AddItemFormComponent extends React.Component {
     }
 
 
-    loadInView(file,elem){
-        var fileReader = new FileReader();
-        fileReader.onloadend = ()=>{
+    loadInView(file, elem) {
+        let fileReader = new FileReader();
+        fileReader.onloadend = () => {
             elem.src = fileReader.result;
-            this.setState(()=>({
+            this.setState(() => ({
                 posterImg: elem.src
             }));
         };
         fileReader.readAsDataURL(file);
     }
-
 
 
     render() {
@@ -186,17 +185,17 @@ export class AddItemFormComponent extends React.Component {
                         {this.state.posters === 0 &&
                         <div className="db-add-movie__error">Upload one poster as minimum</div>}
                         <div className="db-add-movie__buttons ">
-                        <Button
-                            disabled={this.checkValidation()}
-                            onClickHandler={this.saveMovie}
-                            value="Add"
-                            className={['db-add-movie__submit', this.checkValidation() && 'db-add-movie__submit--disabled' ].join(' ')}
-                        />
-                        <Button
-                            onClickHandler={this.handleCloseAddMovieForm}
-                            value="Close"
-                            className="db-add-movie__cancel"
-                        />
+                            <Button
+                                disabled={this.checkValidation()}
+                                onClickHandler={this.saveMovie}
+                                value="Add"
+                                className={['db-add-movie__submit', this.checkValidation() && 'db-add-movie__submit--disabled'].join(' ')}
+                            />
+                            <Button
+                                onClickHandler={this.handleCloseAddMovieForm}
+                                value="Close"
+                                className="db-add-movie__cancel"
+                            />
                         </div>
                     </div>
                 </form>
@@ -205,11 +204,11 @@ export class AddItemFormComponent extends React.Component {
     }
 }
 
-function loadInView(file,elem){
-    var fileReader = new FileReader();
-    fileReader.onloadend = ()=>{
+function loadInView(file, elem) {
+    let fileReader = new FileReader();
+    fileReader.onloadend = () => {
         elem.src = fileReader.result;
-        this.setState(()=>({
+        this.setState(() => ({
             posterImg: elem.src
         }));
     };

@@ -16,8 +16,6 @@
   max-width: 65px;
 }
 
-
-
 .db__main-container {
   //display: flex;
 }
@@ -26,7 +24,7 @@
   color: #e01f39;
   font-weight: 700;
   font-size: 25px;
-  text-align:  center;
+  text-align: center;
   margin: 7px auto;
 }
 
@@ -44,23 +42,22 @@
 
 }
 
-
-
 .loader-hidden {
   display: none;
 }
+
 .loader-active {
   display: block;
 }
 
-.db-lod{
+.db-lod {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.db__loading-container{
+.db__loading-container {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -69,14 +66,15 @@
   align-items: center;
 }
 
-.db-lod div{
+.db-lod div {
   height: 200px;
   width: 30px;
 }
 
-.db__content-container--full-height{}
+.db__content-container--full-height {
+}
 
-.db__flex-row--center{
+.db__flex-row--center {
   justify-content: center;
   align-items: center;
 }

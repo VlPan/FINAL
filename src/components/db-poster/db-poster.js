@@ -18,11 +18,6 @@ export const Poster = (props) => {
         props.deleteItem(props.item);
     };
 
-    const hintInfo = ()=>{
-
-        return <h1>Hello World</h1>;
-    };
-
     return (
         <div className={props.modificators ? ['db-film', ...props.modificators].join(' ') : 'db-film'}>
             {props.imagePath && !props.item.custom &&
@@ -45,7 +40,7 @@ export const Poster = (props) => {
             {props.name && <h1 className="db-film__desc">
                 <ClickableIcon icon="info"
                                className="db-poster__icon-info db-poster__icon--red"
-                               onMouseOverHandler={hintInfo}/>
+                />
                 <div className="db-film__desc-text">{props.item.desc}</div>
                 {props.saved ?
                     <ClickableIcon icon="trash" className="db-poster__icon db-poster__icon--red"
@@ -56,7 +51,6 @@ export const Poster = (props) => {
                                    onClickHandler={saveItem}/>}
                 {props.name}
             </h1>}
-
         </div>
     );
 };

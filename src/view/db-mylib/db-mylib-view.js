@@ -33,8 +33,8 @@ class MyLibViewComponent extends React.Component {
         this.props.filterItemsByName(string);
     }
 
-    componentWillMount(){
-        LS.set('savedItems', this.props.savedItems.map((item)=>{
+    componentWillMount() {
+        LS.set('savedItems', this.props.savedItems.map((item) => {
             return {
                 ...item,
                 watched: true

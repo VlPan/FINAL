@@ -2,23 +2,23 @@
   .db-navbar--big-left-margin {
     margin-left: 100px !important;
   }
-  .db__sidebar{
+  .db__sidebar {
     z-index: 3;
   }
-  .db-navbar{
-     padding-right: 0 !important;
-     margin-left: 10px !important;
+  .db-navbar {
+    padding-right: 0 !important;
+    margin-left: 10px !important;
     justify-content: center !important;
     align-items: center !important;
     text-align: center;
     width: 100%;
-   }
-  .db-container{
+  }
+  .db-container {
     justify-content: center !important;
     align-items: center !important;
   }
 
-  .db__nav-container{
+  .db__nav-container {
     justify-content: center !important;
     align-items: center !important;
     margin-left: 0 !important;
@@ -27,13 +27,11 @@
 
 @media (max-width: 600px) {
 
-
-
   .db-navbar__nav-item {
     position: relative;
     width: 50%;
     padding: 20px;
-    border: 2px solid rgba(0,0,0,.7);
+    border: 2px solid rgba(0, 0, 0, .7);
     margin: 0 !important;
     color: white !important;
     text-align: center;
@@ -49,68 +47,65 @@
     display: none;
   }
 
-  .db-navbar{
+  .db-navbar {
     padding-right: 0;
   }
 
-  .db-navbar__container{
+  .db-navbar__container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
   }
-  .db-arrow{
+  .db-arrow {
     display: none !important;
   }
 
-  .db-search__input{
+  .db-search__input {
     width: 100% !important;
   }
 
- .db-navbar{
-   padding-right: 0px !important;
- }
+  .db-navbar {
+    padding-right: 0px !important;
+  }
 
-  .db-support__main-params{
+  .db-support__main-params {
     width: 100% !important;
   }
 
-  .db-movie__image{
+  .db-movie__image {
     margin: 0 auto !important;
   }
-  .db-support__poster{
+  .db-support__poster {
     width: 100% !important;
   }
-  .db-movie__flex--column{
+  .db-movie__flex--column {
     width: 100% !important;
   }
-
-
-
 
 }
 
 @media (max-width: 730px) {
-  .db-tv-show__info{
+  .db-tv-show__info {
     width: 100% !important;
   }
-  .db-movie__flex{
+  .db-movie__flex {
     justify-content: center !important;
     align-items: center !important;
   }
 
-  .db-tv-show__info__desc{
+  .db-tv-show__info__desc {
     width: 100%;
   }
 
-  .db-tv-show__flex{
+  .db-tv-show__flex {
     justify-content: center !important;
     align-items: center !important;
   }
-  .db-about__text{
+  .db-about__text {
     width: 100% !important;
   }
-  .db-about__icon{
+  .db-about__icon {
     width: 100% !important;
   }
 }

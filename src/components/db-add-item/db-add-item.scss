@@ -1,29 +1,29 @@
 @import "./../../base_styles/settings";
 @import "./../../base_styles/mixins";
 
-.db-add-movie{
+.db-add-movie {
   transition: max-height 1s ease-in;
   max-height: 1500px;
   overflow: hidden;
 }
 
-.db-add-movie--hide{
+.db-add-movie--hide {
   max-height: 0;
   transition: max-height .5s ease-out;
 }
 
-.db-add-movie__form{
+.db-add-movie__form {
   display: flex;
   flex-wrap: wrap;
   //justify-content: space-around;
 }
 
-.db-add-movie__title{
+.db-add-movie__title {
   color: grey;
   margin-bottom: 30px;
 }
 
-.db-add-movie__title:after{
+.db-add-movie__title:after {
   content: '';
   display: block;
   width: 300px;
@@ -31,59 +31,58 @@
   background-color: grey;
 }
 
-
-.db-add-movie__main-params{
+.db-add-movie__main-params {
   display: flex;
   flex-direction: column;
   color: $grey-color;
   margin-right: 40px;
 }
 
-.db-add-movie__error{
+.db-add-movie__error {
   color: red;
   font-weight: 700;
 }
 
-.db-add-movie__img-upload{
+.db-add-movie__img-upload {
   margin-left: 100px;
 }
 
-.db-add-item__text-area{
+.db-add-item__text-area {
   width: 300px;
   height: 150px;
 }
 
-.db-add-movie__drop-files{
+.db-add-movie__drop-files {
   border: 2px dashed white;
   width: 200px;
   height: 100px;
 }
 
-.db-add-movie__dropped-image{
+.db-add-movie__dropped-image {
   width: 100%;
   height: 100%;
 }
 
-.db-add-movie__dropped{
+.db-add-movie__dropped {
   border: 2px solid white;
   width: 200px;
   background-color: palevioletred;
   height: 100px;
 }
 
-.db-add-movie__submit{
+.db-add-movie__submit {
   @include submit-button(#fff9f9);
   margin-right: 10px;
 }
 
-.db-add-movie__cancel{
+.db-add-movie__cancel {
   @include cancel-button(grey);
 }
 
-.db-add-movie__buttons{
+.db-add-movie__buttons {
   margin-top: 40px;
 }
 
-.db-add-movie__submit--disabled{
+.db-add-movie__submit--disabled {
   background: darkgrey;
 }

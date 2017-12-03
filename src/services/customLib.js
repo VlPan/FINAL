@@ -5,7 +5,7 @@ export const customLib = () => {
 customLib.common = 'the, it is, we all, a, an, by, to, you, me, he, she, they, we, how, it, i, are, to, for, of, .,';
 
 customLib.filterArray = (array, filterOptions) => {
-    if(customLib.objectIsEmpty(filterOptions || customLib.arrayIsEmpty(array))){
+    if (customLib.objectIsEmpty(filterOptions || customLib.arrayIsEmpty(array))) {
         return array;
     }
     if (filterOptions.name.length > 0) {
@@ -53,13 +53,13 @@ customLib.getUncommon = (sentence, common) => {
         word, i;
 
     common = common.split(',');
-    for ( i = 0; i < common.length; i++ ) {
-        commonObj[ common[i].trim() ] = true;
+    for (i = 0; i < common.length; i++) {
+        commonObj[common[i].trim()] = true;
     }
 
-    for ( i = 0; i < wordArr.length; i++ ) {
+    for (i = 0; i < wordArr.length; i++) {
         word = wordArr[i].trim().toLowerCase();
-        if ( !commonObj[word] ) {
+        if (!commonObj[word]) {
             uncommonArr.push(word);
         }
     }
@@ -76,8 +76,8 @@ customLib.arrayIsEmpty = (array) => {
 };
 
 customLib.objectIsEmpty = (obj) => {
-    for(let prop in obj) {
-        if(obj.hasOwnProperty(prop)){
+    for (let prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
             return false;
         }
     }

@@ -1,4 +1,4 @@
-import { INITED_GENRES } from '../actions/index';
+import {INITED_GENRES} from '../actions/index';
 
 const initialState = {
     genres: [],

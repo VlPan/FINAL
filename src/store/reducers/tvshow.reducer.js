@@ -18,7 +18,7 @@ export function tvShowReducer(state = initialState, action) {
             let tvShows, initialTvShows, fullTvShows;
             let filterOptions = LS.get('filterOptionsTvs') || null;
             tvShows = initialTvShows = fullTvShows = action.payload;
-            if(filterOptions){
+            if (filterOptions) {
                 initialTvShows = tvShows = customLib.filterArray(tvShows, filterOptions);
             }
 
@@ -54,7 +54,7 @@ export function tvShowReducer(state = initialState, action) {
         case FILTER_TV_SHOWS_ADVANCED:
 
             filterOptions = action.payload;
-            if(action.payload.rememberInputs) {
+            if (action.payload.rememberInputs) {
                 localStorage.removeItem('filterOptionsTvs');
                 LS.set('filterOptionsTvs', filterOptions);
             }

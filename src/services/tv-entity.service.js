@@ -1,6 +1,6 @@
 import {TvShowEntity} from './tvshow.entity.dto.js';
 import {RequestServise} from './request-service.js';
-import{urlService} from './url-service';
+import {urlService} from './url-service';
 
 export class EntityTvService {
     constructor() {
@@ -10,12 +10,12 @@ export class EntityTvService {
     getTvEntities() {
         return this.requestServise.getRequest(urlService.popularTvShows())
             .then(result => {
-            let arr = JSON.parse(result).results;
-            let shows = arr.map((item)=>{
-                return new TvShowEntity(item); // MAPPING
+                let arr = JSON.parse(result).results;
+                let shows = arr.map((item) => {
+                    return new TvShowEntity(item); // MAPPING
+                });
+                return shows;
             });
-            return shows;
-        });
     }
 
     getRecommended(id) {

@@ -86,7 +86,7 @@ export class TvShowViewComponent extends React.Component {
                                        className="db-search__input"
                                        placeholder="Search Tv SHows"
                                 />
-                                <div className="db-search__container" >
+                                <div className="db-search__container">
                                     <div className="db-search__box" onClick={this.props.toggleSearch}>
                                         <i className="fa fa-search db-search__icon"
                                            aria-hidden="true"

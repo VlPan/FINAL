@@ -10,7 +10,7 @@ import {
 
 
 export const genresInniter = store => next => action => {
-    if(action.type===INIT_GENRES){
+    if (action.type === INIT_GENRES) {
         let entityGenresService = new EntityGenresService();
         entityGenresService.getGenres().then((genres) => {
             LS.set('genres', genres);

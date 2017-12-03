@@ -1,4 +1,5 @@
-import { TOGGLE_FORM,
+import {
+    TOGGLE_FORM,
     OPEN_FORM,
     CLOSE_FORM,
     TOGGLE_SIDEBAR,
@@ -42,12 +43,12 @@ export function layoutReducer(state = initialState, action) {
                 isOpenSearch: false
             };
         case OPEN_SEARCH:
-            return{
+            return {
                 ...state,
                 isOpenSearch: true
             };
         case TOGGLE_SEARCH:
-            return{
+            return {
                 ...state,
                 isOpenSearch: !state.isOpenSearch
             };

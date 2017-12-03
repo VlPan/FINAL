@@ -32,7 +32,7 @@ export class AdvancedSearchFormComponent extends React.Component {
             desc: this.filterOptions && this.filterOptions.desc || '',
             genre: this.filterOptions && this.filterOptions.genreIds.map(genre => genre.name) || [],
             isAdult: this.filterOptions && this.filterOptions.adult || false,
-            genresFromServer: LS.get('genres'),
+            genresFromServer: LS.get('genres') || [],
             rememberInputs: this.filterOptions && this.filterOptions.rememberInputs || false,
             vote: this.filterOptions && this.filterOptions.vote || 0,
             popularity: this.filterOptions && this.filterOptions.popularity || 0,
@@ -177,14 +177,14 @@ export class AdvancedSearchFormComponent extends React.Component {
                     <div className="db-advanced-search__submit_params">
                         <div className="db__flex-box">
 
-                                <ClickableIcon
-                                    icon="times"
-                                    className="db-advanced-search__reset"
-                                    onClickHandler={() => {
-                                        this.setState(this.baseState);
-                                    }}
-                                />
-                                <div className="db-advanced-search__label">Reset Form</div>
+                            <ClickableIcon
+                                icon="times"
+                                className="db-advanced-search__reset"
+                                onClickHandler={() => {
+                                    this.setState(this.baseState);
+                                }}
+                            />
+                            <div className="db-advanced-search__label">Reset Form</div>
 
                         </div>
                         <div className="db__flex-box">
