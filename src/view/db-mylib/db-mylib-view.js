@@ -1,7 +1,7 @@
 import React from 'react';
 import './db-mylib.scss';
 import './../shared-style/app.scss';
-import {LS} from '../../services';
+import {LS, customLib} from '../../services';
 import {connect} from 'react-redux';
 import {
     deleteItem,
@@ -9,7 +9,8 @@ import {
     toggleSearch,
     initMyLib,
     filterItemsAdvanced,
-    closeSearch
+    closeSearch,
+    watchAllItems
 } from '../../store/actions';
 import {Link, NavLink} from 'react-router-dom';
 import {
@@ -25,11 +26,22 @@ class MyLibViewComponent extends React.Component {
         super(props);
         this.filterItemsByName = this.filterItemsByName.bind(this);
         this.props.initMyLib();
+        console.log('-----SAVED ITEMS----',this.props.savedItems);
     }
 
     filterItemsByName(e) {
         let string = e.target.value || '';
         this.props.filterItemsByName(string);
+    }
+
+    componentWillMount(){
+        LS.set('savedItems', this.props.savedItems.map((item)=>{
+            return {
+                ...item,
+                watched: true
+            };
+        }));
+        this.props.watchAllItems();
     }
 
     componentWillUnmount() {
@@ -57,6 +69,17 @@ class MyLibViewComponent extends React.Component {
                                 filterItemsAdvanced={this.props.filterItemsAdvanced}
                                 rememberFrom={LS.get('filterOptionsMyLib')}
                             />
+                            {LS.get('filterOptionsMyLib') &&
+                            <div className="md-search__box md-search__box--black-box" onClick={() => {
+                                localStorage.removeItem('filterOptionsMyLib');
+                                this.props.filterItemsAdvanced({});
+                                this.props.watchAllItems();
+                            }}>
+                                <i className="fa fa-ban md-search__icon md-search__icon--red-icon"
+                                   aria-hidden="true"
+                                ></i>
+                            </div>
+                            }
                         </div>
                     </div>
                     <Navbar modificators={['md-navbar--left-margin']}>
@@ -87,11 +110,17 @@ class MyLibViewComponent extends React.Component {
                                         saveItem={this.props.saveItem}
                                         deleteItem={this.props.deleteItem}
                                         saved={true}
-                                        modificators={['md-poster--green-border'].join(' ')}
+                                        modificators={item.watched && ['md-poster--watched']}
                                     />
                                 </Link>
                             );
                         })}
+                        {customLib.arrayIsEmpty(this.props.savedItems) &&
+                        <div className="db-mylib__empty">
+                            <div className="db-mylib__empty_img"></div>
+                            <h1 className="db-mylib__title_img">Nothing in Library!!!</h1>
+                        </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -111,7 +140,8 @@ const mapDispatchToProps = (dispatch) => ({
     toggleSearch: () => dispatch(toggleSearch()),
     closeSearch: () => dispatch(closeSearch()),
     initMyLib: () => dispatch(initMyLib()),
-    filterItemsAdvanced: (searchOptions) => dispatch(filterItemsAdvanced(searchOptions))
+    filterItemsAdvanced: (searchOptions) => dispatch(filterItemsAdvanced(searchOptions)),
+    watchAllItems: () => dispatch(watchAllItems())
 });
 
 export const MyLibView = connect(mapStateToProps, mapDispatchToProps)(MyLibViewComponent);

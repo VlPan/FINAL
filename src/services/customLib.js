@@ -5,6 +5,9 @@ export const customLib = () => {
 customLib.common = 'the, it is, we all, a, an, by, to, you, me, he, she, they, we, how, it, i, are, to, for, of, .,';
 
 customLib.filterArray = (array, filterOptions) => {
+    if(customLib.objectIsEmpty(filterOptions || customLib.arrayIsEmpty(array))){
+        return array;
+    }
     if (filterOptions.name.length > 0) {
         array = array.filter((movie) => {
             return movie.name.trim().toLowerCase().indexOf(filterOptions.name.trim().toLowerCase()) !== -1;
@@ -30,11 +33,11 @@ customLib.filterArray = (array, filterOptions) => {
     }
 
     if (filterOptions.vote && !filterOptions.custom) {
-        array = array.filter(movie => movie.vote >= filterOptions.vote);
+        array = array.filter(movie => movie.vote >= filterOptions.vote || movie.custom);
     }
 
     if (filterOptions.popularity && !filterOptions.custom) {
-        array = array.filter(movie => movie.popularity >= filterOptions.popularity);
+        array = array.filter(movie => movie.popularity >= filterOptions.popularity || movie.custom);
     }
 
     if (filterOptions.custom) {
@@ -70,5 +73,14 @@ customLib.arrayIsNotEmpty = (array) => {
 
 customLib.arrayIsEmpty = (array) => {
     return typeof array === 'undefined' || array === null || array.length === 0;
+};
+
+customLib.objectIsEmpty = (obj) => {
+    for(let prop in obj) {
+        if(obj.hasOwnProperty(prop)){
+            return false;
+        }
+    }
+    return JSON.stringify(obj) === JSON.stringify({});
 };
 

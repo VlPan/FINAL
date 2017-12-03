@@ -17,7 +17,8 @@ import {
     FILTER_ITEMS_BY_NAME,
     FILTER_ITEMS_ADVANCED,
     FILTER_TV_SHOWS_ADVANCED,
-    FILTER_MOVIES_ADVANCED
+    FILTER_MOVIES_ADVANCED,
+    WATCH_ALL_ITEMS
 } from './store.types';
 
 export function dataWasRecived(payload) {
@@ -57,7 +58,8 @@ export function initTvShows(payload) {
     };
 }
 
-    export function initedGenres(payload) {
+
+export function initedGenres(payload) {
     return {
         type: INITED_GENRES,
         payload
@@ -77,6 +79,7 @@ export function initedTvShows(payload) {
         payload
     };
 }
+
 export function filterMoviesByName(payload) {
     return {
         type: FILTER_MOVIES_BY_NAME,
@@ -104,6 +107,7 @@ export function addTvShow(payload) {
         payload
     };
 }
+
 export function initMyLib(payload) {
     return {
         type: INIT_MYLIB,
@@ -149,6 +153,13 @@ export function filterTvShowsAdvanced(payload) {
 export function filterItemsAdvanced(payload) {
     return {
         type: FILTER_ITEMS_ADVANCED,
+        payload
+    };
+}
+
+export function watchAllItems(payload) {
+    return {
+        type: WATCH_ALL_ITEMS,
         payload
     };
 }

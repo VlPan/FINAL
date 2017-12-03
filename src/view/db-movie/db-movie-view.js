@@ -31,8 +31,33 @@ class MovieViewComponent extends React.Component {
         this.handleArrowMove = this.handleArrowMove.bind(this);
         this.filterItemsByName = this.filterItemsByName.bind(this);
         this.state = {
-            arrow: 'down'
+            arrowIsDown: true
         };
+    }
+
+    scrollingHandler() {
+        let div = this.filmsContainer;
+        let currentScroll = div.scrollTop;
+        if (currentScroll === 0) {
+            this.setState({arrowIsDown: true});
+        }
+        if (currentScroll > 0) {
+            this.setState({arrowIsDown: false});
+        }
+
+    }
+
+    changingArrow() {
+        let div = this.filmsContainer;
+        let currentScroll = div.scrollTop;
+
+        if (currentScroll !== 0) {
+            this.setState({arrowIsDown: !this.state.arrowIsDown});
+            div.scrollTo(0, 0);
+        } else {
+            div.scrollTo(0, this.filmsContainer.scrollHeight);
+        }
+
     }
 
     componentWillMount() {
@@ -55,8 +80,8 @@ class MovieViewComponent extends React.Component {
                 {
                     this.props.isOpenSidebar &&
                     <Arrow
-                        arrowState={this.state.arrow}
-                        handleArrowMove={this.handleArrowMove}
+                        arrowIsDown={this.state.arrowIsDown}
+                        onClick={this.changingArrow.bind(this)}
                         modificators={['md-arrow--black-body', 'md-arrow--position-fixed', 'md-arrow--big-left-margin']}
                     />
                 }
@@ -79,6 +104,16 @@ class MovieViewComponent extends React.Component {
                                         filterItemsAdvanced={this.props.filterMoviesAdvanced}
                                         rememberFrom={LS.get('filterOptionsMovies')}
                                     />
+                                    {LS.get('filterOptionsMovies') &&
+                                    <div className="md-search__box md-search__box--black-box" onClick={() => {
+                                        localStorage.removeItem('filterOptionsMovies');
+                                        this.props.filterMoviesAdvanced({});
+                                    }}>
+                                        <i className="fa fa-ban md-search__icon md-search__icon--red-icon"
+                                           aria-hidden="true"
+                                        ></i>
+                                    </div>
+                                    }
                                 </div>
                             </div>
                             <Navbar
@@ -108,6 +143,7 @@ class MovieViewComponent extends React.Component {
                         ref={(filmsContainer) => {
                             this.filmsContainer = filmsContainer;
                         }}
+                        onScroll={this.scrollingHandler.bind(this)}
                     >
                         <div className="md__add-movie">
                             {this.props.genres &&
@@ -161,9 +197,7 @@ class MovieViewComponent extends React.Component {
 const mapStateToProps = (state) => {
     const isOpenSidebar = state.layout.isOpenSidebar;
     const isOpenAddItemForm = state.layout.isOpenAddForm;
-    const isOpenSearchForm = state.layout.isOpenSearch;
     const movies = state.movieControl.movies;
-    const fullMovies = state.movieControl.fullMovies;
     const genres = state.genresControl.genres;
     const savedItems = state.myLib.savedItems;
     return {
@@ -171,8 +205,7 @@ const mapStateToProps = (state) => {
         isOpenAddItemForm,
         movies,
         genres,
-        savedItems,
-        fullMovies
+        savedItems
     };
 };
 

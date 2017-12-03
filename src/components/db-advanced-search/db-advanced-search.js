@@ -8,11 +8,13 @@ import {
     Input,
     Button,
     TextArea,
-    Selector
+    Selector,
+    ClickableIcon
 } from '../FormControls';
 import {closeSearch} from '../../store/actions';
 import Slider from 'react-rangeslider';
 import '../../base_styles/Custom_index.css';
+import {customLib} from '../../services/customLib';
 
 export class AdvancedSearchFormComponent extends React.Component {
 
@@ -38,15 +40,16 @@ export class AdvancedSearchFormComponent extends React.Component {
             popularity: this.filterOptions && this.filterOptions.popularity || 0,
             custom: this.filterOptions && this.filterOptions.custom || false
         };
+        this.baseState = this.state;
     }
 
-    handleChangePopularity (value) {
+    handleChangePopularity(value) {
         this.setState({
             popularity: value
         });
     }
 
-    handleChangeVote (value) {
+    handleChangeVote(value) {
         this.setState({
             vote: value
         });
@@ -102,6 +105,7 @@ export class AdvancedSearchFormComponent extends React.Component {
         };
         console.log(newItem);
         this.props.filterItemsAdvanced(newItem);
+        console.log('AFTER FILTERING ITEMS!!!!');
         this.props.closeSearch();
     }
 
@@ -174,6 +178,18 @@ export class AdvancedSearchFormComponent extends React.Component {
                         </div>
                     </div>
                     <div className="md-advanced-search__submit_params">
+                        <div className="md__flex-box">
+
+                                <ClickableIcon
+                                    icon="times"
+                                    className="md-advanced-search__reset"
+                                    onClickHandler={() => {
+                                        this.setState(this.baseState);
+                                    }}
+                                />
+                                <div className="md-advanced-search__label">Reset Form</div>
+
+                        </div>
                         <div className="md__flex-box">
                             <Selector
                                 name="rememberInputs"

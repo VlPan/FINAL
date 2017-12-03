@@ -1,4 +1,5 @@
 @import "./../../base_styles/settings";
+@import "./../../base_styles/mixins";
 
 .md-add-movie{
   transition: max-height 1s ease-in;
@@ -52,3 +53,37 @@
   height: 150px;
 }
 
+.md-add-movie__drop-files{
+  border: 2px dashed white;
+  width: 200px;
+  height: 100px;
+}
+
+.md-add-movie__dropped-image{
+  width: 100%;
+  height: 100%;
+}
+
+.md-add-movie__dropped{
+  border: 2px solid white;
+  width: 200px;
+  background-color: palevioletred;
+  height: 100px;
+}
+
+.md-add-movie__submit{
+  @include submit-button(#fff9f9);
+  margin-right: 10px;
+}
+
+.md-add-movie__cancel{
+  @include cancel-button(grey);
+}
+
+.md-add-movie__buttons{
+  margin-top: 40px;
+}
+
+.md-add-movie__submit--disabled{
+  background: darkgrey;
+}

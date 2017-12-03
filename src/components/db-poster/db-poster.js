@@ -5,6 +5,7 @@ import {ClickableIcon} from '../FormControls';
 
 import {Loader} from 'react-loaders';
 
+
 export const Poster = (props) => {
 
     const saveItem = (event) => {
@@ -16,9 +17,15 @@ export const Poster = (props) => {
         event.preventDefault();
         props.deleteItem(props.item);
     };
+
+    const hintInfo = ()=>{
+
+        return <h1>Hello World</h1>;
+    };
+
     return (
         <div className={props.modificators ? ['md-film', ...props.modificators].join(' ') : 'md-film'}>
-            {props.imagePath &&
+            {props.imagePath && !props.item.custom &&
             <div className="md__content-container--flex md__content-container--full-height">
                 <ImageLoader
                     src={props.imagePath || '../../assets/img/logo.jpg'}
@@ -30,10 +37,16 @@ export const Poster = (props) => {
                 </ImageLoader>
             </div>
             }
-            {props.item.custom && <img src="../../assets/img/logo.jpg" alt="Not found" className="md-film__image"/>}
+            {props.item.custom &&
+            <img src={props.item.posterImg} alt="Not found" className="md-film__image"/>
+            }
 
 
             {props.name && <h1 className="md-film__desc">
+                <ClickableIcon icon="info"
+                               className="md-poster__icon-info md-poster__icon--red"
+                               onMouseOverHandler={hintInfo}/>
+                <div className="md-film__desc-text">{props.item.desc}</div>
                 {props.saved ?
                     <ClickableIcon icon="trash" className="md-poster__icon md-poster__icon--red"
                                    onClickHandler={deleteItem}/>

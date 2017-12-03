@@ -67,10 +67,10 @@ module.exports = {
         "no-sequences": 2,
         "curly": 2,
         "no-loop-func": 2,
-        "complexity": [
-            2,
-            14
-        ],
+        // "complexity": [
+        //     2,
+        //     14
+        // ],
         "no-trailing-spaces": 2,
         "no-octal": 2,
         "no-labels": 2,
@@ -121,10 +121,10 @@ module.exports = {
             1,
             18
         ],
-        "max-depth": [
-            2,
-            3
-        ],
+        // "max-depth": [
+        //     2,
+        //     3
+        // ],
         "quotes": [1, "single"]
     }
 }

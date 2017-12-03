@@ -21,130 +21,105 @@ import Slider from 'react-rangeslider';
 export class MovieDescriptionComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.initMovieAndReccomended = this.initMovieAndReccomended.bind(this);
         this.state = {
             film: {},
             genresFromServer: LS.get('genres'),
             recommended: []
         };
-        if (!props.custom) {
+        this.baseState = this.state;
+    }
+
+    initMovieAndReccomended(id) {
+        let films = LS.get('films').filter((item) => {
+            return item.id === parseInt(id);
+        });
+        if (customLib.arrayIsNotEmpty(films)) {
+            console.log(true);
             const entityMovieService = new EntityMovieService();
-            entityMovieService.getRecommended(this.props.match.params.id).then((recommendedMovies) => {
+            entityMovieService.getRecommended(id).then((recommendedMovies) => {
+                console.log('RECCOMENDED MOVIEs', recommendedMovies);
                 this.setState(() => ({
-                    recommended: recommendedMovies
+                    recommended: recommendedMovies,
+                    film: films[0]
                 }));
+            });
+            return;
+        } else {
+            if (LS.get('addedFilms')) {
+                films = LS.get('addedFilms').filter((item) => {
+                    return item.id === id;
+                });
+                if (customLib.arrayIsNotEmpty(films)) {
+                    console.log(true);
+                    this.setState(() => ({film: films[0]}));
+                    return;
+                }
+            }
+        }
+
+        if (customLib.arrayIsEmpty(films)) {
+            console.log(true);
+            const entityMovieService = new EntityMovieService();
+            entityMovieService.getMovieById(id).then((movie) => {
+                return entityMovieService.getRecommended(id).then((recommendedMovies) => {
+                    console.log(true);
+                    this.setState(() => ({
+                        recommended: recommendedMovies,
+                        film: movie
+                    }));
+                });
             });
         }
     }
 
     componentWillMount() {
-        console.log('componentWillMount');
-        let films = LS.get('films').filter((item) => {
-
-            return item.id === parseInt(this.props.match.params.id);
-        });
-        if (customLib.arrayIsNotEmpty(films)) {
-            console.log(true);
-            this.setState(() => ({film: films[0]}));
-        } else {
-            if (LS.get('addedFilms')) {
-                films = LS.get('addedFilms').filter((item) => {
-                    return item.id === this.props.match.params.id;
-                });
-                if (customLib.arrayIsNotEmpty(films)) {
-                    console.log(true);
-                    this.setState(() => ({film: films[0]}));
-                }
-            }
-        }
-
-        if (customLib.arrayIsEmpty(films)) {
-            console.log(true);
-            const entityMovieService = new EntityMovieService();
-            entityMovieService.getMovieById(this.props.match.params.id).then((movie) => {
-                return entityMovieService.getRecommended(this.props.match.params.id).then((recommendedMovies) => {
-                    console.log(true);
-                    this.setState(() => ({
-                        recommended: recommendedMovies,
-                        film: movie
-                    }));
-                });
-            });
-        }
+        this.initMovieAndReccomended(this.props.match.params.id);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps');
-        let films = LS.get('films').filter((item) => {
-
-            return item.id === parseInt(nextProps.match.params.id);
-        });
-        if (customLib.arrayIsNotEmpty(films)) {
-            console.log(true);
-            this.setState(() => ({film: films[0]}));
-        } else {
-            if (LS.get('addedFilms')) {
-                films = LS.get('addedFilms').filter((item) => {
-                    return item.id === nextProps.match.params.id;
-                });
-                if (customLib.arrayIsNotEmpty(films)) {
-                    console.log(true);
-                    this.setState(() => ({film: films[0]}));
-                }
-            }
-        }
-
-        if (customLib.arrayIsEmpty(films)) {
-            console.log(true);
-            const entityMovieService = new EntityMovieService();
-            entityMovieService.getMovieById(nextProps.match.params.id).then((movie) => {
-                return entityMovieService.getRecommended(nextProps.match.params.id).then((recommendedMovies) => {
-                    console.log(true);
-                    this.setState(() => ({
-                        recommended: recommendedMovies,
-                        film: movie
-                    }));
-                });
-            });
-        }
+        this.initMovieAndReccomended(nextProps.match.params.id);
     }
 
-    render() {
-        if (this.state.film.id) {
-            console.log('RENDER');
-            let genres = this.state.genresFromServer.filter((genre) => {
 
+    render() {
+        console.log('RENDER');
+        if (!customLib.objectIsEmpty(this.state.film)) {
+            let genres = this.state.genresFromServer.filter((genre) => {
                 return this.state.film.genreIds.includes(genre.id);
             });
             return (
                 <div className="md__content">
                     <div className="md__nav-container">
-                        <Navbar>
-                            <NavLink
-                                to="/about"
-                                activeClassName="md-about--red-color"
-                                className="md-navbar__nav-item">
-                                About
-                            </NavLink>
-                        </Navbar>
+                            <Navbar modificators={['md-navbar--left-margin']}>
+                                <NavLink
+                                    to="/about"
+                                    activeClassName="md-about--red-color"
+                                    className="md-navbar__nav-item">
+                                    About
+                                </NavLink>
+                            </Navbar>
                     </div>
                     <div className="md__content-container">
-                        <div className="db-movie">
-                            <div className="db-movie__container">
-                                <div className="db-movie__flex">
-                                    <div className="db-movie__image">
+                        <div className="md-movie">
+                            <div className="md-movie__container">
+                                <div className="md-movie__flex">
+                                    <div className="md-movie__image">
                                         {this.state.film.poster &&
                                         <img src={this.state.film.poster} alt="Not found"/>
                                         }
                                         {this.state.film.custom &&
-                                        <img src="assets/img/logo.jpg" alt="Not found"/>
+                                        <img src={this.state.film.posterImg || '../../assets/img/logo.jpg'}
+                                             alt="Not found" className="md-film__image"/>
                                         }
 
+
                                     </div>
-                                    <div className="db-movie__info">
-                                        <div className="db-movie__name">
+                                    <div className="md-movie__info">
+                                        <div className="md-movie__name">
                                             {this.state.film.name}
                                         </div>
-                                        <div className="db-movie__desc">
+                                        <div className="md-movie__desc">
                                             <p>{this.state.film.desc}</p>
                                             <p>{this.state.film.desc}</p>
                                             <p>{this.state.film.desc}</p>
@@ -155,7 +130,7 @@ export class MovieDescriptionComponent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="db-movie__flex">
+                                <div className="md-movie__flex">
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
@@ -163,8 +138,8 @@ export class MovieDescriptionComponent extends React.Component {
                                         readOnly={true}
                                     />
                                     {!this.state.film.custom &&
-                                    <div className="db-movie__flex db-movie__flex--column">
-                                        <div className="db-movie__container ">
+                                    <div className="md-movie__flex md-movie__flex--column">
+                                        <div className="md-movie__container ">
                                             <div>Popularity</div>
                                             <div className="slider slider--yellow">
                                                 <Slider
@@ -187,25 +162,34 @@ export class MovieDescriptionComponent extends React.Component {
                                     </div>
                                     }
                                 </div>
-                                <div className="db-movie__recommended">
-                                    {this.state.recommended.map((item, index) => {
-                                        let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
-                                        return (
-                                            <Link to={`/movies/${item.id}`} key={index}>
-                                                <Poster
-                                                    item={item}
-                                                    name={item.name}
-                                                    imagePath={item.poster}
-                                                    key={item}
-                                                    saveItem={this.props.saveItem}
-                                                    deleteItem={this.props.deleteItem}
-                                                    saved={isAlreadySaved}
-                                                    modificators={isAlreadySaved && ['md-poster--green-border']}
-                                                />
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
+                                {customLib.arrayIsNotEmpty(this.state.recommended) ?
+                                    <div className="md-movie__recommended">
+                                        {this.state.recommended.map((item, index) => {
+                                            let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
+                                            return (
+                                                <Link to={`/movies/${item.id}`} key={index}>
+                                                    <Poster
+                                                        item={item}
+                                                        name={item.name}
+                                                        imagePath={item.poster}
+                                                        key={item}
+                                                        saveItem={this.props.saveItem}
+                                                        deleteItem={this.props.deleteItem}
+                                                        saved={isAlreadySaved}
+                                                        modificators={isAlreadySaved && ['md-poster--green-border']}
+                                                    />
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                    :
+                                    !this.state.film.custom &&
+                                    <div className="md-tv-show__container">
+                                        <div className="md__loading-container">
+                                            <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -213,7 +197,9 @@ export class MovieDescriptionComponent extends React.Component {
             );
         } else {
             return (
-                <h1>Loading...</h1>
+                <div className="md__loading-container">
+                    <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                </div>
             );
         }
     }

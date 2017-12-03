@@ -71,4 +71,40 @@
    padding-right: 0px !important;
  }
 
+  .md-support__main-params{
+    width: 100% !important;
+  }
+
+  .md-movie__image{
+    margin: 0 auto !important;
+  }
+  .md-support__poster{
+    width: 100% !important;
+  }
+  .md-movie__flex--column{
+    width: 100% !important;
+  }
+
+
+
+
+}
+
+@media (max-width: 730px) {
+  .md-tv-show__info{
+    width: 100% !important;
+  }
+  .md-movie__flex{
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .md-tv-show__info__desc{
+    width: 100%;
+  }
+
+  .md-tv-show__flex{
+    justify-content: center !important;
+    align-items: center !important;
+  }
 }

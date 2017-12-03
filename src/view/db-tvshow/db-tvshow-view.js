@@ -31,8 +31,33 @@ export class TvShowViewComponent extends React.Component {
         this.handleArrowMove = this.handleArrowMove.bind(this);
         this.filterItemsByName = this.filterItemsByName.bind(this);
         this.state = {
-            arrow: 'down'
+            arrowIsDown: true
         };
+    }
+
+    scrollingHandler() {
+        let div = this.filmsContainer;
+        let currentScroll = div.scrollTop;
+        if (currentScroll === 0) {
+            this.setState({arrowIsDown: true});
+        }
+        if (currentScroll > 0) {
+            this.setState({arrowIsDown: false});
+        }
+
+    }
+
+    changingArrow() {
+        let div = this.filmsContainer;
+        let currentScroll = div.scrollTop;
+
+        if (currentScroll !== 0) {
+            this.setState({arrowIsDown: !this.state.arrowIsDown});
+            div.scrollTo(0, 0);
+        } else {
+            div.scrollTo(0, this.filmsContainer.scrollHeight);
+        }
+
     }
 
     componentWillUnmount() {
@@ -46,7 +71,11 @@ export class TvShowViewComponent extends React.Component {
             <div className="md__flex-box">
                 {
                     this.props.isOpenSidebar &&
-                    <Arrow arrowState={this.state.arrow} handleArrowMove={this.handleArrowMove}/>
+                    <Arrow
+                        arrowIsDown={this.state.arrowIsDown}
+                        onClick={this.changingArrow.bind(this)}
+                        modificators={['md-arrow--black-body', 'md-arrow--position-fixed', 'md-arrow--big-left-margin']}
+                    />
                 }
                 <div className="md__content">
                     <div className="md__navbar__navbar--white-text">
@@ -69,6 +98,16 @@ export class TvShowViewComponent extends React.Component {
                                         filterItemsAdvanced={this.props.filterTvShowsAdvanced}
                                         rememberFrom={LS.get('filterOptionsTvs')}
                                     />
+                                    {LS.get('filterOptionsTvs') &&
+                                    <div className="md-search__box md-search__box--black-box" onClick={() => {
+                                        localStorage.removeItem('filterOptionsTvs');
+                                        this.props.filterTvShowsAdvanced({});
+                                    }}>
+                                        <i className="fa fa-ban md-search__icon md-search__icon--red-icon"
+                                           aria-hidden="true"
+                                        ></i>
+                                    </div>
+                                    }
                                 </div>
                             </div>
                             <Navbar
@@ -98,6 +137,7 @@ export class TvShowViewComponent extends React.Component {
                         ref={(filmsContainer) => {
                             this.filmsContainer = filmsContainer;
                         }}
+                        onScroll={this.scrollingHandler.bind(this)}
                     >
                         <div className="md__add-movie">
                             {this.props.genres &&

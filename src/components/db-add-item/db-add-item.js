@@ -22,18 +22,37 @@ export class AddItemFormComponent extends React.Component {
         this.uploadPoster = this.uploadPoster.bind(this);
         this.checkValidation = this.checkValidation.bind(this);
         this.saveMovie = this.saveMovie.bind(this);
-
+        this.loadInView = this.loadInView.bind(this);
+        this.defaultImg = 'assets/img/logo.png';
         this.state = {
             name: '',
             desc: '',
             genre: [],
             isAdult: false,
             posters: 0,
+            posterImg: this.defaultImg,
             genresFromServer: LS.get('genres') || []
         };
     }
 
+    componentDidMount(){
+        console.log(this.dropped);
+        this.dropzone.ondrop = (e)=>{
+            e.preventDefault();
+            var file = e.dataTransfer.files[0];
+            console.log(this.dropped);
+            this.loadInView(file, this.dropped);
+            this.uploadPoster();
+        };
 
+        this.dropzone.ondragover = function(){
+            return false;
+        };
+
+        this.dropzone.ondragleave = function(){
+            return false;
+        };
+    }
 
 
     checkValidation() {
@@ -90,12 +109,26 @@ export class AddItemFormComponent extends React.Component {
             genreIds: genreIds.map(elem => elem.id),
             adult: this.state.isAdult,
             id: uuidv4(),
-            custom: true
+            custom: true,
+            posterImg: this.state.posterImg
         };
-        console.log(newItem);
+        console.log('------------ NEW ITEM -----------',newItem);
         this.props.addNewItemToArray(newItem);
         this.handleCloseAddMovieForm();
     }
+
+
+    loadInView(file,elem){
+        var fileReader = new FileReader();
+        fileReader.onloadend = ()=>{
+            elem.src = fileReader.result;
+            this.setState(()=>({
+                posterImg: elem.src
+            }));
+        };
+        fileReader.readAsDataURL(file);
+    }
+
 
 
     render() {
@@ -142,25 +175,49 @@ export class AddItemFormComponent extends React.Component {
                     </div>
 
                     <div className="md-add-movie__img-upload">
-                        <input type="file"
-                               onChange={this.uploadPoster}
-                        /><br/>
+                        <div className="md-add-movie__drop-files" draggable="true"
+                             ref={div => {
+                                 this.dropzone = div;
+                             }}>
+
+                        </div>
+                        <div className="md-add-movie__dropped">
+                            <img src="" alt="" className="md-add-movie__dropped-image"
+                                 ref={img => {
+                                     this.dropped = img;
+                                 }}/>
+                        </div>
                         {this.state.posters === 0 &&
                         <div className="md-add-movie__error">Upload one poster as minimum</div>}
+                        <div className="md-add-movie__buttons ">
                         <Button
                             disabled={this.checkValidation()}
                             onClickHandler={this.saveMovie}
                             value="Add"
+                            className={['md-add-movie__submit', this.checkValidation() && 'md-add-movie__submit--disabled' ].join(' ')}
                         />
                         <Button
                             onClickHandler={this.handleCloseAddMovieForm}
                             value="Close"
+                            className="md-add-movie__cancel"
                         />
+                        </div>
                     </div>
                 </form>
             </div>
         );
     }
+}
+
+function loadInView(file,elem){
+    var fileReader = new FileReader();
+    fileReader.onloadend = ()=>{
+        elem.src = fileReader.result;
+        this.setState(()=>({
+            posterImg: elem.src
+        }));
+    };
+    fileReader.readAsDataURL(file);
 }
 
 

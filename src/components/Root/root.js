@@ -43,6 +43,7 @@ class RootComponent extends React.Component {
 
 
     render() {
+        let unwatchedItemsNumber = this.props.fullItems.filter(item => !item.watched).length;
         console.log('<---------PROOOOOPS-------->', this.props);
         if (customLib.arrayIsNotEmpty(this.props.fullMovies) && customLib.arrayIsNotEmpty(this.props.fullTvShows)) {
             return (
@@ -97,8 +98,8 @@ class RootComponent extends React.Component {
                                     <div className="md-sidebar__label">
                                         My Library {LS.get('savedItems') &&
                                     <div className="md-sidebar__count">
-                                        {LS.get('savedItems').length > 0 &&
-                                        LS.get('savedItems').length
+                                        {unwatchedItemsNumber > 0 &&
+                                        unwatchedItemsNumber
                                         }
                                     </div>}
                                     </div>
@@ -177,6 +178,7 @@ const mapStateToProps = (state) => {
     const initialTvShows = state.tvShowsControl.initialTvShows;
     const initialGenres = state.tvShowsControl.initialGenres;
     const savedItems = state.myLib.savedItems;
+    const fullItems = state.myLib.fullItems;
     return {
         isOpenSidebar,
         movies,
@@ -187,7 +189,8 @@ const mapStateToProps = (state) => {
         initialTvShows,
         initialGenres,
         savedItems,
-        fullTvShows
+        fullTvShows,
+        fullItems
     };
 };
 

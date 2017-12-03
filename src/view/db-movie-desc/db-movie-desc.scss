@@ -1,47 +1,49 @@
 @import '../../base_styles/settings';
 
-.db-movie {
+.md-movie {
   color: grey;
 }
 
-.db-movie__container {
+.md-movie__container {
   width: 90%;
   margin-left: 5%;
 }
 
 
-.db-movie__image {
-  width: 300px;
-  height: 400px;
+.md-movie__image {
+  width: 200px;
+  height: 300px;
   margin-right: 30px;
 }
 
-.db-movie__image img {
+.md-movie__image img {
   width: inherit;
   height: inherit;
 }
 
-.db-movie__flex {
+.md-movie__flex {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.db-movie__flex--column {
+.md-movie__flex--column {
   flex-direction: column;
   width: 300px;
+  flex-wrap: wrap;
 }
 
-.db-movie__desc {
+.md-movie__desc {
   overflow: auto;
-  height: 400px;
-  width: 80%;
+  height: 250px;
+  width: 100%;
 }
 
-.db-movie__name {
+.md-movie__name {
   margin: 40px 0;
   font-size: $big-font;
 }
 
-.db-movie__recommended {
+.md-movie__recommended {
   display: flex;
   width: 100%;
   overflow-x: scroll;
@@ -54,4 +56,8 @@
 
 .slider--green .rangeslider-horizontal .rangeslider__fill{
   background-color: #579e18;
+}
+
+.md-movie__info{
+  width: 60%;
 }

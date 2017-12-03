@@ -1,11 +1,13 @@
 import {
     INIT_MOVIES,
+    INIT_MOVIE_BY_ID,
     INITED_MOVIES
 } from './../actions';
 
 import {
     EntityMovieService,
-    LS
+    LS,
+    customLib
 } from '../../services';
 
 

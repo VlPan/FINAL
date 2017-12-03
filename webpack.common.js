@@ -79,14 +79,14 @@ module.exports = {
                 }
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(jpg|svg|png|gif|ico)$/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
                             name: 'assets/img/[name].[ext]'
                         }
-                    },
+                    }
                     // {
                     //     loader: 'url-loader',
                     //     options: {

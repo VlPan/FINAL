@@ -5,34 +5,40 @@
 
 .md__main-container{
   display: flex;
+  flex-wrap: nowrap;
   width: 100%;
   height: 100%;
 }
 
 .md__flex-row{
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
 }
 
 .md-flex-row--reverse{
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row-reverse;
 }
 
 .md__flex-column{
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
 }
 
 .md__container{
   width: 90%;
   margin-left: 5%;
+  flex-wrap: wrap;
 }
 
 
 .md__content{
   width: 100%;
-  border: 2px solid blue;
+  overflow-y: auto;
+  height: 99vh;
 }
 
 .md__films-container--white-text{
@@ -40,15 +46,13 @@
 }
 
 .md__content-container{
-  height: 87vh;
-  border: 2px solid blueviolet;
+  height: 85vh;
   width: 100%;
   overflow-y: auto;
 }
 
 .md__view-container{
   width: 100%;
-  border: 2px solid orange;
 }
 
 .md__content-container--flex{
@@ -59,7 +63,6 @@
 }
 
 .md__navbar{
-  border: 2px solid pink;
   width: 100%;
   min-height: 10vh;
   overflow: hidden;
@@ -72,7 +75,6 @@
 
 
 .md__nav-container{
-  border: 2px solid greenyellow;
   display: flex;
   flex-wrap: wrap;
   min-height: 80px;
@@ -81,7 +83,6 @@
 }
 
 .md__container--flex-center{
-
   justify-content: center;
 }
 
@@ -94,8 +95,13 @@
 
 .md__flex-box{
   display: flex;
+  //flex-wrap: wrap;
   width: 100%;
   cursor: pointer;
+}
+
+.md__flex-box--border-radius{
+  border-radius: 15px;
 }
 
 .md__flex-box--column{
@@ -105,4 +111,10 @@
 
 .md-search__container{
   position: relative;
+}
+
+.md-flex-row{
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
 }

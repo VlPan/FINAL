@@ -6,6 +6,7 @@ import {
     FILTER_ITEMS_ADVANCED
 } from '../actions/index';
 import {LS, customLib} from '../../services';
+import {WATCH_ALL_ITEMS} from '../actions/store.types';
 
 const initialState = {
     savedItems: [],
@@ -20,7 +21,7 @@ export function myLibReducer(state = initialState, action) {
             let filterOptions = LS.get('filterOptionsMyLib') || null;
             savedItems = initialItems = fullItems = LS.get('savedItems');
             console.log(fullItems);
-            if(filterOptions && savedItems){
+            if (filterOptions && savedItems) {
                 initialItems = savedItems = customLib.filterArray(savedItems, filterOptions);
             }
             console.log(savedItems);
@@ -39,25 +40,31 @@ export function myLibReducer(state = initialState, action) {
             }
 
             let newItems = state.savedItems.concat(action.payload);
-            console.log(newItems);
-            LS.set('savedItems', newItems);
+            let newFullItems = state.fullItems.concat(action.payload);
+            let newInitialItems = state.initialItems.concat(action.payload);
+            LS.set('savedItems', newFullItems);
             return {
                 ...state,
-                savedItems: newItems
+                savedItems: newItems,
+                initialItems: newInitialItems,
+                fullItems: newFullItems
             };
         case DELETE_ITEM:
             newItems = state.savedItems.filter((item) => {
                 return item.id !== action.payload.id;
             });
-            console.log(newItems);
-            LS.set('savedItems', newItems);
+            newFullItems = state.fullItems.filter((item) => {
+                return item.id !== action.payload.id;
+            });
+            LS.set('savedItems', newFullItems);
             return {
                 ...state,
-                savedItems: newItems
+                savedItems: newItems,
+                fullItems: newFullItems
             };
         case FILTER_ITEMS_BY_NAME:
-            if(action.payload.length === 0){
-                return{
+            if (action.payload.length === 0) {
+                return {
                     ...state,
                     savedItems: state.initialItems
                 };
@@ -71,7 +78,7 @@ export function myLibReducer(state = initialState, action) {
         case FILTER_ITEMS_ADVANCED:
             console.log('FILTER MyLibs Items ADVANCED');
             filterOptions = action.payload;
-            if(action.payload.rememberInputs) {
+            if (action.payload.rememberInputs) {
                 localStorage.removeItem('filterOptionsMyLib');
                 LS.set('filterOptionsMyLib', filterOptions);
             }
@@ -79,11 +86,40 @@ export function myLibReducer(state = initialState, action) {
             console.log('arrToFilter', arrToFilter);
 
             arrToFilter = customLib.filterArray(arrToFilter, filterOptions);
-
             return {
                 ...state,
                 savedItems: arrToFilter,
                 initialItems: arrToFilter
+            };
+        case WATCH_ALL_ITEMS:
+            let newSaveItems = state.savedItems.map((item) => {
+                return {
+                    ...item,
+                    watched: true
+                };
+            });
+
+            fullItems = state.fullItems;
+
+            for (let i = 0; i < fullItems.length; i++) {
+                for (let y = 0; y < newSaveItems.length; y++) {
+                    if (fullItems[i].id === newSaveItems[y].id) {
+                        fullItems[i].watched = true;
+                    }
+                }
+            }
+
+            // LS.set('savedItems', state.fullItems.map((item) => {
+            //     return {
+            //         ...item,
+            //         watched: true
+            //     };
+            // }));
+            LS.set('savedItems', fullItems);
+            return {
+                ...state,
+                savedItems: newSaveItems,
+                fullItems: fullItems
             };
         default:
             return state;

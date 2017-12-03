@@ -56,3 +56,7 @@
 .md-support__cancel{
   @include cancel-button(grey);
 }
+
+.md-support__buttons{
+  margin-top: 40px;
+}

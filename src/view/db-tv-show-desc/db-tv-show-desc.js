@@ -15,50 +15,51 @@ import {
 import {EntityTvService} from '../../services';
 import {Link, NavLink} from 'react-router-dom';
 import Slider from 'react-rangeslider';
-
+import {Loader} from 'react-loaders';
 
 export class TvShowDescriptionComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.initTvShow = this.initTvShow.bind(this);
         this.state = {
-            tvShow: null,
+            tvShow: {},
             genresFromServer: LS.get('genres'),
             recommended: []
         };
-        if (!props.custom) {
-            const entityTvService = new EntityTvService();
-            entityTvService.getRecommended(this.props.match.params.id).then((recommendedMovies) => {
-                this.setState(() => ({
-                    recommended: recommendedMovies
-                }));
-            });
-        }
+        this.baseState = this.state;
     }
 
-
-    componentWillMount() {
+    initTvShow(id) {
         let tvShows = LS.get('tvShows').filter((item) => {
-            return item.id === parseInt(this.props.match.params.id);
+            return item.id === parseInt(id);
         });
         if (customLib.arrayIsNotEmpty(tvShows)) {
             console.log('TV IN LS');
-            this.setState(() => ({tvShow: tvShows[0]}));
+            const entityTvService = new EntityTvService();
+            entityTvService.getRecommended(id).then((recommendedMovies) => {
+                this.setState(() => ({
+                    recommended: recommendedMovies,
+                    tvShow: tvShows[0]
+                }));
+            });
+            return ;
         } else {
             if (LS.get('addedTvShows')) {
                 tvShows = LS.get('addedTvShows').filter((item) => {
-                    return item.id === this.props.match.params.id;
+                    return item.id === id;
                 });
                 if (customLib.arrayIsNotEmpty(tvShows)) {
                     console.log('TV IN LS 2');
                     this.setState(() => ({tvShow: tvShows[0]}));
+                    return ;
                 }
             }
         }
 
         if (customLib.arrayIsEmpty(tvShows)) {
             const entityTvService = new EntityTvService();
-            entityTvService.getTvShowById(this.props.match.params.id).then((tvShow) => {
-                return entityTvService.getRecommended(this.props.match.params.id).then((recommendedTv) => {
+            entityTvService.getTvShowById(id).then((tvShow) => {
+                return entityTvService.getRecommended(id).then((recommendedTv) => {
                     console.log('SET STATE');
                     this.setState(() => ({
                         recommended: recommendedTv,
@@ -67,44 +68,20 @@ export class TvShowDescriptionComponent extends React.Component {
                 });
             });
         }
+    }
+
+    componentWillMount() {
+        this.initTvShow(this.props.match.params.id);
     }
 
     componentWillReceiveProps(nextProps) {
-        let tvShows = LS.get('tvShows').filter((item) => {
-            return item.id === parseInt(nextProps.match.params.id);
-        });
-        if (customLib.arrayIsNotEmpty(tvShows)) {
-            console.log('TV IN LS');
-            this.setState(() => ({tvShow: tvShows[0]}));
-        } else {
-            if (LS.get('addedTvShows')) {
-                tvShows = LS.get('addedTvShows').filter((item) => {
-                    return item.id === nextProps.match.params.id;
-                });
-                if (customLib.arrayIsNotEmpty(tvShows)) {
-                    console.log('TV IN LS 2');
-                    this.setState(() => ({tvShow: tvShows[0]}));
-                }
-            }
-        }
 
-        if (customLib.arrayIsEmpty(tvShows)) {
-            const entityTvService = new EntityTvService();
-            entityTvService.getTvShowById(nextProps.match.params.id).then((tvShow) => {
-                return entityTvService.getRecommended(nextProps.match.params.id).then((recommendedTv) => {
-                    console.log('SET STATE');
-                    this.setState(() => ({
-                        recommended: recommendedTv,
-                        tvShow: tvShow
-                    }));
-                });
-            });
-        }
+        this.initTvShow(nextProps.match.params.id);
     }
 
     render() {
         console.log('RENDER');
-        if (this.state.tvShow) {
+        if (!customLib.objectIsEmpty(this.state.tvShow)) {
             let genres = this.state.genresFromServer.filter((genre) => {
                 return this.state.tvShow.genreIds.includes(genre.id);
             });
@@ -113,7 +90,7 @@ export class TvShowDescriptionComponent extends React.Component {
                 <div className="md__content">
 
                     <div className="md__nav-container">
-                        <Navbar>
+                        <Navbar modificators={['md-navbar--left-margin']}>
                             <NavLink
                                 to="/about"
                                 activeClassName="md-about--red-color"
@@ -123,24 +100,24 @@ export class TvShowDescriptionComponent extends React.Component {
                         </Navbar>
                     </div>
                     <div className="md__content-container">
-                        <div className="db-tv-show">
-                            <div className="db-tv-show__container">
-                                <div className="db-tv-show__flex">
-                                    <div className="db-tv-show__image">
+                        <div className="md-tv-show">
+                            <div className="md-tv-show__container">
+                                <div className="md-tv-show__flex">
+                                    <div className="md-tv-show__image">
                                         {this.state.tvShow.poster &&
                                         <img src={this.state.tvShow.poster} alt="Not found"/>
                                         }
 
                                         {this.state.tvShow.custom &&
-                                        <img src="../../assets/img/logo.jpg" alt="Not found"/>
+                                        <img src={this.state.tvShow.posterImg || '../../assets/img/logo.jpg'}
+                                             alt="Not found" className="md-film__image"/>
                                         }
                                     </div>
-                                    <div className="db-tv-show__info">
-                                        <div className="db-tv-show__name">
+                                    <div className="md-tv-show__info">
+                                        <div className="md-tv-show__name">
                                             {this.state.tvShow.name}
                                         </div>
-
-                                        <div className="db-tv-show__desc">
+                                        <div className="md-tv-show__desc">
                                             <p>{this.state.tvShow.desc}</p>
                                             <p>{this.state.tvShow.desc}</p>
                                             <p>{this.state.tvShow.desc}</p>
@@ -151,7 +128,7 @@ export class TvShowDescriptionComponent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="db-tv-show__flex">
+                                <div className="md-tv-show__flex">
                                     <SelectorBox
                                         array={LS.get('genres')}
                                         chunk={4}
@@ -159,8 +136,8 @@ export class TvShowDescriptionComponent extends React.Component {
                                         readOnly={true}
                                     />
                                     {!this.state.tvShow.custom &&
-                                    <div className="db-movie__flex db-movie__flex--column">
-                                        <div className="db-movie__container ">
+                                    <div className="md-movie__flex md-movie__flex--column">
+                                        <div className="md-movie__container ">
                                             <div>Popularity</div>
                                             <div className="slider slider--yellow">
                                                 <Slider
@@ -183,26 +160,34 @@ export class TvShowDescriptionComponent extends React.Component {
                                     </div>
                                     }
                                 </div>
-                                {this.state.recommended &&
-                                <div className="db-tv-show__recommended">
-                                    {this.state.recommended.map((item, index) => {
-                                        let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
-                                        return (
-                                            <Link to={`/tvshows/${item.id}`} key={index}>
-                                                <Poster
-                                                    item={item}
-                                                    name={item.name}
-                                                    imagePath={item.poster}
-                                                    key={item}
-                                                    saveItem={this.props.saveItem}
-                                                    deleteItem={this.props.deleteItem}
-                                                    saved={isAlreadySaved}
-                                                    modificators={isAlreadySaved && ['md-poster--green-border']}
-                                                />
-                                            </Link>
-                                        );
-                                    })}
-                                </div>}
+                                {customLib.arrayIsNotEmpty(this.state.recommended) ?
+                                    <div className="md-tv-show__recommended">
+                                        {this.state.recommended.map((item, index) => {
+                                            let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
+                                            return (
+                                                <Link to={`/tvshows/${item.id}`} key={index}>
+                                                    <Poster
+                                                        item={item}
+                                                        name={item.name}
+                                                        imagePath={item.poster}
+                                                        key={item}
+                                                        saveItem={this.props.saveItem}
+                                                        deleteItem={this.props.deleteItem}
+                                                        saved={isAlreadySaved}
+                                                        modificators={isAlreadySaved && ['md-poster--green-border']}
+                                                    />
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                    :
+                                    !this.state.tvShow.custom &&
+                                    <div className="md-tv-show__container">
+                                        <div className="md__loading-container">
+                                            <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -212,7 +197,9 @@ export class TvShowDescriptionComponent extends React.Component {
             );
         } else {
             return (
-                <h1>Loading...</h1>
+                <div className="md__loading-container">
+                    <Loader type="line-scale" innerClassName="md-lod" color="#f4df42" active/>
+                </div>
             );
         }
     }

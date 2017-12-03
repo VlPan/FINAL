@@ -20,9 +20,25 @@
   position: relative;
   height: 100%;
   cursor: pointer;
+  margin-right: 10px;
 }
+
+.md-search__box--black-box{
+  background: $main-color;
+  border: 1px solid darkgreen;
+}
+
 
 .md-search__icon {
   color: black;
   font-size: $icons-font;
+
+}
+
+.md-search__icon--red-icon{
+  color: red;
+}
+
+.md-search__container{
+  display: flex;
 }

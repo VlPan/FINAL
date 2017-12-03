@@ -3,13 +3,13 @@ import React from 'react';
 export const ClickableIcon = (props) => {
     return (
         <div
-            className={props.className} style={{border: '1px solid red'}}
+            className={props.className}
             onClick={props.onClickHandler}
+            onMouseOver={props.onMouseOverHandler}
         >
             <i className={`fa fa-${props.icon}`}
                aria-hidden="true"
             >
-
             </i>
         </div>
     );
