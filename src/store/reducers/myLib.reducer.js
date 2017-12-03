@@ -19,7 +19,7 @@ export function myLibReducer(state = initialState, action) {
         case INIT_MYLIB:
             let savedItems, initialItems, fullItems;
             let filterOptions = LS.get('filterOptionsMyLib') || null;
-            savedItems = initialItems = fullItems = LS.get('savedItems');
+            savedItems = initialItems = fullItems = LS.get('savedItems') || [];
             console.log(fullItems);
             if (filterOptions && savedItems) {
                 initialItems = savedItems = customLib.filterArray(savedItems, filterOptions);

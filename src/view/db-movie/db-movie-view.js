@@ -155,7 +155,7 @@ class MovieViewComponent extends React.Component {
                             }
                         </div>
                         {this.props.movies.map((item, index) => {
-                            let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
+                            let isAlreadySaved = LS.get('savedItems') && LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
                             console.log(isAlreadySaved);
                             return (
                                 <Link to={`/movies/${item.id}`} key={index}>

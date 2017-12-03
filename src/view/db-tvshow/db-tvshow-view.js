@@ -149,8 +149,7 @@ export class TvShowViewComponent extends React.Component {
                             }
                         </div>
                         {this.props.tvShows.map((item, index) => {
-                            let isAlreadySaved = LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
-                            console.log(isAlreadySaved);
+                            let isAlreadySaved = LS.get('savedItems') && LS.get('savedItems').filter((savedItem) => savedItem.id === item.id).length > 0;
                             return (
                                 <Link to={`/tvshows/${item.id}`} key={index}>
                                     <Poster

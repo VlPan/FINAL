@@ -132,7 +132,6 @@ export class AddItemFormComponent extends React.Component {
 
 
     render() {
-        console.log(this.state);
         return (
             <div className={['db-add-movie', !this.props.isOpen && 'db-add-movie--hide'].join(' ')}>
                 <h1 className="db-add-movie__title">{this.props.title}</h1>
