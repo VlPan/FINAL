@@ -1,6 +1,5 @@
 import React from 'react';
 import './db-advanced-search.scss';
-import uuidv4 from 'uuid/v4';
 import {connect} from 'react-redux';
 import {SelectorBox} from '../db-selector-box';
 import {LS} from '../../services';
@@ -14,7 +13,6 @@ import {
 import {closeSearch, watchAllItems} from '../../store/actions';
 import Slider from 'react-rangeslider';
 import '../../base_styles/Custom_index.css';
-import {customLib} from '../../services/customLib';
 
 export class AdvancedSearchFormComponent extends React.Component {
 
@@ -28,7 +26,7 @@ export class AdvancedSearchFormComponent extends React.Component {
         this.handleChangePopularity = this.handleChangePopularity.bind(this);
         this.handleChangeVote = this.handleChangeVote.bind(this);
         this.filterOptions = this.props.rememberFrom || null;
-        console.log('<________________________>', this.filterOptions);
+
         this.state = {
             name: this.filterOptions && this.filterOptions.name || '',
             desc: this.filterOptions && this.filterOptions.desc || '',
@@ -86,13 +84,13 @@ export class AdvancedSearchFormComponent extends React.Component {
     }
 
     filterItems(e) {
-        console.log('FILTER');
+
         e.preventDefault();
         e.stopPropagation();
         let genreIds = this.state.genresFromServer.filter((genre) => {
             return this.state.genre.includes(genre.name);
         });
-        console.log('<________________________>', genreIds);
+
         const newItem = {
             name: this.state.name,
             desc: this.state.desc,
@@ -103,10 +101,9 @@ export class AdvancedSearchFormComponent extends React.Component {
             rememberInputs: this.state.rememberInputs,
             custom: this.state.custom
         };
-        console.log(newItem);
+
         this.props.filterItemsAdvanced(newItem);
         this.props.watchAllItems();
-        console.log('AFTER FILTERING ITEMS!!!!');
         this.props.closeSearch();
     }
 
@@ -114,7 +111,6 @@ export class AdvancedSearchFormComponent extends React.Component {
     render() {
         const popularity = this.state.popularity;
         const vote = this.state.vote;
-        console.log(this.state);
         return (
             <div className={['db-advanced-search', !this.props.isOpen && 'db-advanced-search--hide'].join(' ')}>
                 <h1 className="db-advanced-search__title">{this.props.title}</h1>

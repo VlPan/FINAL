@@ -34,7 +34,7 @@ export class TvShowDescriptionComponent extends React.Component {
             return item.id === parseInt(id);
         });
         if (customLib.arrayIsNotEmpty(tvShows)) {
-            console.log('TV IN LS');
+
             const entityTvService = new EntityTvService();
             entityTvService.getRecommended(id).then((recommendedMovies) => {
                 this.setState(() => ({
@@ -49,7 +49,7 @@ export class TvShowDescriptionComponent extends React.Component {
                     return item.id === id;
                 });
                 if (customLib.arrayIsNotEmpty(tvShows)) {
-                    console.log('TV IN LS 2');
+
                     this.setState(() => ({tvShow: tvShows[0]}));
                     return ;
                 }
@@ -60,7 +60,6 @@ export class TvShowDescriptionComponent extends React.Component {
             const entityTvService = new EntityTvService();
             entityTvService.getTvShowById(id).then((tvShow) => {
                 return entityTvService.getRecommended(id).then((recommendedTv) => {
-                    console.log('SET STATE');
                     this.setState(() => ({
                         recommended: recommendedTv,
                         tvShow: tvShow
@@ -80,7 +79,6 @@ export class TvShowDescriptionComponent extends React.Component {
     }
 
     render() {
-        console.log('RENDER');
         if (!customLib.objectIsEmpty(this.state.tvShow)) {
             let genres = this.state.genresFromServer.filter((genre) => {
                 return this.state.tvShow.genreIds.includes(genre.id);

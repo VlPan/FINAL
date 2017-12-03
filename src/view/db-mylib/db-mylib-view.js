@@ -26,7 +26,6 @@ class MyLibViewComponent extends React.Component {
         super(props);
         this.filterItemsByName = this.filterItemsByName.bind(this);
         this.props.initMyLib();
-        console.log('-----SAVED ITEMS----',this.props.savedItems);
     }
 
     filterItemsByName(e) {

@@ -18,12 +18,10 @@ export function tvShowReducer(state = initialState, action) {
             let tvShows, initialTvShows, fullTvShows;
             let filterOptions = LS.get('filterOptionsTvs') || null;
             tvShows = initialTvShows = fullTvShows = action.payload;
-            console.log(fullTvShows);
             if(filterOptions){
                 initialTvShows = tvShows = customLib.filterArray(tvShows, filterOptions);
             }
-            console.log(tvShows);
-            console.log(fullTvShows);
+
             return {
                 ...state,
                 tvShows,
@@ -54,14 +52,14 @@ export function tvShowReducer(state = initialState, action) {
                 tvShows: state.initialTvShows.concat(action.payload)
             };
         case FILTER_TV_SHOWS_ADVANCED:
-            console.log('FILTER ITEMS ADVANCED');
+
             filterOptions = action.payload;
             if(action.payload.rememberInputs) {
                 localStorage.removeItem('filterOptionsTvs');
                 LS.set('filterOptionsTvs', filterOptions);
             }
             let arrToFilter = state.fullTvShows;
-            console.log('arrToFilter', arrToFilter);
+
 
             arrToFilter = customLib.filterArray(arrToFilter, filterOptions);
 

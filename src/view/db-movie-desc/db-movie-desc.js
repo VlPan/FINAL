@@ -35,10 +35,9 @@ export class MovieDescriptionComponent extends React.Component {
             return item.id === parseInt(id);
         });
         if (customLib.arrayIsNotEmpty(films)) {
-            console.log(true);
             const entityMovieService = new EntityMovieService();
             entityMovieService.getRecommended(id).then((recommendedMovies) => {
-                console.log('RECCOMENDED MOVIEs', recommendedMovies);
+
                 this.setState(() => ({
                     recommended: recommendedMovies,
                     film: films[0]
@@ -51,7 +50,7 @@ export class MovieDescriptionComponent extends React.Component {
                     return item.id === id;
                 });
                 if (customLib.arrayIsNotEmpty(films)) {
-                    console.log(true);
+
                     this.setState(() => ({film: films[0]}));
                     return;
                 }
@@ -59,11 +58,11 @@ export class MovieDescriptionComponent extends React.Component {
         }
 
         if (customLib.arrayIsEmpty(films)) {
-            console.log(true);
+
             const entityMovieService = new EntityMovieService();
             entityMovieService.getMovieById(id).then((movie) => {
                 return entityMovieService.getRecommended(id).then((recommendedMovies) => {
-                    console.log(true);
+
                     this.setState(() => ({
                         recommended: recommendedMovies,
                         film: movie
@@ -83,7 +82,7 @@ export class MovieDescriptionComponent extends React.Component {
 
 
     render() {
-        console.log('RENDER');
+
         if (!customLib.objectIsEmpty(this.state.film)) {
             let genres = this.state.genresFromServer.filter((genre) => {
                 return this.state.film.genreIds.includes(genre.id);

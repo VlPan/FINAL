@@ -15,11 +15,10 @@ export class SupportComponent extends React.Component {
     }
 
     componentDidMount(){
-        console.log(this.dropped);
+
         this.dropzone.ondrop = (e)=>{
             e.preventDefault();
-            var file = e.dataTransfer.files[0];
-            console.log(this.dropped);
+            let file = e.dataTransfer.files[0];
             this.loadInView(file, this.dropped);
         };
 

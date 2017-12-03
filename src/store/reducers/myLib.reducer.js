@@ -20,12 +20,11 @@ export function myLibReducer(state = initialState, action) {
             let savedItems, initialItems, fullItems;
             let filterOptions = LS.get('filterOptionsMyLib') || null;
             savedItems = initialItems = fullItems = LS.get('savedItems') || [];
-            console.log(fullItems);
+
             if (filterOptions && savedItems) {
                 initialItems = savedItems = customLib.filterArray(savedItems, filterOptions);
             }
-            console.log(savedItems);
-            console.log(fullItems);
+
             return {
                 ...state,
                 savedItems,
@@ -76,14 +75,14 @@ export function myLibReducer(state = initialState, action) {
                 })
             };
         case FILTER_ITEMS_ADVANCED:
-            console.log('FILTER MyLibs Items ADVANCED');
+
             filterOptions = action.payload;
             if (action.payload.rememberInputs) {
                 localStorage.removeItem('filterOptionsMyLib');
                 LS.set('filterOptionsMyLib', filterOptions);
             }
             let arrToFilter = state.fullItems;
-            console.log('arrToFilter', arrToFilter);
+
 
             arrToFilter = customLib.filterArray(arrToFilter, filterOptions);
             return {
@@ -109,12 +108,7 @@ export function myLibReducer(state = initialState, action) {
                 }
             }
 
-            // LS.set('savedItems', state.fullItems.map((item) => {
-            //     return {
-            //         ...item,
-            //         watched: true
-            //     };
-            // }));
+
             LS.set('savedItems', fullItems);
             return {
                 ...state,

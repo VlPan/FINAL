@@ -36,11 +36,9 @@ export class AddItemFormComponent extends React.Component {
     }
 
     componentDidMount(){
-        console.log(this.dropped);
         this.dropzone.ondrop = (e)=>{
             e.preventDefault();
             var file = e.dataTransfer.files[0];
-            console.log(this.dropped);
             this.loadInView(file, this.dropped);
             this.uploadPoster();
         };
@@ -112,7 +110,6 @@ export class AddItemFormComponent extends React.Component {
             custom: true,
             posterImg: this.state.posterImg
         };
-        console.log('------------ NEW ITEM -----------',newItem);
         this.props.addNewItemToArray(newItem);
         this.handleCloseAddMovieForm();
     }
