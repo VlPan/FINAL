@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './db-about.scss';
 import './../shared-style/app.scss';
 import {connect} from 'react-redux';
@@ -99,6 +100,11 @@ export class AboutComponent extends React.Component {
                                 <div className="db-about__img7"></div>
                                 <div className="db-about__img8"></div>
                                 <div className="db-about__img9"></div>
+                                <div className="db-about__img10"></div>
+                                <div className="db-about__img11"></div>
+                                <div className="db-about__img12"></div>
+                                <div className="db-about__img13"></div>
+                                <div className="db-about__img14"></div>
                             </Carousel>
                     </div>
                 </div>
